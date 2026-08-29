@@ -14,7 +14,7 @@ export default async function CatalogoPage() {
   const cards = await getCards();
 
   return (
-    <main className="mx-auto w-full max-w-[1280px] flex-1 px-6 py-10">
+    <main className="mx-auto w-full max-w-[1280px] flex-1 px-4 py-10 sm:px-6">
       <p className="eyebrow mb-3">Todo</p>
       <h1 className="text-3xl font-bold tracking-[-0.02em]">Catálogo completo</h1>
       <p className="text-muted mt-3 leading-relaxed">

@@ -12,6 +12,11 @@ interface SelectProps {
   onChange: (value: string) => void;
   /** Texto de la opcion vacia, que siempre va primera. */
   placeholder?: string;
+  /**
+   * Etiqueta visible de un valor, cuando no coinciden. Lo usa el filtro de
+   * edicion, que guarda el slug pero muestra el titulo.
+   */
+  format?: (value: string) => string;
 }
 
 /**
@@ -29,6 +34,7 @@ export function Select({
   options,
   onChange,
   placeholder = "Todos",
+  format = (v) => v,
 }: SelectProps) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
@@ -151,7 +157,7 @@ export function Select({
           )}
         >
           <span id={`${id}-value`} className="truncate">
-            {value || placeholder}
+            {value ? format(value) : placeholder}
           </span>
         </button>
 
@@ -207,7 +213,7 @@ export function Select({
                   !item && "text-muted",
                 )}
               >
-                <span className="truncate">{item || placeholder}</span>
+                <span className="truncate">{item ? format(item) : placeholder}</span>
                 {seleccionada && (
                   <Check size={14} aria-hidden="true" className="shrink-0" />
                 )}

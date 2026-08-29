@@ -3,126 +3,56 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
-import { ChevronDown, FileWarning } from "lucide-react";
+import { useEffect, useState } from "react";
+import { FileWarning, Hammer, Layers, LibraryBig, Menu, X } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 import { ThemeToggle } from "./ThemeToggle";
-import { EDITIONS } from "@/lib/editions";
 import { cn } from "@/lib/utils";
+
+interface NavLink {
+  href: string;
+  label: string;
+  Icon: LucideIcon;
+}
+
+const LINKS: NavLink[] = [
+  { href: "/catalogo", label: "Catálogo", Icon: LibraryBig },
+  { href: "/builder", label: "Builder", Icon: Hammer },
+  { href: "/mazos", label: "Mis mazos", Icon: Layers },
+  { href: "/erratas", label: "Erratas", Icon: FileWarning },
+];
+
+/** `/catalogo` tambien queda activo dentro de `/catalogo/bushido`. */
+function isActive(pathname: string, href: string): boolean {
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 const LINK =
   "inline-flex h-11 items-center gap-1.5 rounded-chip px-3 text-sm transition-colors focus-visible:outline-brand-500";
 
-/**
- * Menu de ediciones sobre <details> nativo: abre y cierra sin JavaScript y es
- * navegable por teclado de fabrica. Solo agregamos cerrar con Esc y al hacer
- * clic fuera, que el elemento no trae.
- */
-function CatalogMenu({ pathname }: { pathname: string }) {
-  const ref = useRef<HTMLDetailsElement>(null);
-
-  useEffect(() => {
-    const close = () => ref.current?.removeAttribute("open");
-
-    const onPointerDown = (e: PointerEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) close();
-    };
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && ref.current?.open) {
-        close();
-        ref.current.querySelector("summary")?.focus();
-      }
-    };
-
-    document.addEventListener("pointerdown", onPointerDown);
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("pointerdown", onPointerDown);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, []);
-
-  // El menu se cierra solo al cambiar de ruta.
-  useEffect(() => {
-    ref.current?.removeAttribute("open");
-  }, [pathname]);
-
-  const enCatalogo = pathname.startsWith("/catalogo");
-
-  return (
-    <details ref={ref} className="relative">
-      <summary
-        className={cn(
-          LINK,
-          "cursor-pointer list-none [&::-webkit-details-marker]:hidden",
-          enCatalogo ? "text-ink" : "text-muted hover:text-ink",
-        )}
-      >
-        Catálogo
-        <ChevronDown size={15} aria-hidden="true" className="opacity-70" />
-      </summary>
-
-      <div className="border-line bg-panel shadow-panel rounded-card absolute left-0 z-20 mt-2 w-60 overflow-hidden border py-1.5">
-        <Link
-          href="/catalogo"
-          className={cn(
-            "block px-4 py-2.5 text-sm transition-colors",
-            pathname === "/catalogo" || pathname === "/catalogo/"
-              ? "text-accent bg-accent-soft"
-              : "text-ink hover:bg-surface",
-          )}
-        >
-          Todo
-        </Link>
-
-        <hr className="border-line my-1.5" />
-
-        {EDITIONS.map((ed) => {
-          const href = `/catalogo/${ed.slug}`;
-          const activa = pathname === href || pathname === `${href}/`;
-
-          if (!ed.cargada) {
-            return (
-              <span
-                key={ed.slug}
-                aria-disabled="true"
-                title="Todavía no cargada"
-                className="text-muted/60 flex items-center justify-between px-4 py-2.5 text-sm"
-              >
-                {ed.titulo}
-                <span className="text-[10px] tracking-[0.14em] uppercase">pronto</span>
-              </span>
-            );
-          }
-
-          return (
-            <Link
-              key={ed.slug}
-              href={href}
-              className={cn(
-                "block px-4 py-2.5 text-sm transition-colors",
-                activa ? "text-accent bg-accent-soft" : "text-ink hover:bg-surface",
-              )}
-            >
-              {ed.titulo}
-            </Link>
-          );
-        })}
-      </div>
-    </details>
-  );
-}
-
 export function Navbar() {
   const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+
+  // Cerrar con Escape. Al navegar lo cierra el onClick de cada enlace: hacerlo
+  // en un efecto sobre pathname dispararia un render en cascada.
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open]);
 
   return (
     <header className="border-line bg-bg/85 sticky top-0 z-30 border-b backdrop-blur">
       <nav
         aria-label="Principal"
-        className="mx-auto flex max-w-[1280px] items-center gap-2 px-6 py-3"
+        className="mx-auto flex max-w-[1280px] items-center gap-2 px-4 py-3 sm:px-6"
       >
-        <Link href="/" className="focus-visible:outline-brand-500 mr-2 rounded">
+        <Link href="/" className="focus-visible:outline-brand-500 mr-1 rounded sm:mr-2">
           {/* El logotipo blanco es invisible sobre el fondo claro: cada tema
               usa su version y el CSS elige cual se muestra. */}
           <Image
@@ -143,23 +73,72 @@ export function Navbar() {
           />
         </Link>
 
-        <CatalogMenu pathname={pathname} />
+        {/* Los cuatro enlaces no caben junto al logotipo en un telefono, asi
+            que ahi se pliegan detras del boton de menu. */}
+        <div className="hidden items-center gap-1 md:flex">
+          {LINKS.map(({ href, label, Icon }) => (
+            <Link
+              key={href}
+              href={href}
+              aria-current={isActive(pathname, href) ? "page" : undefined}
+              className={cn(
+                LINK,
+                isActive(pathname, href) ? "text-ink" : "text-muted hover:text-ink",
+              )}
+            >
+              <Icon size={15} aria-hidden="true" className="opacity-70" />
+              {label}
+            </Link>
+          ))}
+        </div>
 
-        <Link
-          href="/erratas"
-          className={cn(
-            LINK,
-            pathname.startsWith("/erratas") ? "text-ink" : "text-muted hover:text-ink",
-          )}
-        >
-          <FileWarning size={15} aria-hidden="true" className="opacity-70" />
-          Erratas
-        </Link>
-
-        <div className="ml-auto">
+        <div className="ml-auto flex items-center gap-2">
           <ThemeToggle />
+
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="menu-principal"
+            aria-label={open ? "Cerrar el menú" : "Abrir el menú"}
+            className="text-muted hover:text-ink hover:border-brand-500 border-line focus-visible:outline-brand-500 rounded-chip flex size-11 shrink-0 items-center justify-center border transition-colors md:hidden"
+          >
+            {open ? (
+              <X size={17} aria-hidden="true" />
+            ) : (
+              <Menu size={17} aria-hidden="true" />
+            )}
+          </button>
         </div>
       </nav>
+
+      {open && (
+        <div
+          id="menu-principal"
+          className="border-line bg-bg border-t px-4 py-2 md:hidden"
+        >
+          <ul className="mx-auto flex max-w-[1280px] flex-col">
+            {LINKS.map(({ href, label, Icon }) => (
+              <li key={href}>
+                <Link
+                  href={href}
+                  onClick={() => setOpen(false)}
+                  aria-current={isActive(pathname, href) ? "page" : undefined}
+                  className={cn(
+                    "rounded-chip flex h-12 items-center gap-2.5 px-3 text-[15px] transition-colors",
+                    isActive(pathname, href)
+                      ? "text-accent bg-accent-soft"
+                      : "text-muted hover:text-ink",
+                  )}
+                >
+                  <Icon size={17} aria-hidden="true" className="opacity-70" />
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </header>
   );
 }

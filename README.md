@@ -68,10 +68,14 @@ src/             la app: rutas, componentes y lógica
 
 ## Publicación
 
-Cloudflare Pages, conectado a este repo:
+Cloudflare Workers con Static Assets, conectado a este repo:
 
 - **Build command:** `npm run build`
-- **Build output directory:** `out`
+- **Deploy command:** `npx wrangler deploy`
+
+La configuración vive en `wrangler.jsonc`: no declara `main`, así que no hay
+código de Worker ejecutándose — Cloudflare solo sirve los archivos de `out/`.
+El `public/_headers` se aplica igual que en Pages.
 
 Cada `git push` a `main` re-despliega.
 
