@@ -34,8 +34,9 @@ export const LARGO_INCOMODO = 1800;
 
 const SLUG = /^[a-z0-9]+(?:[-_][a-z0-9]+)*$/;
 
+/** Mismo tope que el esquema del mazo: los Oros sin habilidad no tienen limite. */
 const entradasSchema = z.array(
-  z.tuple([z.string().regex(SLUG), z.number().int().min(1).max(10)]),
+  z.tuple([z.string().regex(SLUG), z.number().int().min(1).max(50)]),
 );
 
 /** [ version, nombre, oroInicial, principal, side ] */

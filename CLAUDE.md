@@ -286,6 +286,14 @@ Oro sin habilidad, señalado con un puntero a una carta de `principal` porque
 cuenta dentro de las 50), mínimo 15 Aliados o Tótems, máximo 3 copias por carta
 (1 si es Única), razas de una sola escuela y side de 0 o 10 cartas.
 
+**Los Oros sin habilidad no tienen tope de copias**: son el recurso con que se
+paga todo y el mazo lleva los que necesite. Los cuatro Oros que sí traen
+habilidad (Regalia Imperial, Pantano Sagrado, Mon y Chozuya) son todos Únicos,
+así que siguen limitados a una copia. Por eso el esquema de Zod acota las
+entradas a 50 y no a 3: describe lo que se puede **representar**, no lo que es
+legal — si recortara a 3, un mazo importado con 4 copias se volvería legal en
+silencio al leerlo.
+
 **Las copias se cuentan por `identidad`, no por `id`**: dos Kirin normales más
 dos Kirin Milenaria son cuatro Kirin. Y se suman principal y side.
 

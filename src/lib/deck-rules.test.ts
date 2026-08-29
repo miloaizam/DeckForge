@@ -163,6 +163,34 @@ test("el side suma al limite de copias", () => {
   );
 });
 
+test("los Oros sin habilidad no tienen tope de copias", () => {
+  // Son el recurso con que se paga todo: el mazo lleva los que necesite.
+  const deck = setQuantity(createDeck(), SHODO.id, "principal", 20);
+  const issues = validateDeck(deck, index);
+  assert.ok(
+    !issues.some((i) => i.code === "copias-exceso"),
+    "20 Shodo deberian ser legales",
+  );
+
+  const card = index.porId.get(SHODO.id)!;
+  assert.equal(canAdd(deck, card, "principal", index).ok, true);
+});
+
+test("un Oro CON habilidad si tiene tope", () => {
+  // Los cuatro Oros con habilidad del catalogo son todos Únicos.
+  assert.equal(REGALIA.habilidad.trim() === "", false);
+  const deck = setQuantity(createDeck(), REGALIA.id, "principal", 2);
+  assert.ok(validateDeck(deck, index).some((i) => i.code === "copias-unica"));
+});
+
+test("una carta normal sigue con tope de 3", () => {
+  const talisman = cards.find(
+    (c) => c.tipo === "Talismán" && !c.keywords.includes("Única"),
+  )!;
+  const deck = setQuantity(createDeck(), talisman.id, "principal", 4);
+  assert.ok(validateDeck(deck, index).some((i) => i.code === "copias-exceso"));
+});
+
 test("el minimo de Aliados y Totems cuenta copias", () => {
   let deck = setStartingGold(createDeck(), SHODO.id);
   const talisman = cards.find((c) => c.tipo === "Talismán")!;

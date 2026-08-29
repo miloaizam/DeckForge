@@ -193,7 +193,10 @@ export const MAX_NOMBRE_MAZO = 60;
  */
 const MAX_ENTRADAS = 60;
 const MAX_ENTRADAS_SIDE = 20;
-const MAX_COPIAS_REPRESENTABLES = 10;
+// El tope de copias del formato son 3, pero los Oros sin habilidad no tienen
+// tope: un mazo puede llevar hasta 35 iguales (50 menos el minimo de Aliados y
+// Totems). El esquema acota la FORMA, no la regla, asi que va al total del mazo.
+const MAX_COPIAS_REPRESENTABLES = 50;
 
 /** Id local de un mazo. Nunca sale del navegador ni viaja en el enlace. */
 const DECK_ID = /^[a-z0-9]{10}$/;

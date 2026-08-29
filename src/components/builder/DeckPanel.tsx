@@ -150,9 +150,7 @@ export function DeckPanel({
   const avisos = issues.filter((i) => i.gravedad === "aviso");
 
   /** Los Oros sin habilidad que ya estan en el mazo pueden ser el oro inicial. */
-  const candidatosOro = res.principal
-    .map((e) => e.card)
-    .filter((c) => c.puedeSerOroInicial);
+  const candidatosOro = res.principal.map((e) => e.card).filter((c) => c.oroSinHabilidad);
 
   const porTipo = (t: Tipo) => res.principal.filter((e) => e.card.tipo === t);
   const comun = {

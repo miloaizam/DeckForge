@@ -44,8 +44,11 @@ export interface RuleCard {
   legalidad: Legalidad;
   /** Lleva la keyword Unica: 1 copia por mazo. Tambien la traen 4 Oros. */
   unica: boolean;
-  /** Puede ocupar el hueco de oro inicial: un Oro sin habilidad. */
-  puedeSerOroInicial: boolean;
+  /**
+   * Es un Oro sin habilidad. De ese hecho salen dos reglas: puede ocupar el
+   * hueco de oro inicial, y no tiene tope de copias.
+   */
+  oroSinHabilidad: boolean;
 }
 
 export function toRuleCard(c: Card): RuleCard {
@@ -59,7 +62,7 @@ export function toRuleCard(c: Card): RuleCard {
     thumb: c.thumb,
     legalidad: c.legalidad,
     unica: c.keywords.includes("Única"),
-    puedeSerOroInicial: c.tipo === "Oro" && c.habilidad.trim() === "",
+    oroSinHabilidad: c.tipo === "Oro" && c.habilidad.trim() === "",
   };
 }
 
@@ -178,8 +181,17 @@ export function copiasPorIdentidad(res: ResolvedDeck): Map<string, number> {
   return cuenta;
 }
 
+/**
+ * Cuantas copias de una carta admite el mazo.
+ *
+ * Los Oros sin habilidad no tienen tope: son el recurso con el que se paga
+ * todo y el mazo lleva las que necesite. Los cuatro Oros que SI traen
+ * habilidad son todos Únicos, asi que siguen limitados a una copia.
+ */
 export function limiteDeCopias(card: RuleCard): number {
-  return card.unica ? MAX_COPIAS_UNICA : MAX_COPIAS;
+  if (card.unica) return MAX_COPIAS_UNICA;
+  if (card.oroSinHabilidad) return Infinity;
+  return MAX_COPIAS;
 }
 
 export interface DeckStats {
@@ -303,7 +315,7 @@ export function validateDeck(deck: Deck, index: CardIndex): DeckIssue[] {
       gravedad: "error",
       mensaje: "Falta el oro inicial. Elige un Oro sin habilidad del mazo.",
     });
-  } else if (!oro || !oro.puedeSerOroInicial) {
+  } else if (!oro || !oro.oroSinHabilidad) {
     issues.push({
       code: "oro-inicial-invalido",
       gravedad: "error",
@@ -437,7 +449,7 @@ export function canAdd(
 
 /** Los oros que pueden ocupar el hueco de oro inicial, para el selector. */
 export function orosInicialesPosibles(cards: Card[]): RuleCard[] {
-  return cards.map(toRuleCard).filter((c) => c.puedeSerOroInicial);
+  return cards.map(toRuleCard).filter((c) => c.oroSinHabilidad);
 }
 
 export { totalCards };
