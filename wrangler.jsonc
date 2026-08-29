@@ -1,0 +1,15 @@
+{
+  // Despliegue en Cloudflare Workers con Static Assets.
+  //
+  // DeckForge no tiene servidor: `next build` genera HTML/CSS/JS en out/ y
+  // Cloudflare los sirve como archivos estaticos. No hay campo "main" a
+  // proposito, porque no existe codigo de Worker que ejecutar.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "deckforge",
+  "compatibility_date": "2026-08-28",
+  "assets": {
+    "directory": "./out",
+    // Sirve out/404.html cuando la ruta no existe.
+    "not_found_handling": "404-page",
+  },
+}

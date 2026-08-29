@@ -32,7 +32,7 @@ Plan completo: [`docs/plan.md`](docs/plan.md). Marca: [`docs/brand.html`](docs/b
 | Validación | `zod` |
 | Datos e imágenes | Python 3 + Pydantic + Pillow (`scripts/`) |
 | Fuente del catálogo | **API oficial `api.myl.cl`** (pública, sin auth) |
-| Hosting | Cloudflare Pages — build `npm run build`, output **`out`** |
+| Hosting | Cloudflare Workers (Static Assets) — `wrangler.jsonc` sirve `out/` |
 
 ---
 
