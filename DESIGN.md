@@ -101,6 +101,15 @@ Desviación consciente de la guía de marca: su gris `#8A82A6` solo alcanza
 El tema se guarda en `localStorage` y un script inline lo aplica antes del
 primer pintado, para que la página no parpadee.
 
+**Los assets de marca también cambian de tema.** `logo-white.svg` e
+`icon-white.svg` son invisibles sobre el fondo claro: cada tema monta su
+versión y el CSS elige cuál se muestra (`.solo-oscuro` / `.solo-claro`), sin
+estado de React. Lo mismo vale para cualquier SVG monocromo que se agregue.
+
+El token `halo` es el resplandor decorado de la portada. En oscuro es violeta
+profundo; en claro, violeta suave: reusar el mismo color se lee como una
+mancha lavada, no como profundidad.
+
 ### Radios
 
 `rounded-chip` 11px · `rounded-card` 14px · `rounded-panel` 18px ·

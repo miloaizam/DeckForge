@@ -52,7 +52,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {`try{if(localStorage.getItem(${JSON.stringify(THEME_KEY)})==="light")document.documentElement.dataset.theme="light"}catch(e){}`}
         </Script>
         {children}
-        <footer className="border-line text-muted mt-12 border-t px-6 py-8 text-left text-[13px] leading-relaxed">
+        <footer className="border-line text-muted w-full border-t px-6 py-8 text-left text-[13px] leading-relaxed">
           Proyecto sin fines de lucro hecho por un fan y jugador de Mitos y Leyendas. El
           arte y los nombres de las cartas son propiedad de su editor.
         </footer>

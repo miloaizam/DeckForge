@@ -32,6 +32,7 @@
      quedara sin contraste. */
   --color-accent: #a78bfa; /* texto y iconos de acento */
   --color-accent-soft: #241b45; /* fondo suave de acento */
+  --color-halo: rgb(109 40 217 / 0.25); /* resplandor decorado de la portada */
 
   /* Superficies claras (uso puntual: hojas de marca, impresion) --- */
   --color-light-bg: #f5f3fb;
@@ -83,7 +84,11 @@
   --color-accent: #6d28d9;
   --color-accent-soft: #ede9fe;
 
-  --gradient-forge: radial-gradient(120% 120% at 30% 20%, #ffffff 0%, #eae4f8 70%);
+  --color-halo: rgb(167 139 250 / 0.3);
+
+  /* Centrado arriba y mucho mas suave: el foco descentrado del tema oscuro
+     sobre fondo claro se lee como una mancha blanca, no como profundidad. */
+  --gradient-forge: radial-gradient(110% 90% at 50% 0%, #f1ecff 0%, #f5f3fb 65%);
   --gradient-wordmark: linear-gradient(92deg, #7c3aed, #5b21b6);
   --shadow-glow: 0 18px 40px -22px rgb(124 58 237 / 0.4);
   --shadow-panel: 0 12px 32px -20px rgb(27 23 48 / 0.25);

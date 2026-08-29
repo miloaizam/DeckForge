@@ -123,12 +123,23 @@ export function Navbar() {
         className="mx-auto flex max-w-[1280px] items-center gap-2 px-6 py-3"
       >
         <Link href="/" className="focus-visible:outline-brand-500 mr-2 rounded">
+          {/* El logotipo blanco es invisible sobre el fondo claro: cada tema
+              usa su version y el CSS elige cual se muestra. */}
           <Image
             src="/brand/logo-white.svg"
             alt="DeckForge"
             width={140}
             height={28}
             priority
+            className="solo-oscuro"
+          />
+          <Image
+            src="/brand/logo-violet.svg"
+            alt="DeckForge"
+            width={140}
+            height={28}
+            priority
+            className="solo-claro"
           />
         </Link>
 
