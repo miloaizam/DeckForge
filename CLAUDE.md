@@ -69,6 +69,7 @@ images-src/    originales pesados de las cartas (git-ignorado; su .gitkeep
 scripts/       herramientas Python: validan datos y convierten imágenes
 public/        se sirve tal cual
   brand/       logos e isotipos SVG
+  reglas/      PDFs descargables (se sirven tal cual, ver seguridad #12)
   data/        cards.json  (GENERADO — no editar a mano)
   cards/       WebP de las cartas + thumb/  (GENERADO — no editar a mano)
   _headers     cabeceras de seguridad de Cloudflare
@@ -180,7 +181,13 @@ cookies, sin datos personales—, pero eso no se deja al azar:
     `javascript:`, un `data:` ni un `../` en el `src` de una etiqueta. Falla el
     build antes de publicar.
 
-11. **`npm run audit`** revisa el sitio ya construido y falla si aparece un
+11. **PDFs y otros descargables** viven en `public/reglas/` y se publican tal
+    cual. Se enlazan con `<a href="/reglas/x.pdf" download>`: la CSP lleva
+    `object-src 'none'`, asi que **no** se pueden incrustar con `<embed>`,
+    `<object>` ni `<iframe>`. Que sean archivos propios, no hotlinkeados, y
+    que no lleven metadatos con datos personales del autor.
+
+12. **`npm run audit`** revisa el sitio ya construido y falla si aparece un
     source map, una ruta absoluta de la máquina de build, un recurso externo,
     una imagen rota, una cabecera de seguridad ausente o los dos esquemas
     desincronizados. Correr siempre antes de publicar.
@@ -226,8 +233,27 @@ modal de detalle con keywords resaltadas, buscador (MiniSearch), filtros por
 faceta con selector propio y paginación.
 
 Rutas: `/` portada (sin navbar) · `/catalogo` todo · `/catalogo/<edicion>` ·
-`/erratas` (placeholder). Las páginas internas viven en el grupo `(app)`, cuyo
-layout aporta la navbar; la portada queda fuera a propósito.
+`/builder` (placeholder) · `/mazos` (placeholder) · `/erratas` (placeholder).
+Las páginas internas viven en el grupo `(app)`, cuyo layout aporta la navbar;
+la portada queda fuera a propósito.
+
+La navbar es una fila plana de cuatro enlaces (sin desplegable). Bajo `md` se
+pliegan detrás de un botón de menú: no caben junto al logotipo en un teléfono.
+
+Los filtros del catálogo van plegados detrás de un botón con embudo, que lleva
+el número de filtros puestos; solo el buscador queda siempre a la vista. Hay
+nueve facetas: edición (solo en `/catalogo`, porque en la página de una edición
+no tendría nada que elegir), habilidad, tipo, raza, escuela, frecuencia, coste,
+fuerza y atributo.
+
+`src/lib/ability.ts` separa las keywords declaradas al inicio del texto de
+habilidad ("Única. Furia. …") del resto de la prosa: el modal las muestra en
+una fila propia y resalta aparte las que caen dentro del párrafo. El filtro de
+habilidad **no** usa ese texto sino el campo `keywords` de la carta, que la API
+entrega ya etiquetado y también marca los casos condicionales ("Mientras porte
+un Arma es Imbloqueable"). Ojo: ese campo trae además etiquetas internas de
+búsqueda de la API (`Destruir`, `que controles`) que no son keywords impresas;
+se filtran contra `KEYWORDS_IMPRESAS`.
 
 Tema claro/oscuro conmutable desde la navbar (ver DESIGN.md). Cuidado al
 importar constantes desde un módulo `"use client"` hacia un Server Component:
