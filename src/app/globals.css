@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+ * Tokens de marca DeckForge
+ * Fuente de verdad: DESIGN.md (valores extraidos de docs/brand.html).
+ * No escribas hex sueltos en los componentes: usa siempre estos tokens.
+ * ------------------------------------------------------------------ */
+@theme {
+  /* Tipografia -------------------------------------------------- */
+  --font-sans: var(--font-space-grotesk), system-ui, sans-serif;
+
+  /* Violeta de marca -------------------------------------------- */
+  --color-brand-200: #c4b5fd;
+  --color-brand-300: #a78bfa;
+  --color-brand-500: #8b5cf6;
+  --color-brand-600: #7c3aed; /* primario */
+  --color-brand-700: #6d28d9;
+  --color-brand-800: #5b21b6;
+
+  /* Superficies (modo oscuro, el modo por defecto) --------------- */
+  --color-bg: #0d0b14; /* fondo de pagina */
+  --color-surface: #15121f; /* bloques sobre el fondo */
+  --color-panel: #1b1730; /* tarjetas y paneles */
+  --color-line: #2a2342; /* bordes y separadores */
+
+  /* Texto -------------------------------------------------------- */
+  --color-ink: #ede9f7; /* texto principal */
+  --color-muted: #9a93b5; /* texto secundario */
+
+  /* Superficies claras (uso puntual: hojas de marca, impresion) --- */
+  --color-light-bg: #f5f3fb;
+  --color-light-line: #e3def2;
+  --color-light-muted: #8a82a6;
+
+  /* Radios ------------------------------------------------------- */
+  --radius-chip: 11px;
+  --radius-card: 14px;
+  --radius-panel: 18px;
+  --radius-tile: 22px;
+  --radius-app: 28px;
+
+  /* Elevacion: el violeta se filtra por debajo, nunca sombra negra */
+  --shadow-glow: 0 18px 40px -18px rgb(124 58 237 / 0.6);
+  --shadow-panel: 0 12px 32px -20px rgb(0 0 0 / 0.9);
+
+  /* Movimiento --------------------------------------------------- */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Gradientes de marca reutilizables. Se usan como `bg-[image:var(--x)]`
+   o dentro de utilidades propias, para no repetir los stops. */
+:root {
+  --gradient-forge: radial-gradient(120% 120% at 30% 20%, #1d1633 0%, #0c0a13 70%);
+  --gradient-wordmark: linear-gradient(92deg, #a78bfa, #7c3aed);
+  --gradient-appicon: linear-gradient(155deg, #2a1d52, #120c22);
+}
+
+/* ------------------------------------------------------------------ *
+ * Base
+ * ------------------------------------------------------------------ */
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Accesibilidad: el foco por teclado siempre es visible y de marca. */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: var(--color-brand-700);
+    color: #fff;
+  }
+
+  /* Respetamos a quien pide menos movimiento. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Utilidades de marca
+ * ------------------------------------------------------------------ */
+@utility text-wordmark {
+  background-image: var(--gradient-wordmark);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility bg-forge {
+  background-image: var(--gradient-forge);
+}
+
+@utility eyebrow {
+  font-size: 0.8125rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-brand-300);
+}

@@ -1,0 +1,28 @@
+# Cabeceras de seguridad. Cloudflare Pages lee este archivo tal cual
+# desde la raiz del sitio publicado. Ver la seccion "Seguridad" de CLAUDE.md.
+#
+# Nota sobre 'unsafe-inline' en script-src/style-src: el App Router incrusta
+# el payload de hidratacion en <script> inline y, sin servidor, no hay forma
+# de emitir un nonce. Todo lo demas queda cerrado a nuestro propio origen.
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), microphone=(), payment=(), usb=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
+# Los assets con hash en el nombre son inmutables.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# El catalogo cambia cuando publicamos cartas nuevas: revalidar siempre.
+/data/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Las imagenes de carta llevan el codigo en el nombre y no se reescriben.
+/cards/*
+  Cache-Control: public, max-age=604800

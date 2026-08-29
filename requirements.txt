@@ -1,0 +1,5 @@
+# Herramientas de desarrollo (no se publican con el sitio).
+#   python3 -m venv .venv && source .venv/bin/activate
+#   pip install -r requirements.txt
+pillow>=11.0
+pydantic>=2.9

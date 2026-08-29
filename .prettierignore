@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+package-lock.json
+public/data
+# Datos de cartas: los escribe fetch_edition.py, no prettier.
+data-src
+docs/
+# La documentacion se escribe a mano: prettier reflowea tablas y listas.
+*.md

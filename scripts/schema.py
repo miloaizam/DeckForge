@@ -1,0 +1,81 @@
+"""Modelo de una carta (espejo de src/lib/types.ts).
+
+Si agregas o cambias un valor permitido aqui, replicalo en TypeScript.
+"""
+
+from enum import Enum
+from typing import Optional
+
+from pydantic import BaseModel, field_validator
+
+
+class Tipo(str, Enum):
+    """El formato Escuelas Elementales no incluye Monumentos."""
+
+    aliado = "Aliado"
+    talisman = "Talismán"
+    arma = "Arma"
+    totem = "Tótem"
+    oro = "Oro"
+
+
+class Escuela(str, Enum):
+    paladines = "Gremio de Paladines"      # Caballero + Sacerdote
+    desafiante = "Clan Desafiante"         # Dragón + Guerrero
+    tenebris = "Culto Tenebris"            # Sombra + Oni
+    etereos = "Vigilantes Etéreos"         # Eterno + Faerie
+
+
+class Atributo(str, Enum):
+    """Llega como keyword (flags 16 y 32), no como campo propio de la carta."""
+
+    luz = "Luz"
+    oscuridad = "Oscuridad"
+
+
+class Frecuencia(str, Enum):
+    """Espejo de la tabla `rarities` de api.myl.cl."""
+
+    vasallo = "Vasallo"
+    cortesano = "Cortesano"
+    real = "Real"
+    mega = "Mega Real"
+    ultra = "Ultra Real"
+    milenaria = "Milenaria"
+    legendaria = "Legendaria"
+    secreta = "Secreta"
+    oro = "Oro"
+    promocional = "Promocional"
+    ficha = "Ficha"
+    set_paralelo = "Set Paralelo"
+
+
+class Legalidad(str, Enum):
+    libre = "libre"
+    restringida = "restringida"
+    prohibida = "prohibida"
+
+
+class Card(BaseModel):
+    id: str
+    codigo: str
+    nombre: str
+    edicion: str
+    tipo: Tipo
+    raza: Optional[str] = None
+    escuela: Optional[Escuela] = None
+    atributo: Optional[Atributo] = None
+    coste: Optional[int] = None
+    fuerza: Optional[int] = None
+    frecuencia: Frecuencia
+    habilidad: str = ""
+    ilustrador: Optional[str] = None
+    imagen: str
+    thumb: str
+    legalidad: Legalidad = Legalidad.libre
+    keywords: list[str] = []
+
+    @field_validator("id")
+    @classmethod
+    def id_lower(cls, v: str) -> str:
+        return v.lower()

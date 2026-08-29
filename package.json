@@ -1,0 +1,45 @@
+{
+  "name": "deckforge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Constructor de mazos para el formato Escuelas Elementales de Mitos y Leyendas",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "preview": "python3 -m http.server --directory out 4173",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run typecheck && npm run lint && npm run format:check",
+    "data:fetch": ".venv/bin/python scripts/fetch_edition.py",
+    "data:cards": ".venv/bin/python scripts/build_cards.py",
+    "data:images": ".venv/bin/python scripts/convert_images.py"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.35.0",
+    "lz-string": "^1.5.0",
+    "minisearch": "^7.2.0",
+    "next": "16.3.3",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "tailwind-merge": "^3.6.0",
+    "zod": "^4.5.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.3",
+    "prettier": "^3.9.6",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  }
+}
