@@ -15,7 +15,6 @@ import {
   type ResolvedDeck,
   type ResolvedEntry,
   DECK_TOTAL,
-  MIN_ALIADOS_Y_TOTEMS,
   SIDE_TOTAL,
 } from "@/lib/deck-rules";
 import type { Deck, Tipo } from "@/lib/types";
@@ -164,15 +163,10 @@ export function DeckPanel({
   return (
     <div className="flex flex-col gap-4">
       {/* Estado siempre a la vista: cuantas cartas lleva y si es legal. */}
-      <div className="flex items-baseline justify-between gap-3">
-        <p className="text-ink text-2xl font-bold tabular-nums">
-          {stats.totalPrincipal}
-          <span className="text-muted text-base font-normal">/{DECK_TOTAL}</span>
-        </p>
-        <p className="text-muted text-[13px] tabular-nums">
-          {stats.aliadosYTotems}/{MIN_ALIADOS_Y_TOTEMS} Aliados y Tótems
-        </p>
-      </div>
+      <p className="text-ink text-2xl font-bold tabular-nums">
+        {stats.totalPrincipal}
+        <span className="text-muted text-base font-normal">/{DECK_TOTAL}</span>
+      </p>
 
       {/* El color nunca es el unico indicador: siempre icono y texto. */}
       <p

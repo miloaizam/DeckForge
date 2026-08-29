@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Check, Link2 } from "lucide-react";
+import { Check, Save } from "lucide-react";
 
 import { DeckClearButton, DeckPanel } from "./DeckPanel";
 import { DeckParamLoader } from "./DeckParamLoader";
@@ -30,12 +30,12 @@ import {
   setStartingGold,
   type DeckZone,
 } from "@/lib/deck";
-import { shareUrl } from "@/lib/deck-code";
 import {
   buildCardIndex,
   canAdd,
   deckStats,
   isLegal,
+  razasPermitidas,
   resolveDeck,
   validateDeck,
 } from "@/lib/deck-rules";
@@ -61,6 +61,29 @@ function textoAfinidad(stats: ReturnType<typeof deckStats>): string {
   }
 }
 
+function GuardarButton({
+  guardado,
+  onGuardar,
+}: {
+  guardado: boolean;
+  onGuardar: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onGuardar}
+      className="bg-brand-600 hover:bg-brand-500 rounded-chip focus-visible:outline-brand-300 inline-flex h-11 items-center gap-1.5 px-4 text-[13px] font-medium text-white transition-colors"
+    >
+      {guardado ? (
+        <Check size={14} aria-hidden="true" />
+      ) : (
+        <Save size={14} aria-hidden="true" />
+      )}
+      {guardado ? "Guardado" : "Guardar mazo"}
+    </button>
+  );
+}
+
 export function BuilderView({ cards }: BuilderViewProps) {
   const [deck, setDeck] = useState<Deck>(() => createDeck());
   const [filters, setFilters] = useState<CatalogFilters>(EMPTY_FILTERS);
@@ -68,11 +91,10 @@ export function BuilderView({ cards }: BuilderViewProps) {
   const [selected, setSelected] = useState<Card | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [aviso, setAviso] = useState("");
-  const [copiado, setCopiado] = useState(false);
+  const [guardado, setGuardado] = useState(false);
 
   // Caros de construir y el catalogo no cambia en runtime.
   const search = useMemo(() => buildSearchIndex(cards), [cards]);
-  const facets = useMemo(() => buildFacets(cards), [cards]);
   const index = useMemo(() => buildCardIndex(cards), [cards]);
 
   const res = useMemo(() => resolveDeck(deck, index), [deck, index]);
@@ -89,9 +111,30 @@ export function BuilderView({ cards }: BuilderViewProps) {
     return m;
   }, [deck]);
 
+  /**
+   * Solo las cartas que pueden entrar en ESTE mazo.
+   *
+   * En cuanto el mazo tiene un Aliado, su raza queda fija: o sigue mono-raza o
+   * crece hacia su escuela. Ofrecer cartas que el validador va a rechazar solo
+   * hace perder el tiempo. Las que no llevan raza —Armas, Talismanes, Tótems y
+   * Oros— entran en cualquier mazo y nunca se filtran.
+   */
+  const permitidas = useMemo(() => razasPermitidas(stats.afinidad), [stats.afinidad]);
+  const disponibles = useMemo(
+    () =>
+      permitidas.size === 0
+        ? cards
+        : cards.filter((c) => c.raza === null || permitidas.has(c.raza)),
+    [cards, permitidas],
+  );
+
+  // Las facetas salen de lo que de verdad se puede agregar: si el filtro de
+  // raza ofreciera razas que la grilla ya escondio, no devolveria nada nunca.
+  const facets = useMemo(() => buildFacets(disponibles), [disponibles]);
+
   const results = useMemo(
-    () => applyFilters(cards, filters, search),
-    [cards, filters, search],
+    () => applyFilters(disponibles, filters, search),
+    [disponibles, filters, search],
   );
   const totalPages = pageCount(results.length);
   const currentPage = Math.min(page, totalPages);
@@ -111,13 +154,18 @@ export function BuilderView({ cards }: BuilderViewProps) {
     [],
   );
 
-  // Autoguardado: el mazo vive en el navegador y no hay boton de "guardar".
-  // Se espera medio segundo para no escribir en cada clic del boton "+".
-  useEffect(() => {
-    if (deck.principal.length === 0 && deck.side.length === 0) return;
-    const t = setTimeout(() => saveDeck(deck), 500);
-    return () => clearTimeout(t);
-  }, [deck]);
+  const guardar = () => {
+    if (deck.nombre.trim() === "") {
+      mostrarAviso("Ponle un nombre al mazo antes de guardarlo.");
+      return;
+    }
+    if (!saveDeck(deck)) {
+      mostrarAviso("No pude guardarlo: el almacenamiento del navegador está lleno.");
+      return;
+    }
+    setGuardado(true);
+    setTimeout(() => setGuardado(false), 2500);
+  };
 
   const agregar = (card: Card, zone: DeckZone = "principal") => {
     const rc = index.porId.get(card.id);
@@ -137,16 +185,6 @@ export function BuilderView({ cards }: BuilderViewProps) {
     if (!rc) return undefined;
     const check = canAdd(deck, rc, "principal", index);
     return check.ok ? undefined : check.mensaje;
-  };
-
-  const compartir = async () => {
-    try {
-      await navigator.clipboard.writeText(shareUrl(deck, window.location.origin));
-      setCopiado(true);
-      setTimeout(() => setCopiado(false), 2500);
-    } catch {
-      mostrarAviso("No pude copiar el enlace. Cópialo desde la barra del navegador.");
-    }
   };
 
   const panel = (
@@ -183,6 +221,16 @@ export function BuilderView({ cards }: BuilderViewProps) {
               setPage(1);
             }}
           />
+
+          {/* Que el catalogo este acotado tiene que verse, o parece que faltan
+              cartas. */}
+          {permitidas.size > 0 && (
+            <p className="text-muted -mt-4 text-[13px]">
+              Mostrando solo cartas que caben en este mazo:{" "}
+              <span className="text-ink">{[...permitidas].join(" y ")}</span>, más las que
+              no llevan raza. Para cambiar de raza, quita los Aliados del mazo.
+            </p>
+          )}
 
           {results.length === 0 ? (
             <div className="border-line rounded-panel border border-dashed px-6 py-16 text-center">
@@ -228,23 +276,13 @@ export function BuilderView({ cards }: BuilderViewProps) {
           <input
             value={deck.nombre}
             onChange={(e) => setDeck((d) => renameDeck(d, e.target.value))}
+            placeholder="Nombre del mazo"
             aria-label="Nombre del mazo"
-            className="border-line bg-surface text-ink focus-visible:outline-brand-500 rounded-chip h-11 w-full border px-3 text-sm"
+            className="border-line bg-surface text-ink placeholder:text-muted focus-visible:outline-brand-500 rounded-chip h-11 w-full border px-3 text-sm"
           />
           {panel}
           <div className="border-line flex flex-wrap gap-2 border-t pt-4">
-            <button
-              type="button"
-              onClick={compartir}
-              className="text-muted hover:text-ink hover:border-brand-500 border-line focus-visible:outline-brand-500 rounded-chip inline-flex h-11 items-center gap-1.5 border px-4 text-[13px] transition-colors"
-            >
-              {copiado ? (
-                <Check size={14} aria-hidden="true" />
-              ) : (
-                <Link2 size={14} aria-hidden="true" />
-              )}
-              {copiado ? "Enlace copiado" : "Compartir"}
-            </button>
+            <GuardarButton guardado={guardado} onGuardar={guardar} />
             <DeckClearButton onClear={() => setDeck((d) => clearDeck(d))} />
           </div>
         </aside>
@@ -272,19 +310,13 @@ export function BuilderView({ cards }: BuilderViewProps) {
         <input
           value={deck.nombre}
           onChange={(e) => setDeck((d) => renameDeck(d, e.target.value))}
+          placeholder="Nombre del mazo"
           aria-label="Nombre del mazo"
-          className="border-line bg-panel text-ink focus-visible:outline-brand-500 rounded-chip mb-4 h-11 w-full border px-3 text-sm"
+          className="border-line bg-panel text-ink placeholder:text-muted focus-visible:outline-brand-500 rounded-chip mb-4 h-11 w-full border px-3 text-sm"
         />
         {panel}
         <div className="border-line mt-4 flex flex-wrap gap-2 border-t pt-4">
-          <button
-            type="button"
-            onClick={compartir}
-            className="text-muted hover:text-ink hover:border-brand-500 border-line focus-visible:outline-brand-500 rounded-chip inline-flex h-11 items-center gap-1.5 border px-4 text-[13px] transition-colors"
-          >
-            <Link2 size={14} aria-hidden="true" />
-            {copiado ? "Enlace copiado" : "Compartir"}
-          </button>
+          <GuardarButton guardado={guardado} onGuardar={guardar} />
           <DeckClearButton onClear={() => setDeck((d) => clearDeck(d))} />
         </div>
       </DeckSheet>
