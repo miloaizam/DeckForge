@@ -25,12 +25,12 @@ export function newDeckId(): string {
   return Array.from(bytes, (b) => (b % 36).toString(36)).join("");
 }
 
-export function createDeck(nombre = "Mazo sin nombre"): Deck {
+export function createDeck(nombre = ""): Deck {
   const ahora = Date.now();
   return {
     v: DECK_VERSION,
     id: newDeckId(),
-    nombre: nombre.slice(0, MAX_NOMBRE_MAZO) || "Mazo sin nombre",
+    nombre: nombre.slice(0, MAX_NOMBRE_MAZO),
     oroInicial: null,
     principal: [],
     side: [],
@@ -102,9 +102,20 @@ export function setStartingGold(deck: Deck, cardId: string | null): Deck {
   return touch(conLaCarta, { oroInicial: cardId });
 }
 
+/**
+ * Cambia el nombre. Admite dejarlo vacio.
+ *
+ * Reponer un relleno aqui hacia imposible borrar el campo para escribir otro
+ * nombre: el texto volvia solo en cuanto se borraba la ultima letra. Que el
+ * nombre sea obligatorio se resuelve al guardar, no al teclear.
+ */
 export function renameDeck(deck: Deck, nombre: string): Deck {
-  const limpio = nombre.trim().slice(0, MAX_NOMBRE_MAZO);
-  return touch(deck, { nombre: limpio || "Mazo sin nombre" });
+  return touch(deck, { nombre: nombre.slice(0, MAX_NOMBRE_MAZO) });
+}
+
+/** Como se muestra un mazo que todavia no tiene nombre. */
+export function deckTitle(deck: Deck): string {
+  return deck.nombre.trim() || "Mazo sin nombre";
 }
 
 export function duplicateDeck(deck: Deck, nombre?: string): Deck {

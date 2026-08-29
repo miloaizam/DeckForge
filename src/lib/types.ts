@@ -216,7 +216,12 @@ export const deckAffinitySchema = z.discriminatedUnion("modo", [
 export const deckSchema = z.object({
   v: z.literal(DECK_VERSION),
   id: z.string().regex(DECK_ID),
-  nombre: z.string().min(1).max(MAX_NOMBRE_MAZO),
+  /**
+   * Puede venir vacio: el usuario tiene que poder borrar el campo para
+   * escribir otro nombre. Es obligatorio para GUARDAR, no para existir, y de
+   * eso se encarga `validateDeck`.
+   */
+  nombre: z.string().max(MAX_NOMBRE_MAZO),
   /**
    * Que carta del mazo hace de oro inicial. Es un PUNTERO a una entrada de
    * `principal`, no una zona aparte: el oro inicial cuenta dentro de las 50,

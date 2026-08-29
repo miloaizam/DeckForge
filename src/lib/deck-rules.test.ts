@@ -3,13 +3,21 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-import { addCard, createDeck, setStartingGold, setQuantity } from "./deck";
+import {
+  addCard,
+  createDeck,
+  deckTitle,
+  renameDeck,
+  setStartingGold,
+  setQuantity,
+} from "./deck";
 import {
   buildCardIndex,
   canAdd,
   deckAffinity,
   deckStats,
   isLegal,
+  razasPermitidas,
   resolveDeck,
   validateDeck,
   DECK_TOTAL,
@@ -234,6 +242,38 @@ test("una raza sin escuela puede armar mazo mono-raza", () => {
   assert.equal(afinidad.modo, "mono");
   assert.equal(afinidad.modo === "mono" ? afinidad.escuela : "?", null);
   assert.ok(isLegal(validateDeck(deck, index)));
+});
+
+test("el mazo necesita un nombre para ser valido", () => {
+  const sinNombre = mazoLegal("Dragón");
+  assert.ok(isLegal(validateDeck(sinNombre, index)), "el helper le pone nombre");
+
+  const vaciado = renameDeck(sinNombre, "   ");
+  const issues = validateDeck(vaciado, index);
+  assert.ok(
+    issues.some((i) => i.code === "sin-nombre"),
+    "sin nombre no es valido",
+  );
+  assert.equal(vaciado.nombre, "   ", "pero el campo se deja borrar tal cual");
+  assert.equal(deckTitle(vaciado), "Mazo sin nombre", "y se muestra con relleno");
+});
+
+test("razasPermitidas acota el catalogo del constructor", () => {
+  // Vacio: todavia cabe cualquier cosa, asi que no se filtra nada.
+  assert.equal(razasPermitidas(deckAffinity(new Set())).size, 0);
+
+  // Con una raza de escuela, caben las dos de esa escuela: el mazo aun puede
+  // crecer hacia ella.
+  const conDragon = razasPermitidas(deckAffinity(new Set<Raza>(["Dragón"])));
+  assert.deepEqual([...conDragon].sort(), ["Dragón", "Guerrero"]);
+
+  // Una raza sin escuela solo se admite a si misma.
+  const conSamurai = razasPermitidas(deckAffinity(new Set<Raza>(["Samurái"])));
+  assert.deepEqual([...conSamurai], ["Samurái"]);
+
+  // Con la escuela ya formada, siguen siendo esas dos.
+  const escuela = razasPermitidas(deckAffinity(new Set<Raza>(["Eterno", "Faerie"])));
+  assert.deepEqual([...escuela].sort(), ["Eterno", "Faerie"]);
 });
 
 test("deckAffinity distingue los cuatro casos", () => {

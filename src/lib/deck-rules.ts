@@ -239,6 +239,7 @@ export function deckStats(res: ResolvedDeck): DeckStats {
  * ------------------------------------------------------------------ */
 
 export type IssueCode =
+  | "sin-nombre"
   | "tamano-principal"
   | "oro-inicial-falta"
   | "oro-inicial-invalido"
@@ -295,6 +296,14 @@ export function validateDeck(deck: Deck, index: CardIndex): DeckIssue[] {
     });
   }
 
+  if (deck.nombre.trim() === "") {
+    issues.push({
+      code: "sin-nombre",
+      gravedad: "error",
+      mensaje: "Ponle un nombre al mazo.",
+    });
+  }
+
   if (stats.totalPrincipal !== DECK_TOTAL) {
     const falta = DECK_TOTAL - stats.totalPrincipal;
     issues.push({
@@ -336,7 +345,7 @@ export function validateDeck(deck: Deck, index: CardIndex): DeckIssue[] {
     issues.push({
       code: "minimo-aliados",
       gravedad: "error",
-      mensaje: `Necesitas al menos ${MIN_ALIADOS_Y_TOTEMS} Aliados o Tótems. Llevas ${stats.aliadosYTotems}, te faltan ${falta}.`,
+      mensaje: `Necesitas al menos ${MIN_ALIADOS_Y_TOTEMS} cartas entre Aliados y Tótems. Llevas ${stats.aliadosYTotems}, te faltan ${falta}.`,
     });
   }
 
