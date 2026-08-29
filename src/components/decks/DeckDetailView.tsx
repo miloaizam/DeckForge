@@ -2,21 +2,24 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 import {
-  Check,
+  Copy,
   Download,
   Hammer,
   Layers,
   Link2,
   Save,
+  Trash2,
   TriangleAlert,
 } from "lucide-react";
 
 import { CARD_RATIO } from "../CardTile";
+import { copyShareLink, downloadDeck } from "./actions";
 import { useDecks, useHydrated } from "./use-decks";
-import { decodeDeck, exportFile, shareUrl } from "@/lib/deck-code";
+import { deckTitle, duplicateDeck } from "@/lib/deck";
+import { decodeDeck } from "@/lib/deck-code";
 import {
   buildCardIndex,
   deckStats,
@@ -26,9 +29,8 @@ import {
   type ResolvedEntry,
   DECK_TOTAL,
 } from "@/lib/deck-rules";
-import { saveDeck } from "@/lib/deck-storage";
+import { deleteDeck, saveDeck } from "@/lib/deck-storage";
 import type { Card, Deck, Tipo } from "@/lib/types";
-import { cn } from "@/lib/utils";
 
 interface DeckDetailViewProps {
   cards: Card[];
@@ -44,6 +46,8 @@ const SECCIONES: { tipo: Tipo; titulo: string }[] = [
 
 const BOTON =
   "inline-flex h-11 items-center gap-1.5 rounded-chip border border-line px-4 text-[13px] text-muted transition-colors hover:border-brand-500 hover:text-ink focus-visible:outline-brand-500";
+const ICONO =
+  "inline-flex size-11 items-center justify-center rounded-chip border border-line text-muted transition-colors hover:border-brand-500 hover:text-ink focus-visible:outline-brand-500";
 
 function Seccion({
   titulo,
@@ -109,7 +113,10 @@ export function DeckDetailView({ cards }: DeckDetailViewProps) {
   const d = params.get("d");
 
   const [mensaje, setMensaje] = useState("");
+  /** Borrar no tiene vuelta: se confirma en el mismo boton. */
+  const [porBorrar, setPorBorrar] = useState(false);
 
+  const router = useRouter();
   const decks = useDecks();
   const cargado = useHydrated();
   const index = useMemo(() => buildCardIndex(cards), [cards]);
@@ -138,29 +145,8 @@ export function DeckDetailView({ cards }: DeckDetailViewProps) {
 
   const guardar = () => {
     if (!deck) return;
-    if (saveDeck(deck)) avisar(`Guardé "${deck.nombre}" en este navegador.`);
+    if (saveDeck(deck)) avisar(`Guardé "${deckTitle(deck)}" en este navegador.`);
     else avisar("No pude guardarlo: el almacenamiento del navegador está lleno.");
-  };
-
-  const copiarEnlace = async () => {
-    if (!deck) return;
-    try {
-      await navigator.clipboard.writeText(shareUrl(deck, window.location.origin));
-      avisar("Enlace copiado.");
-    } catch {
-      avisar("No pude copiar el enlace.");
-    }
-  };
-
-  const descargar = () => {
-    if (!deck) return;
-    const blob = new Blob([exportFile([deck])], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `mazo-${deck.nombre.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
   };
 
   if (!cargado) {
@@ -200,65 +186,123 @@ export function DeckDetailView({ cards }: DeckDetailViewProps) {
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="border-line bg-panel rounded-panel flex flex-col gap-4 border p-5">
-        <div className="flex flex-wrap items-baseline justify-between gap-3">
-          <h2 className="text-ink text-xl font-bold">{deck.nombre}</h2>
+      {/* El nombre del mazo ES el titulo de la pagina; a su lado, el conteo y
+          las mismas acciones que trae su tarjeta en /mazos. */}
+      <header className="flex flex-wrap items-start justify-between gap-x-6 gap-y-4">
+        <div className="min-w-0">
+          <p className="eyebrow mb-3">Mazo</p>
+          <h1 className="text-3xl font-bold tracking-[-0.02em]">{deckTitle(deck)}</h1>
+        </div>
+
+        <div className="flex flex-col items-start gap-3 sm:items-end">
           <p className="text-muted text-[13px] tabular-nums">
             {stats.totalPrincipal}/{DECK_TOTAL} cartas
             {stats.totalSide > 0 && ` · side ${stats.totalSide}`}
           </p>
+
+          <div className="flex flex-wrap gap-2">
+            {compartido ? (
+              <button type="button" onClick={guardar} className={BOTON}>
+                <Save size={14} aria-hidden="true" />
+                Guardar en mis mazos
+              </button>
+            ) : (
+              <Link href={`/builder/?m=${deck.id}`} className={BOTON}>
+                <Hammer size={14} aria-hidden="true" />
+                Editar
+              </Link>
+            )}
+            <button
+              type="button"
+              onClick={() => void copyShareLink(deck).then(avisar)}
+              aria-label="Compartir el mazo"
+              title="Copiar enlace"
+              className={ICONO}
+            >
+              <Link2 size={14} aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              onClick={() => downloadDeck(deck)}
+              aria-label="Exportar el mazo"
+              title="Exportar a un archivo"
+              className={ICONO}
+            >
+              <Download size={14} aria-hidden="true" />
+            </button>
+
+            {/* Duplicar y borrar solo tienen sentido sobre un mazo tuyo. */}
+            {!compartido && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => {
+                    saveDeck(duplicateDeck(deck));
+                    avisar("Dupliqué el mazo.");
+                  }}
+                  aria-label="Duplicar el mazo"
+                  title="Duplicar"
+                  className={ICONO}
+                >
+                  <Copy size={14} aria-hidden="true" />
+                </button>
+                {porBorrar ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        deleteDeck(deck.id);
+                        router.push("/mazos");
+                      }}
+                      className="border-brand-600 bg-accent-soft text-accent focus-visible:outline-brand-500 rounded-chip inline-flex h-11 items-center gap-1.5 border px-3 text-[13px]"
+                    >
+                      <Trash2 size={14} aria-hidden="true" />
+                      Confirmar
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setPorBorrar(false)}
+                      className={BOTON}
+                    >
+                      Cancelar
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setPorBorrar(true)}
+                    aria-label="Borrar el mazo"
+                    title="Borrar"
+                    className={ICONO}
+                  >
+                    <Trash2 size={14} aria-hidden="true" />
+                  </button>
+                )}
+              </>
+            )}
+          </div>
+
+          <p role="status" aria-live="polite" className="text-muted min-h-5 text-[13px]">
+            {mensaje}
+          </p>
         </div>
+      </header>
 
-        <p
-          className={cn(
-            "flex items-center gap-2 text-[13px]",
-            legal ? "text-accent" : "text-muted",
-          )}
-        >
-          {legal ? (
-            <Check size={15} aria-hidden="true" />
-          ) : (
-            <TriangleAlert size={15} aria-hidden="true" />
-          )}
-          {legal
-            ? "El mazo cumple las reglas del formato"
-            : "El mazo todavía no cumple las reglas"}
-        </p>
-
-        {!legal && (
+      {/* El panel de estado solo aparece cuando hay algo que corregir: decirle
+          "todo bien" a quien ya ve el mazo completo es ruido. */}
+      {!legal && (
+        <div className="border-line bg-panel rounded-panel flex flex-col gap-2 border p-5">
+          <p className="text-ink flex items-center gap-2 text-[13px]">
+            <TriangleAlert size={15} aria-hidden="true" className="shrink-0" />
+            El mazo todavía no cumple las reglas del formato
+          </p>
           <ul className="text-muted flex flex-col gap-1 text-[13px]">
             {issues.map((i, n) => (
               <li key={`${i.code}-${n}`}>· {i.mensaje}</li>
             ))}
           </ul>
-        )}
-
-        <div className="border-line flex flex-wrap gap-2 border-t pt-4">
-          {compartido ? (
-            <button type="button" onClick={guardar} className={BOTON}>
-              <Save size={14} aria-hidden="true" />
-              Guardar en mis mazos
-            </button>
-          ) : (
-            <Link href={`/builder/?m=${deck.id}`} className={BOTON}>
-              <Hammer size={14} aria-hidden="true" />
-              Editar
-            </Link>
-          )}
-          <button type="button" onClick={copiarEnlace} className={BOTON}>
-            <Link2 size={14} aria-hidden="true" />
-            Copiar enlace
-          </button>
-          <button type="button" onClick={descargar} className={BOTON}>
-            <Download size={14} aria-hidden="true" />
-            Descargar
-          </button>
         </div>
-
-        <p role="status" aria-live="polite" className="text-muted min-h-5 text-[13px]">
-          {mensaje}
-        </p>
-      </div>
+      )}
 
       <div className="grid gap-8 sm:grid-cols-2">
         {SECCIONES.map(({ tipo, titulo }) => (

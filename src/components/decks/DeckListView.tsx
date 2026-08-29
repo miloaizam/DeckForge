@@ -2,11 +2,22 @@
 
 import Link from "next/link";
 import { useCallback, useMemo, useState } from "react";
-import { Check, Copy, Hammer, Layers, Plus, Trash2, TriangleAlert } from "lucide-react";
+import {
+  Check,
+  Copy,
+  Download,
+  Hammer,
+  Layers,
+  Link2,
+  Plus,
+  Trash2,
+  TriangleAlert,
+} from "lucide-react";
 
+import { copyShareLink, downloadDeck } from "./actions";
 import { DeckTransfer } from "./DeckTransfer";
 import { useDecks, useHydrated } from "./use-decks";
-import { createDeck, duplicateDeck } from "@/lib/deck";
+import { deckTitle, duplicateDeck } from "@/lib/deck";
 import {
   buildCardIndex,
   deckStats,
@@ -45,14 +56,12 @@ export function DeckListView({ cards }: DeckListViewProps) {
   const borrar = (deck: Deck) => {
     deleteDeck(deck.id);
     setPorBorrar(null);
-    avisar(`Borré "${deck.nombre}".`);
+    avisar(`Borré "${deckTitle(deck)}".`);
   };
 
   const duplicar = (deck: Deck) => saveDeck(duplicateDeck(deck));
 
   const importar = (nuevos: Deck[]) => saveDecks([...nuevos, ...decks]);
-
-  const crear = () => saveDeck(createDeck("Mazo nuevo"));
 
   return (
     <div className="flex flex-col gap-6">
@@ -64,13 +73,6 @@ export function DeckListView({ cards }: DeckListViewProps) {
           <Plus size={16} aria-hidden="true" />
           Armar un mazo
         </Link>
-        <button
-          type="button"
-          onClick={crear}
-          className="text-muted hover:text-ink hover:border-brand-500 border-line focus-visible:outline-brand-500 rounded-chip inline-flex h-11 items-center gap-1.5 border px-4 text-[13px] transition-colors"
-        >
-          Crear vacío
-        </button>
         <div className="ml-auto">
           <DeckTransfer decks={decks} onImport={importar} onMessage={avisar} />
         </div>
@@ -122,7 +124,7 @@ export function DeckListView({ cards }: DeckListViewProps) {
                       href={`/mazo/?m=${deck.id}`}
                       className="text-ink hover:text-accent focus-visible:outline-brand-500 block truncate rounded font-medium transition-colors"
                     >
-                      {deck.nombre}
+                      {deckTitle(deck)}
                     </Link>
                     <p className="text-muted mt-0.5 text-[13px] tabular-nums">
                       {stats.totalPrincipal} cartas
@@ -158,8 +160,27 @@ export function DeckListView({ cards }: DeckListViewProps) {
                   </Link>
                   <button
                     type="button"
+                    onClick={() => void copyShareLink(deck).then(avisar)}
+                    aria-label={`Compartir ${deckTitle(deck)}`}
+                    title="Copiar enlace"
+                    className="text-muted hover:text-ink hover:border-brand-500 border-line focus-visible:outline-brand-500 rounded-chip inline-flex size-11 items-center justify-center border transition-colors"
+                  >
+                    <Link2 size={14} aria-hidden="true" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => downloadDeck(deck)}
+                    aria-label={`Exportar ${deckTitle(deck)}`}
+                    title="Exportar a un archivo"
+                    className="text-muted hover:text-ink hover:border-brand-500 border-line focus-visible:outline-brand-500 rounded-chip inline-flex size-11 items-center justify-center border transition-colors"
+                  >
+                    <Download size={14} aria-hidden="true" />
+                  </button>
+                  <button
+                    type="button"
                     onClick={() => duplicar(deck)}
-                    aria-label={`Duplicar ${deck.nombre}`}
+                    aria-label={`Duplicar ${deckTitle(deck)}`}
+                    title="Duplicar"
                     className="text-muted hover:text-ink hover:border-brand-500 border-line focus-visible:outline-brand-500 rounded-chip inline-flex size-11 items-center justify-center border transition-colors"
                   >
                     <Copy size={14} aria-hidden="true" />
@@ -188,7 +209,7 @@ export function DeckListView({ cards }: DeckListViewProps) {
                     <button
                       type="button"
                       onClick={() => setPorBorrar(deck.id)}
-                      aria-label={`Borrar ${deck.nombre}`}
+                      aria-label={`Borrar ${deckTitle(deck)}`}
                       className="text-muted hover:text-ink hover:border-brand-500 border-line focus-visible:outline-brand-500 rounded-chip inline-flex size-11 items-center justify-center border transition-colors"
                     >
                       <Trash2 size={14} aria-hidden="true" />
