@@ -1,6 +1,6 @@
 import MiniSearch from "minisearch";
 
-import type { Card } from "./types";
+import { ESCUELAS, FRECUENCIAS, RAZAS, TIPOS, type Card } from "./types";
 
 export const PAGE_SIZE = 30;
 
@@ -13,6 +13,7 @@ export interface CatalogFilters {
   frecuencia: string;
   atributo: string;
   coste: string;
+  fuerza: string;
 }
 
 export const EMPTY_FILTERS: CatalogFilters = {
@@ -23,6 +24,7 @@ export const EMPTY_FILTERS: CatalogFilters = {
   frecuencia: "",
   atributo: "",
   coste: "",
+  fuerza: "",
 };
 
 export function hasActiveFilters(f: CatalogFilters): boolean {
@@ -30,11 +32,12 @@ export function hasActiveFilters(f: CatalogFilters): boolean {
 }
 
 /**
- * Opciones reales presentes en el catalogo cargado.
+ * Opciones de cada filtro.
  *
- * Se derivan de las cartas y no de los enums: asi un filtro nunca ofrece un
- * valor que no devuelve resultados, y aparece solo cuando la edicion lo usa
- * (Luz/Oscuridad, por ejemplo, no existen en Bushido).
+ * Tipo, raza, escuela y frecuencia usan las listas canonicas del formato: la
+ * oferta es la misma en toda edicion, asi el filtro no cambia de forma segun
+ * lo que este cargado. Coste, fuerza y atributo si se derivan de las cartas,
+ * porque son rangos abiertos.
  */
 export interface Facets {
   tipos: string[];
@@ -43,28 +46,35 @@ export interface Facets {
   frecuencias: string[];
   atributos: string[];
   costes: string[];
+  fuerzas: string[];
 }
 
 export function buildFacets(cards: Card[]): Facets {
-  const collect = (pick: (c: Card) => string | null) =>
-    [...new Set(cards.map(pick).filter((v): v is string => v !== null))].sort((a, b) =>
-      a.localeCompare(b, "es"),
-    );
-
-  return {
-    tipos: collect((c) => c.tipo),
-    razas: collect((c) => c.raza),
-    escuelas: collect((c) => c.escuela),
-    frecuencias: collect((c) => c.frecuencia),
-    atributos: collect((c) => c.atributo),
-    costes: [
+  const numeric = (pick: (c: Card) => number | null) =>
+    [
       ...new Set(
         cards
-          .map((c) => c.coste)
+          .map(pick)
           .filter((v): v is number => v !== null)
           .map(String),
       ),
-    ].sort((a, b) => Number(a) - Number(b)),
+    ].sort((a, b) => Number(a) - Number(b));
+
+  return {
+    tipos: [...TIPOS],
+    razas: [...RAZAS],
+    escuelas: [...ESCUELAS],
+    frecuencias: [...FRECUENCIAS],
+    atributos: [
+      ...new Set(
+        cards
+          .map((c) => c.atributo)
+          .filter((v) => v !== null)
+          .map(String),
+      ),
+    ].sort((a, b) => a.localeCompare(b, "es")),
+    costes: numeric((c) => c.coste),
+    fuerzas: numeric((c) => c.fuerza),
   };
 }
 
@@ -115,7 +125,8 @@ export function applyFilters(
       matches(c.escuela, filters.escuela) &&
       matches(c.frecuencia, filters.frecuencia) &&
       matches(c.atributo, filters.atributo) &&
-      matches(c.coste, filters.coste),
+      matches(c.coste, filters.coste) &&
+      matches(c.fuerza, filters.fuerza),
   );
 }
 
@@ -125,4 +136,14 @@ export function paginate<T>(items: T[], page: number, size = PAGE_SIZE): T[] {
 
 export function pageCount(total: number, size = PAGE_SIZE): number {
   return Math.max(1, Math.ceil(total / size));
+}
+
+/** Rango 1-indexado que se esta mostrando, para el pie de la paginacion. */
+export function pageRange(
+  page: number,
+  total: number,
+  size = PAGE_SIZE,
+): { from: number; to: number } {
+  if (total === 0) return { from: 0, to: 0 };
+  return { from: (page - 1) * size + 1, to: Math.min(page * size, total) };
 }

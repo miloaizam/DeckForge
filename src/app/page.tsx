@@ -1,32 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Filter, Flame, Search, Share2 } from "lucide-react";
+import { Flame } from "lucide-react";
 
-import { getCards } from "@/lib/cards";
-import { LOADED_EDITIONS } from "@/lib/editions";
-
-const CARACTERISTICAS = [
-  {
-    icon: Search,
-    titulo: "Búsqueda instantánea",
-    texto: "Por nombre, código o texto de habilidad. Responde mientras escribes.",
-  },
-  {
-    icon: Filter,
-    titulo: "Filtros del formato",
-    texto: "Tipo, raza, escuela, frecuencia y coste. Solo se ofrece lo que existe.",
-  },
-  {
-    icon: Share2,
-    titulo: "Sin cuentas",
-    texto:
-      "Nada que registrar. Tus mazos van a vivir en tu navegador, no en un servidor.",
-  },
-];
-
-export default async function Home() {
-  const cards = await getCards();
-
+export default function Home() {
   return (
     <main className="flex-1">
       <section className="bg-forge relative overflow-hidden">
@@ -52,7 +28,7 @@ export default async function Home() {
             buscas y arma tu mazo. Gratis, sin cuentas y sin instalar nada.
           </p>
 
-          <div className="mt-10 flex flex-col items-center gap-4">
+          <div className="mt-10 flex justify-center">
             <Link
               href="/catalogo"
               className="bg-brand-600 hover:bg-brand-500 shadow-glow focus-visible:outline-brand-300 rounded-card ease-out-soft inline-flex h-14 items-center gap-2.5 px-8 text-[17px] font-medium text-white transition duration-200 hover:-translate-y-0.5"
@@ -60,24 +36,8 @@ export default async function Home() {
               <Flame size={19} aria-hidden="true" />
               Entrar a la forja
             </Link>
-
-            <p className="text-muted text-[13px] tabular-nums">
-              {cards.length} cartas · {LOADED_EDITIONS.length} ediciones cargadas
-            </p>
           </div>
         </div>
-      </section>
-
-      <section className="mx-auto max-w-[1040px] px-6 py-20">
-        <ul className="grid gap-4 sm:grid-cols-3">
-          {CARACTERISTICAS.map(({ icon: Icon, titulo, texto }) => (
-            <li key={titulo} className="border-line bg-panel rounded-panel border p-6">
-              <Icon size={20} aria-hidden="true" className="text-brand-300 mb-4" />
-              <h2 className="text-ink font-semibold">{titulo}</h2>
-              <p className="text-muted mt-2 text-[14px] leading-relaxed">{texto}</p>
-            </li>
-          ))}
-        </ul>
       </section>
     </main>
   );

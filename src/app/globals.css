@@ -109,6 +109,16 @@
   background-image: var(--gradient-forge);
 }
 
+/* Scroll funcional pero sin barra a la vista: la lista de un filtro no debe
+   mostrar el scrollbar del sistema, que rompe la estetica. */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @utility eyebrow {
   font-size: 0.8125rem;
   letter-spacing: 0.28em;

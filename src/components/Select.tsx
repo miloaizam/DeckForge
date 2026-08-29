@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { Check, ChevronDown } from "lucide-react";
+import { Check, ChevronDown, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -133,29 +133,51 @@ export function Select({
         {label}
       </span>
 
-      <button
-        ref={buttonRef}
-        type="button"
-        onClick={toggle}
-        aria-haspopup="listbox"
-        aria-expanded={open}
-        aria-labelledby={`${id}-label ${id}-value`}
-        className={cn(
-          "focus-visible:outline-brand-500 rounded-chip flex h-11 w-full items-center justify-between gap-2 border px-3 text-sm transition-colors",
-          activo
-            ? "border-brand-600 bg-brand-800/25 text-ink"
-            : "border-line bg-panel text-muted hover:border-brand-500 hover:text-ink",
+      {/* El boton de limpiar va aparte y superpuesto: un <button> no puede
+          anidar otro <button>. */}
+      <div className="relative">
+        <button
+          ref={buttonRef}
+          type="button"
+          onClick={toggle}
+          aria-haspopup="listbox"
+          aria-expanded={open}
+          aria-labelledby={`${id}-label ${id}-value`}
+          className={cn(
+            "focus-visible:outline-brand-500 rounded-chip flex h-11 w-full items-center gap-2 border pr-10 pl-3 text-sm transition-colors",
+            activo
+              ? "border-brand-600 bg-brand-800/25 text-ink"
+              : "border-line bg-panel text-muted hover:border-brand-500 hover:text-ink",
+          )}
+        >
+          <span id={`${id}-value`} className="truncate">
+            {value || placeholder}
+          </span>
+        </button>
+
+        {activo ? (
+          <button
+            type="button"
+            onClick={() => {
+              onChange("");
+              setOpen(false);
+            }}
+            aria-label={`Quitar el filtro ${label}`}
+            className="text-brand-300 hover:text-ink hover:bg-brand-700/40 focus-visible:outline-brand-500 absolute top-1/2 right-1.5 flex size-8 -translate-y-1/2 items-center justify-center rounded-full transition-colors"
+          >
+            <X size={14} aria-hidden="true" />
+          </button>
+        ) : (
+          <ChevronDown
+            size={15}
+            aria-hidden="true"
+            className={cn(
+              "text-muted pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 transition-transform",
+              open && "rotate-180",
+            )}
+          />
         )}
-      >
-        <span id={`${id}-value`} className="truncate">
-          {value || placeholder}
-        </span>
-        <ChevronDown
-          size={15}
-          aria-hidden="true"
-          className={cn("shrink-0 opacity-70 transition-transform", open && "rotate-180")}
-        />
-      </button>
+      </div>
 
       {open && (
         <ul
@@ -165,7 +187,7 @@ export function Select({
           aria-labelledby={`${id}-label`}
           aria-activedescendant={`${id}-opt-${active}`}
           onKeyDown={onKeyDown}
-          className="border-line bg-panel shadow-panel rounded-card absolute top-full right-0 left-0 z-20 mt-1.5 max-h-72 overflow-y-auto border py-1.5 outline-none"
+          className="border-line bg-panel shadow-panel rounded-card absolute top-full right-0 left-0 z-20 mt-1.5 max-h-72 scrollbar-none overflow-y-auto border py-1.5 outline-none"
         >
           {items.map((item, i) => {
             const seleccionada = item === value;

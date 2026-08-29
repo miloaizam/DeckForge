@@ -19,6 +19,24 @@ class Tipo(str, Enum):
     oro = "Oro"
 
 
+class Raza(str, Enum):
+    """Las 13 razas del formato. Espejo de RAZAS en src/lib/types.ts."""
+
+    eterno = "Eterno"
+    faerie = "Faerie"
+    barbaro = "Bárbaro"
+    samurai = "Samurái"
+    sacerdote = "Sacerdote"
+    caballero = "Caballero"
+    heroe = "Héroe"
+    dragon = "Dragón"
+    guerrero = "Guerrero"
+    bestia = "Bestia"
+    ancestral = "Ancestral"
+    oni = "Oni"
+    sombra = "Sombra"
+
+
 class Escuela(str, Enum):
     paladines = "Gremio de Paladines"      # Caballero + Sacerdote
     desafiante = "Clan Desafiante"         # Dragón + Guerrero
@@ -36,18 +54,15 @@ class Atributo(str, Enum):
 class Frecuencia(str, Enum):
     """Espejo de la tabla `rarities` de api.myl.cl."""
 
-    vasallo = "Vasallo"
-    cortesano = "Cortesano"
-    real = "Real"
-    mega = "Mega Real"
-    ultra = "Ultra Real"
+    promocional = "Promocional"
     milenaria = "Milenaria"
     legendaria = "Legendaria"
-    secreta = "Secreta"
+    ultra = "Ultra Real"
+    mega = "Mega Real"
+    real = "Real"
+    vasallo = "Vasallo"
+    cortesano = "Cortesano"
     oro = "Oro"
-    promocional = "Promocional"
-    ficha = "Ficha"
-    set_paralelo = "Set Paralelo"
 
 
 class Legalidad(str, Enum):
@@ -62,7 +77,7 @@ class Card(BaseModel):
     nombre: str
     edicion: str
     tipo: Tipo
-    raza: Optional[str] = None
+    raza: Optional[Raza] = None
     escuela: Optional[Escuela] = None
     atributo: Optional[Atributo] = None
     coste: Optional[int] = None

@@ -49,8 +49,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <footer className="border-line mt-12 border-t">
           <div className="text-muted mx-auto max-w-[1280px] px-6 py-8 text-[13px] leading-relaxed">
-            Proyecto sin fines de lucro hecho por fans. El arte y los nombres de las
-            cartas son propiedad de su editor.
+            Proyecto sin fines de lucro hecho por un fan y jugador de Mitos y Leyendas. El
+            arte y los nombres de las cartas son propiedad de su editor.
           </div>
         </footer>
       </body>

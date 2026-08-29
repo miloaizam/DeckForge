@@ -13,6 +13,7 @@ import {
   EMPTY_FILTERS,
   hasActiveFilters,
   pageCount,
+  pageRange,
   paginate,
   type CatalogFilters,
 } from "@/lib/catalog";
@@ -61,7 +62,6 @@ export function CatalogView({ cards }: CatalogViewProps) {
       <Filters
         filters={filters}
         facets={facets}
-        results={results.length}
         onChange={update}
         onReset={() => update(EMPTY_FILTERS)}
       />
@@ -86,7 +86,13 @@ export function CatalogView({ cards }: CatalogViewProps) {
       ) : (
         <>
           <CardGrid cards={visible} onSelect={setSelected} />
-          <Pagination page={currentPage} total={totalPages} onChange={goTo} />
+          <Pagination
+            page={currentPage}
+            total={totalPages}
+            range={pageRange(currentPage, results.length)}
+            results={results.length}
+            onChange={goTo}
+          />
         </>
       )}
 
