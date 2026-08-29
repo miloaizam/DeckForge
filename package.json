@@ -15,6 +15,7 @@
     "check": "npm run typecheck && npm run lint && npm run format:check && npm run test",
     "audit": ".venv/bin/python scripts/audit_build.py",
     "data:fetch": ".venv/bin/python scripts/fetch_edition.py",
+    "data:card": ".venv/bin/python scripts/fetch_card.py",
     "data:cards": ".venv/bin/python scripts/build_cards.py",
     "data:images": ".venv/bin/python scripts/convert_images.py"
   },

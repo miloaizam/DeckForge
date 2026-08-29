@@ -49,6 +49,15 @@ EDITION_CODES = {
     "hijos-del-sol": "HS",
     "legado-gotico": "LG",
     "escuelas_elementales": "EE",
+    # Ediciones de FUERA del formato. Estan aqui porque el formato incorpora
+    # unas pocas de sus cartas por balance, y `scripts/fetch_card.py` las baja
+    # de a una a data-src/extras.json. Verificadas contra la API.
+    "helenica": "HE",
+    "imperio": "IM",
+    "espada-sagrada": "ES",
+    "dominios-de-ra": "DR",
+    "cruzadas": "CR",
+    "furia": "FU",
 }
 
 # Las escuelas del formato son parejas de razas, no un campo de la carta.

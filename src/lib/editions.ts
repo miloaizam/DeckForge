@@ -4,14 +4,26 @@
  * `slug` es el mismo que usa la API de MyL y el que guardamos en el campo
  * `edicion` de cada carta. Ojo: Escuelas Elementales lleva guion BAJO.
  *
- * `cargada` marca si su JSON ya existe en `data-src/`. Las que faltan se
- * muestran en el menu pero deshabilitadas: es mas honesto que esconderlas,
- * porque comunica que el catalogo esta creciendo.
+ * `cargada` marca si su JSON ya existe en `data-src/`.
+ *
+ * La lista lleva ademas las ediciones de FUERA del formato que aportan cartas
+ * sueltas, marcadas con `parcial`. Estan aqui para que `editionTitle()` sepa
+ * como se llaman: sin eso, el filtro del catalogo mostraria el slug pelado.
  */
 export interface Edition {
   slug: string;
   titulo: string;
   cargada: boolean;
+  /**
+   * La edicion no es del formato, pero aporta unas pocas cartas sueltas que si
+   * lo son (agregadas por balance: Wotan y sus variantes, por ejemplo). Vive en
+   * `data-src/extras.json`.
+   *
+   * Aparece en el filtro de edicion del catalogo, para que su nombre se lea
+   * bien, pero NO tiene pagina propia: no vale la pena una ruta para tres
+   * cartas.
+   */
+  parcial?: boolean;
 }
 
 export const EDITIONS: Edition[] = [
@@ -25,9 +37,25 @@ export const EDITIONS: Edition[] = [
   { slug: "hijos-del-sol", titulo: "Hijos del Sol", cargada: false },
   { slug: "legado-gotico", titulo: "Legado Gótico", cargada: false },
   { slug: "escuelas_elementales", titulo: "Escuelas Elementales", cargada: false },
+
+  // De fuera del formato: solo aportan las cartas sueltas que se agregaron por
+  // balance. Estan aqui para que su nombre se lea bien en el filtro.
+  { slug: "helenica", titulo: "Helénica", cargada: true, parcial: true },
+  { slug: "imperio", titulo: "Imperio", cargada: true, parcial: true },
+  { slug: "espada-sagrada", titulo: "Espada Sagrada", cargada: true, parcial: true },
+  { slug: "dominios-de-ra", titulo: "Dominios de Ra", cargada: true, parcial: true },
+  { slug: "cruzadas", titulo: "Cruzadas", cargada: true, parcial: true },
+  { slug: "furia", titulo: "Furia", cargada: true, parcial: true },
 ];
 
-export const LOADED_EDITIONS = EDITIONS.filter((e) => e.cargada);
+/**
+ * Las que tienen pagina propia de catalogo.
+ *
+ * Una edicion `parcial` queda fuera aunque aporte cartas: no vale la pena una
+ * ruta entera para las tres o cuatro que entraron por balance. Se llega a ellas
+ * por el filtro de edicion.
+ */
+export const LOADED_EDITIONS = EDITIONS.filter((e) => e.cargada && !e.parcial);
 
 export function findEdition(slug: string): Edition | undefined {
   return EDITIONS.find((e) => e.slug === slug);
