@@ -12,6 +12,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "check": "npm run typecheck && npm run lint && npm run format:check",
+    "audit": ".venv/bin/python scripts/audit_build.py",
     "data:fetch": ".venv/bin/python scripts/fetch_edition.py",
     "data:cards": ".venv/bin/python scripts/build_cards.py",
     "data:images": ".venv/bin/python scripts/convert_images.py"

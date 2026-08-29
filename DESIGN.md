@@ -185,6 +185,11 @@ No es opcional. Un mazo mal etiquetado es un mazo que alguien no puede armar.
   "imagen" ni vacío. Las decorativas van con `alt=""`.
 - **HTML semántico**: `<button>` para acciones, `<a>` para navegar, encabezados
   en orden. Nada de `<div onClick>`.
+- **Controles propios = patrón ARIA completo.** El `<select>` nativo no se puede
+  estilizar (el navegador dibuja la lista con colores del sistema), así que
+  `Select` es un listbox propio. Reemplazarlo obliga a devolver lo que el nativo
+  daba gratis: rol anunciado, flechas, Inicio/Fin, Enter, Escape, cierre al
+  hacer clic fuera y foco visible. Si no puedes sostener eso, usa el nativo.
 - **Zoom** hasta 200% sin romper el layout ni perder contenido.
 
 ---

@@ -2,6 +2,7 @@
 
 import { Search, X } from "lucide-react";
 
+import { Select } from "./Select";
 import type { CatalogFilters, Facets } from "@/lib/catalog";
 import { hasActiveFilters } from "@/lib/catalog";
 
@@ -11,41 +12,6 @@ interface FiltersProps {
   results: number;
   onChange: (next: CatalogFilters) => void;
   onReset: () => void;
-}
-
-const SELECT_CLASS =
-  "border-line bg-panel text-ink focus-visible:outline-brand-500 h-11 min-w-0 rounded-chip border px-3 text-sm";
-
-function Select({
-  label,
-  value,
-  options,
-  onChange,
-}: {
-  label: string;
-  value: string;
-  options: string[];
-  onChange: (value: string) => void;
-}) {
-  // Un filtro sin opciones no aporta nada: no se muestra.
-  if (options.length === 0) return null;
-  return (
-    <label className="flex min-w-0 flex-col gap-1.5">
-      <span className="text-muted text-[11px] tracking-[0.18em] uppercase">{label}</span>
-      <select
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className={SELECT_CLASS}
-      >
-        <option value="">Todos</option>
-        {options.map((o) => (
-          <option key={o} value={o}>
-            {o}
-          </option>
-        ))}
-      </select>
-    </label>
-  );
 }
 
 export function Filters({ filters, facets, results, onChange, onReset }: FiltersProps) {

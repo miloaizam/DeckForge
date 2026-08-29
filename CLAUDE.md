@@ -43,6 +43,7 @@ npm run dev          # desarrollo en http://localhost:3000
 npm run build        # export estático a out/
 npm run preview      # sirve out/ en http://localhost:4173
 npm run check        # typecheck + lint + formato (correr antes de commitear)
+npm run audit        # auditoría de seguridad sobre out/ (tras `npm run build`)
 npm run data:fetch bushido   # api.myl.cl -> data-src/bushido.json + images-src/
 npm run data:images          # images-src/*    -> public/cards/*.webp
 npm run data:cards           # data-src/*.json -> public/data/cards.json
@@ -173,6 +174,24 @@ cookies, sin datos personales—, pero eso no se deja al azar:
 
 9. **Enlaces externos** siempre con `rel="noopener noreferrer"`.
 
+10. **Las rutas de imagen se validan por regex** (`/cards/…​.webp`) y los slugs
+    también. Un `cards.json` manipulado no puede inyectar un host externo, un
+    `javascript:`, un `data:` ni un `../` en el `src` de una etiqueta. Falla el
+    build antes de publicar.
+
+11. **`npm run audit`** revisa el sitio ya construido y falla si aparece un
+    source map, una ruta absoluta de la máquina de build, un recurso externo,
+    una imagen rota, una cabecera de seguridad ausente o los dos esquemas
+    desincronizados. Correr siempre antes de publicar.
+
+### Por qué la CSP no usa hashes
+
+Quitar `'unsafe-inline'` de `script-src` exigiría hashear los bloques inline
+que el App Router incrusta en cada HTML. Es factible, pero **no hay navegador
+en este entorno para comprobar que la página siga hidratando**, y un hash mal
+calculado deja el sitio en blanco. Se deja documentado como pendiente: hacerlo
+solo cuando se pueda verificar en un navegador real.
+
 ---
 
 ## 7. Qué NO hacer
@@ -200,11 +219,14 @@ a fuentes oficiales cuando corresponde.
 
 ## 9. Estado actual
 
-**Fase 0 lista + buena parte de Fase 1.** Funcionando: cadena de datos
-completa (API → `data-src` → WebP → `cards.json`), grilla, modal de detalle
-con keywords resaltadas, buscador (MiniSearch), filtros por faceta y
-paginación.
+**Fase 0 lista + buena parte de Fase 1.** Funcionando: portada, cadena de
+datos completa (API → `data-src` → WebP → `cards.json`), catálogo con grilla,
+modal de detalle con keywords resaltadas, buscador (MiniSearch), filtros por
+faceta con selector propio y paginación.
 
-Cargado: **246 cartas de Bushido** (la edición completa).
+Rutas: `/` portada · `/catalogo` todo · `/catalogo/<edicion>` · `/erratas`
+(placeholder).
 
-**Todavía no hay** el resto de las ediciones ni el panel de mazo (Fase 2).
+Cargadas: **386 cartas** — Bushido (246) y Sol Naciente (140).
+
+**Todavía no hay** las otras 8 ediciones ni el panel de mazo (Fase 2).

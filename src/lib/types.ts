@@ -11,7 +11,12 @@ import { z } from "zod";
  * query string) se usa sin pasar antes por un esquema de este archivo.
  */
 
-export const TIPOS = ["Aliado", "Talismán", "Arma", "Tótem", "Oro", "Monumento"] as const;
+/**
+ * El formato Escuelas Elementales no incluye Monumentos: verificado contra las
+ * 10 ediciones de la API (0 cartas de ese tipo). Si alguna vez aparece una, el
+ * validador la rechazara y sabremos que hay que revisar el formato.
+ */
+export const TIPOS = ["Aliado", "Talismán", "Arma", "Tótem", "Oro"] as const;
 
 export const ESCUELAS = [
   "Gremio de Paladines", // Caballero + Sacerdote
@@ -71,11 +76,24 @@ export const KEYWORDS_IMPRESAS = [
 
 export const LEGALIDADES = ["libre", "restringida", "prohibida"] as const;
 
+/** Slug seguro: minusculas, digitos y separadores. Sin puntos ni barras. */
+const SLUG = /^[a-z0-9]+(?:[-_][a-z0-9]+)*$/;
+
+/**
+ * Las rutas de imagen deben apuntar a nuestro propio directorio de cartas.
+ *
+ * Es la defensa contra un `cards.json` manipulado: sin esto, un valor como
+ * "https://evil.example/x.png" o "../../etc/passwd" pasaria al `src` de la
+ * etiqueta <img>. La CSP `img-src 'self'` lo bloquearia en el navegador, pero
+ * preferimos que el build falle antes de publicar nada.
+ */
+const CARD_IMAGE = /^\/cards\/(?:thumb\/)?[a-z0-9-]+\.webp$/;
+
 export const cardSchema = z.object({
-  id: z.string().min(1),
-  codigo: z.string().min(1),
-  nombre: z.string().min(1),
-  edicion: z.string().min(1),
+  id: z.string().regex(SLUG, "el id debe ser un slug seguro"),
+  codigo: z.string().min(1).max(40),
+  nombre: z.string().min(1).max(120),
+  edicion: z.string().regex(SLUG, "la edicion debe ser un slug seguro"),
   tipo: z.enum(TIPOS),
   raza: z.string().nullable().default(null),
   escuela: z.enum(ESCUELAS).nullable().default(null),
@@ -84,9 +102,9 @@ export const cardSchema = z.object({
   fuerza: z.number().int().nullable().default(null),
   frecuencia: z.enum(FRECUENCIAS),
   habilidad: z.string().default(""),
-  ilustrador: z.string().nullable().default(null),
-  imagen: z.string().min(1),
-  thumb: z.string().min(1),
+  ilustrador: z.string().max(120).nullable().default(null),
+  imagen: z.string().regex(CARD_IMAGE, "la imagen debe vivir en /cards/"),
+  thumb: z.string().regex(CARD_IMAGE, "el thumb debe vivir en /cards/thumb/"),
   legalidad: z.enum(LEGALIDADES).default("libre"),
   keywords: z.array(z.string()).default([]),
 });

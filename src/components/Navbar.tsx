@@ -46,7 +46,7 @@ function CatalogMenu({ pathname }: { pathname: string }) {
     ref.current?.removeAttribute("open");
   }, [pathname]);
 
-  const enCatalogo = pathname === "/" || pathname.startsWith("/catalogo");
+  const enCatalogo = pathname.startsWith("/catalogo");
 
   return (
     <details ref={ref} className="relative">
@@ -63,10 +63,10 @@ function CatalogMenu({ pathname }: { pathname: string }) {
 
       <div className="border-line bg-panel shadow-panel rounded-card absolute left-0 z-20 mt-2 w-60 overflow-hidden border py-1.5">
         <Link
-          href="/"
+          href="/catalogo"
           className={cn(
             "block px-4 py-2.5 text-sm transition-colors",
-            pathname === "/"
+            pathname === "/catalogo" || pathname === "/catalogo/"
               ? "text-brand-200 bg-brand-800/30"
               : "text-ink hover:bg-surface",
           )}
