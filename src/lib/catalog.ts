@@ -1,12 +1,22 @@
 import MiniSearch from "minisearch";
 
-import { ESCUELAS, FRECUENCIAS, RAZAS, TIPOS, type Card } from "./types";
+import { EDITIONS } from "./editions";
+import {
+  ESCUELAS,
+  FRECUENCIAS,
+  KEYWORDS_IMPRESAS,
+  RAZAS,
+  TIPOS,
+  type Card,
+} from "./types";
 
 export const PAGE_SIZE = 30;
 
 /** Un filtro sin valor es `""`: significa "todos". */
 export interface CatalogFilters {
   query: string;
+  edicion: string;
+  habilidad: string;
   tipo: string;
   raza: string;
   escuela: string;
@@ -18,6 +28,8 @@ export interface CatalogFilters {
 
 export const EMPTY_FILTERS: CatalogFilters = {
   query: "",
+  edicion: "",
+  habilidad: "",
   tipo: "",
   raza: "",
   escuela: "",
@@ -32,14 +44,29 @@ export function hasActiveFilters(f: CatalogFilters): boolean {
 }
 
 /**
+ * Cuantos filtros hay puestos, sin contar la busqueda: es el numero que lleva
+ * el boton de filtros, y la busqueda tiene su propio campo a la vista.
+ */
+export function countActiveFilters(f: CatalogFilters): number {
+  const claves = Object.keys(f) as (keyof CatalogFilters)[];
+  return claves.filter((k) => k !== "query" && f[k] !== "").length;
+}
+
+/**
  * Opciones de cada filtro.
  *
  * Tipo, raza, escuela y frecuencia usan las listas canonicas del formato: la
  * oferta es la misma en toda edicion, asi el filtro no cambia de forma segun
  * lo que este cargado. Coste, fuerza y atributo si se derivan de las cartas,
  * porque son rangos abiertos.
+ *
+ * `ediciones` queda vacia cuando todas las cartas son de la misma edicion: en
+ * /catalogo/<edicion> el filtro no tendria nada que elegir, y un Select sin
+ * opciones no se dibuja.
  */
 export interface Facets {
+  ediciones: string[];
+  habilidades: string[];
   tipos: string[];
   razas: string[];
   escuelas: string[];
@@ -60,7 +87,18 @@ export function buildFacets(cards: Card[]): Facets {
       ),
     ].sort((a, b) => Number(a) - Number(b));
 
+  // El orden de EDITIONS es el de salida del juego, no el alfabetico.
+  const presentes = new Set(cards.map((c) => c.edicion));
+  const ediciones = EDITIONS.filter((e) => presentes.has(e.slug)).map((e) => e.slug);
+
+  // Las keywords que trae cada carta incluyen etiquetas internas de busqueda
+  // de la API ("Destruir", "que controles"): al filtro solo suben las que el
+  // juego imprime de verdad.
+  const declaradas = new Set(cards.flatMap((c) => c.keywords));
+
   return {
+    ediciones: ediciones.length > 1 ? ediciones : [],
+    habilidades: KEYWORDS_IMPRESAS.filter((k) => declaradas.has(k)),
     tipos: [...TIPOS],
     razas: [...RAZAS],
     escuelas: [...ESCUELAS],
@@ -120,6 +158,8 @@ export function applyFilters(
 
   return result.filter(
     (c) =>
+      matches(c.edicion, filters.edicion) &&
+      (filters.habilidad === "" || c.keywords.includes(filters.habilidad)) &&
       matches(c.tipo, filters.tipo) &&
       matches(c.raza, filters.raza) &&
       matches(c.escuela, filters.escuela) &&
