@@ -3,10 +3,24 @@
 Si agregas o cambias un valor permitido aqui, replicalo en TypeScript.
 """
 
+import re
+import unicodedata
 from enum import Enum
 from typing import Optional
 
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, field_validator, model_validator
+
+
+def slug_identidad(nombre: str) -> str:
+    """Slug del nombre de la carta, para agrupar sus impresiones.
+
+    Los limites de copias del formato se cuentan por CARTA, no por impresion:
+    dos Kirin normales mas dos Kirin Milenaria son cuatro Kirin. El `id` no
+    sirve de clave porque lleva la edicion y el numero. El nombre si, una vez
+    normalizado (hay impresiones que difieren en tildes o mayusculas).
+    """
+    base = unicodedata.normalize("NFKD", nombre).encode("ascii", "ignore").decode()
+    return re.sub(r"[^a-z0-9]+", "-", base.lower()).strip("-")
 
 
 class Tipo(str, Enum):
@@ -75,6 +89,10 @@ class Card(BaseModel):
     id: str
     codigo: str
     nombre: str
+    # Se calcula del nombre si el JSON fuente no la trae. Se pone a mano cuando
+    # dos impresiones de la misma carta llevan nombres distintos, como las
+    # variantes de diseno de Wotan.
+    identidad: str = ""
     edicion: str
     tipo: Tipo
     raza: Optional[Raza] = None
@@ -94,3 +112,9 @@ class Card(BaseModel):
     @classmethod
     def id_lower(cls, v: str) -> str:
         return v.lower()
+
+    @model_validator(mode="after")
+    def completar_identidad(self) -> "Card":
+        if not self.identidad:
+            self.identidad = slug_identidad(self.nombre)
+        return self

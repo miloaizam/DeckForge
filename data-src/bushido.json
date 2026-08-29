@@ -97,7 +97,7 @@
   {
     "id": "bu-243",
     "codigo": "BU-243",
-    "nombre": "Evocacion de Sombras",
+    "nombre": "Evocación de Sombras",
     "edicion": "bushido",
     "tipo": "Talismán",
     "raza": null,
@@ -139,7 +139,7 @@
   {
     "id": "bu-245",
     "codigo": "BU-245",
-    "nombre": "gloria de jimmu",
+    "nombre": "Gloria de Jimmu",
     "edicion": "bushido",
     "tipo": "Talismán",
     "raza": null,
@@ -1502,7 +1502,7 @@
   {
     "id": "bu-067",
     "codigo": "BU-067",
-    "nombre": "futsunushi",
+    "nombre": "Futsunushi",
     "edicion": "bushido",
     "tipo": "Aliado",
     "raza": "Eterno",
@@ -3339,7 +3339,7 @@
   {
     "id": "bu-160",
     "codigo": "BU-160",
-    "nombre": "kotoku-in",
+    "nombre": "Kotoku-in",
     "edicion": "bushido",
     "tipo": "Tótem",
     "raza": null,
@@ -3964,7 +3964,7 @@
   {
     "id": "bu-191",
     "codigo": "BU-191",
-    "nombre": "nakamura",
+    "nombre": "Nakamura",
     "edicion": "bushido",
     "tipo": "Aliado",
     "raza": "Bárbaro",
@@ -4574,7 +4574,7 @@
   {
     "id": "bu-222",
     "codigo": "BU-222",
-    "nombre": "pantano sagrado",
+    "nombre": "Pantano Sagrado",
     "edicion": "bushido",
     "tipo": "Oro",
     "raza": null,

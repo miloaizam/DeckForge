@@ -102,6 +102,17 @@ export const LEGALIDADES = ["libre", "restringida", "prohibida"] as const;
 const SLUG = /^[a-z0-9]+(?:[-_][a-z0-9]+)*$/;
 
 /**
+ * `identidad` agrupa las impresiones de una misma carta.
+ *
+ * Los limites de copias del formato se cuentan por CARTA, no por impresion:
+ * dos Kirin normales mas dos Kirin Milenaria son cuatro Kirin, y las variantes
+ * de diseno de Wotan son un solo Wotan. El `id` no sirve de clave porque lleva
+ * la edicion y el numero. La calcula `scripts/schema.py` a partir del nombre
+ * normalizado, y se puede fijar a mano en `data-src` cuando dos impresiones se
+ * llaman distinto.
+ */
+
+/**
  * Las rutas de imagen deben apuntar a nuestro propio directorio de cartas.
  *
  * Es la defensa contra un `cards.json` manipulado: sin esto, un valor como
@@ -115,6 +126,7 @@ export const cardSchema = z.object({
   id: z.string().regex(SLUG, "el id debe ser un slug seguro"),
   codigo: z.string().min(1).max(40),
   nombre: z.string().min(1).max(120),
+  identidad: z.string().regex(SLUG, "la identidad debe ser un slug seguro"),
   edicion: z.string().regex(SLUG, "la edicion debe ser un slug seguro"),
   tipo: z.enum(TIPOS),
   raza: z.enum(RAZAS).nullable().default(null),
