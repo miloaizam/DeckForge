@@ -42,9 +42,11 @@ Plan completo: [`docs/plan.md`](docs/plan.md). Marca: [`docs/brand.html`](docs/b
 npm run dev          # desarrollo en http://localhost:3000
 npm run build        # export estático a out/
 npm run preview      # sirve out/ en http://localhost:4173
-npm run check        # typecheck + lint + formato (correr antes de commitear)
+npm run check        # typecheck + lint + formato + tests (correr antes de commitear)
+npm run test         # tests de las reglas de mazo (corredor de Node, sin dependencias)
 npm run audit        # auditoría de seguridad sobre out/ (tras `npm run build`)
 npm run data:fetch bushido   # api.myl.cl -> data-src/bushido.json + images-src/
+npm run data:card helenica 042  # UNA carta suelta -> data-src/extras.json
 npm run data:images          # images-src/*    -> public/cards/*.webp
 npm run data:cards           # data-src/*.json -> public/data/cards.json
 ```
@@ -63,7 +65,8 @@ curl -sSL https://bootstrap.pypa.io/get-pip.py | .venv/bin/python -
 
 ```
 docs/          plan y guía de marca (documentación, no se compila)
-data-src/      FUENTE editable del catálogo: un JSON por edición
+data-src/      FUENTE editable del catálogo: un JSON por edición, más
+               extras.json con las cartas sueltas de fuera del formato
 images-src/    originales pesados de las cartas (git-ignorado; su .gitkeep
                es el único que queda, para que la carpeta exista en el repo)
 scripts/       herramientas Python: validan datos y convierten imágenes
@@ -168,8 +171,15 @@ cookies, sin datos personales—, pero eso no se deja al azar:
    mínimas y justificadas; `npm audit` antes de publicar; revisar qué instala
    `postinstall` scripts antes de aprobarlos.
 
-7. **Privacidad.** Los mazos nunca salen del navegador. No hay datos que
-   filtrar ni banner de consentimiento que mostrar. Que siga así.
+7. **Privacidad.** Los mazos no se guardan en ningún servidor: viven en el
+   `localStorage` del usuario. No hay cuentas, ni datos personales, ni banner de
+   consentimiento. Que siga así.
+
+   *Matiz honesto:* un mazo compartido viaja en la query string
+   (`/mazo/?d=…`), así que **sí pasa por el borde de Cloudflare** y puede
+   quedar en sus logs, como cualquier URL. No es "nunca sale del navegador".
+   Un fragmento (`#d=`) no saldría, pero cuesta la reactividad de
+   `useSearchParams`; se deja documentado por si algún día importa.
 
 8. **Sin secretos en el repo.** En un sitio estático no existe lugar seguro
    para una clave: todo `NEXT_PUBLIC_*` termina en el bundle público.
@@ -262,4 +272,42 @@ en `src/lib/theme.ts` y no en el componente.
 
 Cargadas: **386 cartas** — Bushido (246) y Sol Naciente (140).
 
-**Todavía no hay** las otras 8 ediciones ni el panel de mazo (Fase 2).
+### Constructor de mazos (Fase 2)
+
+Rutas: `/builder` arma y edita · `/mazos` la lista · `/mazo` el detalle.
+
+`/mazo` va en **singular y con query string** (`?m=` uno tuyo, `?d=` uno
+compartido) porque `output: "export"` no admite una ruta dinámica `/mazos/[id]`
+para datos del usuario: `generateStaticParams` no puede conocer ids que se
+inventan en el navegador.
+
+Reglas del formato, en `src/lib/deck-rules.ts`: 50 cartas, un oro inicial (un
+Oro sin habilidad, señalado con un puntero a una carta de `principal` porque
+cuenta dentro de las 50), mínimo 15 Aliados o Tótems, máximo 3 copias por carta
+(1 si es Única), razas de una sola escuela y side de 0 o 10 cartas.
+
+**Las copias se cuentan por `identidad`, no por `id`**: dos Kirin normales más
+dos Kirin Milenaria son cuatro Kirin. Y se suman principal y side.
+
+`canAdd` comparte contadores y mensajes con `validateDeck` a propósito: si
+divergieran, el botón "+" dejaría armar un mazo que el validador rechaza.
+
+Los mazos viven en `localStorage` y se leen con `useSyncExternalStore`, no con
+un efecto que llame a `setState` — el compilador de React bloquea eso y tiene
+razón: es un sistema externo. Sale gratis la sincronización entre pestañas.
+
+Ojo con `useSearchParams` en un export estático: **exige un `<Suspense>`**, y la
+trampa es que en desarrollo funciona sin él y falla el build de producción. En
+`/builder` el límite envuelve una hoja que no pinta nada (`DeckParamLoader`),
+no la isla entera: envolverla entera tiraría a la basura el HTML prerenderizado
+de la grilla, que es lo caro de esa página.
+
+### Tests
+
+`npm run test` corre el corredor de Node, que desde Node 24 ejecuta TypeScript
+de fábrica: **cero dependencias nuevas**. Van contra el catálogo real y no
+contra fixtures, porque los bordes que duelen salen de los datos.
+`scripts/ts-imports.mjs` son quince líneas que le enseñan a Node a resolver los
+imports sin extensión que espera el bundler de Next.
+
+**Todavía no hay** las otras 8 ediciones, ni la banlist, ni las erratas.
