@@ -1,5 +1,7 @@
-import { Hammer } from "lucide-react";
 import type { Metadata } from "next";
+
+import { BuilderView } from "@/components/builder/BuilderView";
+import { getCards } from "@/lib/cards";
 
 export const metadata: Metadata = {
   title: "Builder",
@@ -7,23 +9,23 @@ export const metadata: Metadata = {
     "Arma mazos del formato Escuelas Elementales validando las reglas de construcción.",
 };
 
-export default function BuilderPage() {
+export default async function BuilderPage() {
+  // Corre en tiempo de build: el catalogo queda en el HTML y el constructor
+  // trabaja en memoria, sin pedirle nada a ningun servidor.
+  const cards = await getCards();
+
   return (
-    <main className="mx-auto w-full max-w-[1280px] flex-1 px-4 py-10 sm:px-6">
+    // pb-24 bajo lg para que la barra fija del mazo no tape la ultima fila.
+    <main className="mx-auto w-full max-w-[1280px] flex-1 px-4 pt-10 pb-24 sm:px-6 lg:pb-10">
       <p className="eyebrow mb-3">Mazos</p>
       <h1 className="text-3xl font-bold tracking-[-0.02em]">Builder</h1>
+      <p className="text-muted mt-3 leading-relaxed">
+        Arma tu mazo del formato. Se guarda solo en este navegador y puedes compartirlo
+        por enlace.
+      </p>
 
-      <div className="border-line rounded-panel mt-10 border border-dashed px-6 py-20 text-center">
-        <Hammer
-          size={28}
-          aria-hidden="true"
-          className="text-muted mx-auto mb-4 opacity-60"
-        />
-        <p className="text-ink text-lg">Todavía no está listo.</p>
-        <p className="text-muted mx-auto mt-3 max-w-[46ch] leading-relaxed">
-          Aquí va a vivir el constructor de mazos: elegir escuela, sumar cartas desde el
-          catálogo y ver en vivo si el mazo cumple las reglas del formato.
-        </p>
+      <div className="mt-10">
+        <BuilderView cards={cards} />
       </div>
     </main>
   );

@@ -2,16 +2,23 @@
 
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import { X } from "lucide-react";
+import { Plus, X } from "lucide-react";
 
 import { AbilityText } from "./AbilityText";
 import { CARD_RATIO } from "./CardTile";
 import { editionTitle } from "@/lib/editions";
 import type { Card } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 interface CardModalProps {
   card: Card | null;
   onClose: () => void;
+  /** Copias en el mazo. Solo las pasa el constructor. */
+  copies?: number;
+  /** Si viene, el modal ofrece agregar la carta al mazo. */
+  onAdd?: () => void;
+  /** Por que no se puede agregar, si es que no se puede. */
+  addBlocked?: string;
 }
 
 /** Dato con etiqueta. No se renderiza si el valor viene vacio. */
@@ -25,7 +32,13 @@ function Stat({ label, value }: { label: string; value: string | number | null }
   );
 }
 
-export function CardModal({ card, onClose }: CardModalProps) {
+export function CardModal({
+  card,
+  onClose,
+  copies = 0,
+  onAdd,
+  addBlocked,
+}: CardModalProps) {
   const ref = useRef<HTMLDialogElement>(null);
 
   // Usamos <dialog> nativo: trae foco atrapado, cierre con Esc y devolucion
@@ -126,6 +139,38 @@ export function CardModal({ card, onClose }: CardModalProps) {
                   <p className="text-muted border-line mt-5 border-t pt-5 text-[13px]">
                     Ilustración de <span className="text-ink">{card.ilustrador}</span>
                   </p>
+                )}
+
+                {onAdd && (
+                  <div className="border-line mt-5 flex flex-wrap items-center gap-3 border-t pt-5">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (!addBlocked) onAdd();
+                      }}
+                      // aria-disabled y no disabled: sigue enfocable, y asi al
+                      // pulsarlo puede explicar por que no se puede.
+                      aria-disabled={addBlocked ? true : undefined}
+                      title={addBlocked}
+                      className={cn(
+                        "rounded-chip focus-visible:outline-brand-500 inline-flex h-11 items-center gap-2 px-4 text-sm font-medium transition-colors",
+                        addBlocked
+                          ? "border-line text-muted/60 cursor-not-allowed border"
+                          : "bg-brand-600 hover:bg-brand-500 text-white",
+                      )}
+                    >
+                      <Plus size={16} aria-hidden="true" />
+                      Agregar al mazo
+                    </button>
+                    <span className="text-muted text-[13px] tabular-nums">
+                      {copies === 0
+                        ? "Todavía no está en el mazo"
+                        : `${copies} en el mazo`}
+                    </span>
+                    {addBlocked && (
+                      <span className="text-muted w-full text-[13px]">{addBlocked}</span>
+                    )}
+                  </div>
                 )}
               </div>
             </div>
