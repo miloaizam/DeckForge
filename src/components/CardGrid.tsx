@@ -13,11 +13,31 @@ interface CardGridProps {
   addBlocked?: (card: Card) => string | undefined;
 }
 
+/**
+ * Flex y no grid, para poder centrar la ultima fila.
+ *
+ * Con `grid-cols-N` la ultima fila queda pegada a la izquierda y el hueco se
+ * acumula a la derecha: 30 cartas en 4 columnas dejan media fila vacia, y la
+ * ultima pagina del catalogo (26 cartas) deja cuatro huecos. CSS Grid no tiene
+ * forma de centrar una fila incompleta.
+ *
+ * El `basis` reproduce el ancho que tenian las columnas —para N columnas hay
+ * N-1 huecos de `gap-4`, o sea (N-1)rem— asi que el mosaico se ve igual que
+ * antes salvo por la ultima fila, que ahora va centrada.
+ *
+ * El medio pixel que se resta es un seguro: con un ajuste exacto, el redondeo
+ * sub-pixel de algunos navegadores puede tirar la ultima tarjeta a la linea
+ * siguiente y dejar una columna de menos. Medio pixel no se ve; una columna
+ * perdida si.
+ */
 export function CardGrid({ cards, onSelect, copies, onAdd, addBlocked }: CardGridProps) {
   return (
-    <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+    <ul className="flex flex-wrap justify-center gap-4">
       {cards.map((card) => (
-        <li key={card.id}>
+        <li
+          key={card.id}
+          className="min-w-0 basis-[calc((100%-1rem)/2-0.5px)] sm:basis-[calc((100%-2rem)/3-0.5px)] md:basis-[calc((100%-3rem)/4-0.5px)] lg:basis-[calc((100%-4rem)/5-0.5px)]"
+        >
           <CardTile
             card={card}
             onSelect={onSelect}
