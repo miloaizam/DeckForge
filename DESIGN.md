@@ -73,11 +73,33 @@ inventes un cuarto.
 | `ink` | `#EDE9F7` | texto principal |
 | `muted` | `#9A93B5` | secundario, metadatos, placeholders |
 
-### Superficies claras
+### Tema claro
 
-`light-bg #F5F3FB` · `light-line #E3DEF2` · `light-muted #8A82A6`.
-Uso puntual (hojas de marca, vistas de impresión). **La app es oscura**; no se
-construye un theme switcher salvo que se decida explícitamente.
+La app es **dark-first**, pero tiene tema claro conmutable desde la navbar. Se
+activa con `data-theme="light"` en `<html>` y **solo redefine tokens**: ningún
+componente sabe en qué tema está.
+
+| Token | Oscuro | Claro |
+|---|---|---|
+| `bg` | `#0D0B14` | `#F5F3FB` |
+| `surface` / `panel` | `#15121F` / `#1B1730` | `#FFFFFF` |
+| `line` | `#2A2342` | `#E3DEF2` |
+| `ink` | `#EDE9F7` | `#1B1730` |
+| `muted` | `#9A93B5` | `#5F5880` |
+| `accent` | `#A78BFA` | `#6D28D9` |
+| `accent-soft` | `#241B45` | `#EDE9FE` |
+
+**Nunca uses un `brand-*` directo para texto o fondo de acento**: usa `accent` y
+`accent-soft`. `brand-300` sobre fondo claro da 2.47:1 y es ilegible. Los
+`brand-*` sí sirven donde el color no cambia con el tema (botón primario
+`brand-600` con texto blanco, anillo de foco `brand-500`).
+
+Desviación consciente de la guía de marca: su gris `#8A82A6` solo alcanza
+3.28:1 sobre el fondo claro, así que el secundario en tema claro es `#5F5880`
+(5.98:1). Todas las combinaciones de ambos temas están verificadas en AA.
+
+El tema se guarda en `localStorage` y un script inline lo aplica antes del
+primer pintado, para que la página no parpadee.
 
 ### Radios
 

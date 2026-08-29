@@ -32,7 +32,7 @@ export function AbilityText({ text }: AbilityTextProps) {
       {text.split(KEYWORD_PATTERN).map((chunk, i) =>
         // split() con grupo de captura intercala los match en indices impares.
         i % 2 === 1 ? (
-          <strong key={i} className="text-brand-300 font-semibold">
+          <strong key={i} className="text-accent font-semibold">
             {chunk}
           </strong>
         ) : (

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { ChevronDown, FileWarning } from "lucide-react";
 
+import { ThemeToggle } from "./ThemeToggle";
 import { EDITIONS } from "@/lib/editions";
 import { cn } from "@/lib/utils";
 
@@ -67,7 +68,7 @@ function CatalogMenu({ pathname }: { pathname: string }) {
           className={cn(
             "block px-4 py-2.5 text-sm transition-colors",
             pathname === "/catalogo" || pathname === "/catalogo/"
-              ? "text-brand-200 bg-brand-800/30"
+              ? "text-accent bg-accent-soft"
               : "text-ink hover:bg-surface",
           )}
         >
@@ -100,7 +101,7 @@ function CatalogMenu({ pathname }: { pathname: string }) {
               href={href}
               className={cn(
                 "block px-4 py-2.5 text-sm transition-colors",
-                activa ? "text-brand-200 bg-brand-800/30" : "text-ink hover:bg-surface",
+                activa ? "text-accent bg-accent-soft" : "text-ink hover:bg-surface",
               )}
             >
               {ed.titulo}
@@ -143,6 +144,10 @@ export function Navbar() {
           <FileWarning size={15} aria-hidden="true" className="opacity-70" />
           Erratas
         </Link>
+
+        <div className="ml-auto">
+          <ThemeToggle />
+        </div>
       </nav>
     </header>
   );

@@ -77,7 +77,7 @@ export function CardModal({ card, onClose }: CardModalProps) {
             </h2>
 
             <div className="mt-4 flex flex-wrap gap-2">
-              <span className="border-brand-700 bg-brand-800/40 text-brand-200 rounded-chip border px-2.5 py-1 text-xs">
+              <span className="border-line bg-accent-soft text-accent rounded-chip border px-2.5 py-1 text-xs">
                 {card.tipo}
               </span>
               {card.raza && (

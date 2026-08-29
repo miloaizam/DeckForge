@@ -224,8 +224,14 @@ datos completa (API → `data-src` → WebP → `cards.json`), catálogo con gri
 modal de detalle con keywords resaltadas, buscador (MiniSearch), filtros por
 faceta con selector propio y paginación.
 
-Rutas: `/` portada · `/catalogo` todo · `/catalogo/<edicion>` · `/erratas`
-(placeholder).
+Rutas: `/` portada (sin navbar) · `/catalogo` todo · `/catalogo/<edicion>` ·
+`/erratas` (placeholder). Las páginas internas viven en el grupo `(app)`, cuyo
+layout aporta la navbar; la portada queda fuera a propósito.
+
+Tema claro/oscuro conmutable desde la navbar (ver DESIGN.md). Cuidado al
+importar constantes desde un módulo `"use client"` hacia un Server Component:
+Next entrega una referencia de cliente, no el valor. Por eso `THEME_KEY` vive
+en `src/lib/theme.ts` y no en el componente.
 
 Cargadas: **386 cartas** — Bushido (246) y Sol Naciente (140).
 

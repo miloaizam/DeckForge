@@ -17,7 +17,7 @@ export default async function CatalogoPage() {
     <main className="mx-auto w-full max-w-[1280px] flex-1 px-6 py-10">
       <p className="eyebrow mb-3">Todo</p>
       <h1 className="text-3xl font-bold tracking-[-0.02em]">Catálogo completo</h1>
-      <p className="text-muted mt-3 max-w-[62ch] leading-relaxed">
+      <p className="text-muted mt-3 leading-relaxed">
         Catálogo completo con {cards.length} cartas. Busca por nombre o texto de
         habilidad, o utiliza los filtros para una mejor búsqueda.
       </p>

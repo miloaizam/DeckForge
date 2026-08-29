@@ -77,7 +77,7 @@ export function CatalogView({ cards }: CatalogViewProps) {
             <button
               type="button"
               onClick={() => update(EMPTY_FILTERS)}
-              className="text-brand-300 hover:text-brand-200 focus-visible:outline-brand-500 mt-3 rounded text-[15px] underline underline-offset-4"
+              className="text-accent focus-visible:outline-brand-500 mt-3 rounded text-[15px] underline underline-offset-4 transition-opacity hover:opacity-75"
             >
               Limpiar los filtros
             </button>

@@ -28,7 +28,7 @@ export function CardTile({ card, onSelect }: CardTileProps) {
         style={{ aspectRatio: CARD_RATIO }}
       />
       <span className="block px-2.5 py-2">
-        <span className="text-ink group-hover:text-brand-200 block truncate text-[13px] leading-tight font-medium transition-colors">
+        <span className="text-ink group-hover:text-accent block truncate text-[13px] leading-tight font-medium transition-colors">
           {card.nombre}
         </span>
         <span className="text-muted mt-0.5 block truncate text-[11px]">

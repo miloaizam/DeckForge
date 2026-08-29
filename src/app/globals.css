@@ -27,6 +27,12 @@
   --color-ink: #ede9f7; /* texto principal */
   --color-muted: #9a93b5; /* texto secundario */
 
+  /* Acento semantico: es lo que cambia entre temas. Nunca uses un
+     brand-* directo para texto o fondos de acento, o el tema claro
+     quedara sin contraste. */
+  --color-accent: #a78bfa; /* texto y iconos de acento */
+  --color-accent-soft: #241b45; /* fondo suave de acento */
+
   /* Superficies claras (uso puntual: hojas de marca, impresion) --- */
   --color-light-bg: #f5f3fb;
   --color-light-line: #e3def2;
@@ -58,6 +64,43 @@
 /* ------------------------------------------------------------------ *
  * Base
  * ------------------------------------------------------------------ */
+/* ------------------------------------------------------------------ *
+ * Tema claro
+ *
+ * Se activa con data-theme="light" en <html>. Solo redefine tokens: ningun
+ * componente sabe en que tema esta.
+ *
+ * El gris de marca (#8A82A6) da 3.28:1 sobre el fondo claro y no llega a AA
+ * para texto normal, asi que aqui el secundario es #5F5880 (5.98:1).
+ * ------------------------------------------------------------------ */
+:root[data-theme="light"] {
+  --color-bg: #f5f3fb;
+  --color-surface: #ffffff;
+  --color-panel: #ffffff;
+  --color-line: #e3def2;
+  --color-ink: #1b1730;
+  --color-muted: #5f5880;
+  --color-accent: #6d28d9;
+  --color-accent-soft: #ede9fe;
+
+  --gradient-forge: radial-gradient(120% 120% at 30% 20%, #ffffff 0%, #eae4f8 70%);
+  --gradient-wordmark: linear-gradient(92deg, #7c3aed, #5b21b6);
+  --shadow-glow: 0 18px 40px -22px rgb(124 58 237 / 0.4);
+  --shadow-panel: 0 12px 32px -20px rgb(27 23 48 / 0.25);
+
+  color-scheme: light;
+}
+
+/* El boton de tema muestra el icono del tema al que se va a cambiar. Se
+   resuelve por CSS y no con estado de React: asi no hay desajuste de
+   hidratacion ni parpadeo. */
+:root[data-theme="light"] .solo-oscuro {
+  display: none;
+}
+:root:not([data-theme="light"]) .solo-claro {
+  display: none;
+}
+
 @layer base {
   html {
     color-scheme: dark;
@@ -123,5 +166,5 @@
   font-size: 0.8125rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--color-brand-300);
+  color: var(--color-accent);
 }

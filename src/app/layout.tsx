@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk } from "next/font/google";
+import Script from "next/script";
 
-import { Navbar } from "@/components/Navbar";
+import { THEME_KEY } from "@/lib/theme";
 import "./globals.css";
 
 /**
@@ -45,13 +46,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es" className={`${spaceGrotesk.variable} h-full antialiased`}>
       <body className="bg-bg text-ink flex min-h-full flex-col">
-        <Navbar />
+        {/* Aplica el tema guardado antes del primer pintado, para que la
+            pagina no aparezca oscura y salte a clara. */}
+        <Script id="tema" strategy="beforeInteractive">
+          {`try{if(localStorage.getItem(${JSON.stringify(THEME_KEY)})==="light")document.documentElement.dataset.theme="light"}catch(e){}`}
+        </Script>
         {children}
-        <footer className="border-line mt-12 border-t">
-          <div className="text-muted mx-auto max-w-[1280px] px-6 py-8 text-[13px] leading-relaxed">
-            Proyecto sin fines de lucro hecho por un fan y jugador de Mitos y Leyendas. El
-            arte y los nombres de las cartas son propiedad de su editor.
-          </div>
+        <footer className="border-line text-muted mt-12 border-t px-6 py-8 text-left text-[13px] leading-relaxed">
+          Proyecto sin fines de lucro hecho por un fan y jugador de Mitos y Leyendas. El
+          arte y los nombres de las cartas son propiedad de su editor.
         </footer>
       </body>
     </html>

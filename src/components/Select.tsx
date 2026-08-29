@@ -146,7 +146,7 @@ export function Select({
           className={cn(
             "focus-visible:outline-brand-500 rounded-chip flex h-11 w-full items-center gap-2 border pr-10 pl-3 text-sm transition-colors",
             activo
-              ? "border-brand-600 bg-brand-800/25 text-ink"
+              ? "border-brand-600 bg-accent-soft text-ink"
               : "border-line bg-panel text-muted hover:border-brand-500 hover:text-ink",
           )}
         >
@@ -163,7 +163,7 @@ export function Select({
               setOpen(false);
             }}
             aria-label={`Quitar el filtro ${label}`}
-            className="text-brand-300 hover:text-ink hover:bg-brand-700/40 focus-visible:outline-brand-500 absolute top-1/2 right-1.5 flex size-8 -translate-y-1/2 items-center justify-center rounded-full transition-colors"
+            className="text-accent hover:bg-brand-600 focus-visible:outline-brand-500 absolute top-1/2 right-1.5 flex size-8 -translate-y-1/2 items-center justify-center rounded-full transition-colors hover:text-white"
           >
             <X size={14} aria-hidden="true" />
           </button>
@@ -203,7 +203,7 @@ export function Select({
                 className={cn(
                   "flex cursor-pointer items-center justify-between gap-2 px-3 py-2.5 text-sm transition-colors",
                   i === active && "bg-surface",
-                  seleccionada ? "text-brand-200" : "text-ink",
+                  seleccionada ? "text-accent" : "text-ink",
                   !item && "text-muted",
                 )}
               >
