@@ -64,7 +64,8 @@ curl -sSL https://bootstrap.pypa.io/get-pip.py | .venv/bin/python -
 ```
 docs/          plan y guía de marca (documentación, no se compila)
 data-src/      FUENTE editable del catálogo: un JSON por edición
-images-src/    originales pesados de las cartas (git-ignorado)
+images-src/    originales pesados de las cartas (git-ignorado; su .gitkeep
+               es el único que queda, para que la carpeta exista en el repo)
 scripts/       herramientas Python: validan datos y convierten imágenes
 public/        se sirve tal cual
   brand/       logos e isotipos SVG
