@@ -65,6 +65,60 @@ export function readDeck(id: string): Deck | null {
   return readDecks().find((d) => d.id === id) ?? null;
 }
 
+/* ------------------------------------------------------------------ *
+ * Los mazos como sistema externo
+ *
+ * localStorage no existe en tiempo de build, asi que la lista no se puede
+ * calcular al renderizar. Se expone como un store para que React la lea con
+ * `useSyncExternalStore`, que es el primitivo hecho para esto: nada de leerla
+ * en un efecto y llamar a setState, que dispara renders en cascada.
+ *
+ * De paso se gana sincronizacion entre pestanas: si guardas un mazo en una, la
+ * lista de la otra se entera.
+ * ------------------------------------------------------------------ */
+
+/**
+ * `useSyncExternalStore` compara la instantanea por identidad, asi que tiene
+ * que ser la MISMA referencia mientras nada cambie o React entra en bucle.
+ */
+let cache: Deck[] | null = null;
+const oyentes = new Set<() => void>();
+
+/** Instantanea del servidor y del primer render: siempre el mismo array. */
+const VACIO: Deck[] = [];
+
+function avisar(): void {
+  cache = null;
+  for (const cb of oyentes) cb();
+}
+
+function alCambiarStorage(e: StorageEvent): void {
+  if (e.key === DECKS_KEY || e.key === null) avisar();
+}
+
+export function subscribeDecks(cb: () => void): () => void {
+  if (oyentes.size === 0 && disponible()) {
+    window.addEventListener("storage", alCambiarStorage);
+  }
+  oyentes.add(cb);
+
+  return () => {
+    oyentes.delete(cb);
+    if (oyentes.size === 0 && disponible()) {
+      window.removeEventListener("storage", alCambiarStorage);
+    }
+  };
+}
+
+export function getDecksSnapshot(): Deck[] {
+  if (cache === null) cache = readDecks();
+  return cache;
+}
+
+export function getServerDecksSnapshot(): Deck[] {
+  return VACIO;
+}
+
 /**
  * Guarda la lista completa. Devuelve si pudo.
  *
@@ -76,6 +130,7 @@ export function saveDecks(decks: Deck[]): boolean {
   try {
     const sobre = { v: 1, mazos: decks.slice(0, MAX_MAZOS) };
     localStorage.setItem(DECKS_KEY, JSON.stringify(sobre));
+    avisar();
     return true;
   } catch {
     return false;
