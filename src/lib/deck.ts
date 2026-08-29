@@ -1,0 +1,123 @@
+import { DECK_VERSION, MAX_NOMBRE_MAZO, type Deck, type DeckEntry } from "./types";
+
+/**
+ * Construccion y mutacion de mazos.
+ *
+ * Todo es puro: cada funcion devuelve un mazo nuevo, nunca toca el que recibe.
+ * Las reglas del formato NO viven aqui — estan en `deck-rules.ts`. Este modulo
+ * deja representar mazos ilegales a proposito: un mazo a medio armar lo es casi
+ * siempre, y uno importado con cuatro copias tiene que poder entrar para que el
+ * validador lo pueda reportar.
+ */
+
+export type DeckZone = "principal" | "side";
+
+/**
+ * Id local de un mazo: 10 caracteres de [a-z0-9].
+ *
+ * No se usa `crypto.randomUUID()` porque sus 36 caracteres con guiones ensucian
+ * la URL sin aportar nada: esto no identifica a nadie ni sale del navegador.
+ */
+export function newDeckId(): string {
+  const bytes = new Uint8Array(10);
+  crypto.getRandomValues(bytes);
+  // El sesgo de modulo da igual: es un id local, no un secreto.
+  return Array.from(bytes, (b) => (b % 36).toString(36)).join("");
+}
+
+export function createDeck(nombre = "Mazo sin nombre"): Deck {
+  const ahora = Date.now();
+  return {
+    v: DECK_VERSION,
+    id: newDeckId(),
+    nombre: nombre.slice(0, MAX_NOMBRE_MAZO) || "Mazo sin nombre",
+    oroInicial: null,
+    principal: [],
+    side: [],
+    afinidadFijada: null,
+    creado: ahora,
+    actualizado: ahora,
+  };
+}
+
+/** Marca el mazo como tocado. Todas las mutaciones pasan por aqui. */
+function touch(deck: Deck, cambios: Partial<Deck>): Deck {
+  return { ...deck, ...cambios, actualizado: Date.now() };
+}
+
+export function totalCards(entries: DeckEntry[]): number {
+  return entries.reduce((suma, e) => suma + e.n, 0);
+}
+
+/** Copias de una impresion concreta. Para contar CARTAS, ver `deck-rules.ts`. */
+export function copiesOf(deck: Deck, cardId: string, zone?: DeckZone): number {
+  const zonas: DeckZone[] = zone ? [zone] : ["principal", "side"];
+  return zonas.reduce(
+    (suma, z) => suma + (deck[z].find((e) => e.id === cardId)?.n ?? 0),
+    0,
+  );
+}
+
+/**
+ * Fija las copias de una impresion en una zona. Con `n <= 0` la saca.
+ *
+ * Si la carta que sale era el oro inicial, el puntero se limpia: dejarlo
+ * apuntando a algo que ya no esta seria un estado imposible de explicar.
+ */
+export function setQuantity(deck: Deck, cardId: string, zone: DeckZone, n: number): Deck {
+  const resto = deck[zone].filter((e) => e.id !== cardId);
+  const entries = n > 0 ? [...resto, { id: cardId, n }] : resto;
+
+  const sigueEnPrincipal =
+    zone === "principal" ? n > 0 : deck.principal.some((e) => e.id === cardId);
+  const oroInicial =
+    deck.oroInicial === cardId && !sigueEnPrincipal ? null : deck.oroInicial;
+
+  return touch(deck, { [zone]: entries, oroInicial });
+}
+
+export function addCard(deck: Deck, cardId: string, zone: DeckZone, cuantas = 1): Deck {
+  return setQuantity(deck, cardId, zone, copiesOf(deck, cardId, zone) + cuantas);
+}
+
+export function removeCard(deck: Deck, cardId: string, zone: DeckZone): Deck {
+  return setQuantity(deck, cardId, zone, copiesOf(deck, cardId, zone) - 1);
+}
+
+/**
+ * Elige que carta hace de oro inicial.
+ *
+ * Es un puntero a una carta que tambien tiene que estar en `principal`: el oro
+ * inicial cuenta dentro de las 50. Si la carta no esta en el mazo, se agrega
+ * una copia, que es lo que el usuario espera al elegirla.
+ */
+export function setStartingGold(deck: Deck, cardId: string | null): Deck {
+  if (cardId === null) return touch(deck, { oroInicial: null });
+
+  const conLaCarta =
+    copiesOf(deck, cardId, "principal") > 0
+      ? deck
+      : setQuantity(deck, cardId, "principal", 1);
+
+  return touch(conLaCarta, { oroInicial: cardId });
+}
+
+export function renameDeck(deck: Deck, nombre: string): Deck {
+  const limpio = nombre.trim().slice(0, MAX_NOMBRE_MAZO);
+  return touch(deck, { nombre: limpio || "Mazo sin nombre" });
+}
+
+export function duplicateDeck(deck: Deck, nombre?: string): Deck {
+  const ahora = Date.now();
+  return {
+    ...deck,
+    id: newDeckId(),
+    nombre: (nombre ?? `${deck.nombre} (copia)`).slice(0, MAX_NOMBRE_MAZO),
+    creado: ahora,
+    actualizado: ahora,
+  };
+}
+
+export function clearDeck(deck: Deck): Deck {
+  return touch(deck, { principal: [], side: [], oroInicial: null });
+}
