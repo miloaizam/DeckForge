@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function ErratasPage() {
   return (
-    <main className="mx-auto w-full max-w-[1280px] flex-1 px-6 py-10">
+    <main className="mx-auto w-full max-w-[1280px] flex-1 px-4 py-10 sm:px-6">
       <p className="eyebrow mb-3">Reglas</p>
       <h1 className="text-3xl font-bold tracking-[-0.02em]">Erratas</h1>
 
