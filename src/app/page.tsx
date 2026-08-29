@@ -2,11 +2,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { Flame } from "lucide-react";
 
+import { ThemeToggle } from "@/components/ThemeToggle";
+
 export default function Home() {
   return (
     // El degradado cubre toda el area disponible y el contenido va centrado en
     // los dos ejes: `flex-1` recibe del body toda la altura menos el footer.
     <main className="bg-forge relative flex flex-1 items-center justify-center overflow-hidden px-6 py-20">
+      {/* La portada no lleva navbar, asi que el control de tema va esquinado
+          arriba a la derecha. */}
+      <div className="absolute top-5 right-5 z-10">
+        <ThemeToggle />
+      </div>
+
       {/* Resplandor decorado. Su color viene del tema para no quedar como una
           mancha lavada sobre fondo claro. */}
       <div
