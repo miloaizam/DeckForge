@@ -19,6 +19,7 @@ import {
  */
 
 export const DECK_TOTAL = 50;
+/** El side no tiene minimo: es el tope, no un tamano exacto. */
 export const SIDE_TOTAL = 10;
 export const MIN_ALIADOS_O_TOTEMS = 15;
 export const MAX_COPIAS = 3;
@@ -381,12 +382,13 @@ export function validateDeck(deck: Deck, index: CardIndex): DeckIssue[] {
     });
   }
 
-  // El side va vacio o completo; no admite un estado a medias.
-  if (stats.totalSide !== 0 && stats.totalSide !== SIDE_TOTAL) {
+  // El side es libre entre 0 y SIDE_TOTAL: cualquier cantidad vale, incluidas
+  // ninguna y las diez. Lo unico que no se admite es pasarse.
+  if (stats.totalSide > SIDE_TOTAL) {
     issues.push({
       code: "tamano-side",
       gravedad: "error",
-      mensaje: `El side deck va vacío o con ${SIDE_TOTAL} cartas exactas. Lleva ${stats.totalSide}.`,
+      mensaje: `El side deck admite hasta ${SIDE_TOTAL} cartas. Lleva ${stats.totalSide}.`,
     });
   }
 

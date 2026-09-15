@@ -340,21 +340,41 @@ test("sacar el oro inicial del mazo limpia el puntero", () => {
   assert.equal(deck.oroInicial, null, "el puntero no puede quedar colgando");
 });
 
-test("el side va vacio o con 10 cartas exactas", () => {
+test("el side admite de 0 a 10 cartas, y ni una mas", () => {
   const base = mazoLegal("Dragón");
   assert.ok(isLegal(validateDeck(base, index)), "side vacio es legal");
 
-  const aliados = cards.filter((c) => c.tipo === "Aliado" && c.raza === "Oni");
+  // Talismanes: no llevan raza, asi que no tocan la afinidad del mazo.
+  const sueltas = cards.filter(
+    (c) => c.tipo === "Talismán" && !c.keywords.includes("Única"),
+  );
 
-  let siete = base;
-  for (let i = 0; i < 7; i++) siete = addCard(siete, aliados[i].id, "side");
-  assert.ok(validateDeck(siete, index).some((i) => i.code === "tamano-side"));
+  const conN = (n: number): Deck => {
+    let deck = base;
+    for (let i = 0; i < n; i++) deck = addCard(deck, sueltas[i].id, "side");
+    return deck;
+  };
 
-  let diez = base;
-  for (let i = 0; i < SIDE_TOTAL; i++) diez = addCard(diez, aliados[i].id, "side");
+  for (const n of [1, 7, SIDE_TOTAL]) {
+    assert.ok(
+      !validateDeck(conN(n), index).some((i) => i.code === "tamano-side"),
+      `${n} cartas en el side es legal`,
+    );
+  }
+
+  // La 11 no se puede ni agregar, asi que se arma a mano para validarla.
+  const once: Deck = {
+    ...base,
+    side: sueltas.slice(0, 11).map((c) => ({ id: c.id, n: 1 })),
+  };
   assert.ok(
-    !validateDeck(diez, index).some((i) => i.code === "tamano-side"),
-    "10 cartas exactas es legal",
+    validateDeck(once, index).some((i) => i.code === "tamano-side"),
+    "11 se pasa del tope",
+  );
+  assert.equal(
+    canAdd(conN(SIDE_TOTAL), index.porId.get(sueltas[SIDE_TOTAL].id)!, "side", index).ok,
+    false,
+    "y el boton + frena en las diez",
   );
 });
 

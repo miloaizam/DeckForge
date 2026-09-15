@@ -93,7 +93,7 @@ function GuardarButton({
 /**
  * A donde van las cartas que se agregan: al mazo o al side.
  *
- * El side deck es opcional y va vacio o con SIDE_TOTAL cartas exactas, pero no
+ * El side deck es opcional y admite de 0 a SIDE_TOTAL cartas, pero no
  * es un mazo aparte: comparte el tope de copias y las Unicas con el principal.
  * Por eso esto elige un destino y no abre una vista distinta.
  */

@@ -436,7 +436,14 @@ inventan en el navegador.
 Reglas del formato, en `src/lib/deck-rules.ts`: 50 cartas, un oro inicial (un
 Oro sin habilidad, señalado con un puntero a una carta de `principal` porque
 cuenta dentro de las 50), mínimo 15 Aliados **o** 15 Tótems, máximo 3 copias por
-carta (1 si es Única), razas de una sola escuela y side de 0 o 10 cartas.
+carta (1 si es Única), razas de una sola escuela y side de hasta 10 cartas.
+
+**El side deck es una extensión del mazo, no un mazo aparte**: lleva las cartas
+que quiera entre 0 y 10 —no hay mínimo ni tamaño exacto—, pero comparte con el
+principal el máximo de copias, las Únicas y la afinidad de raza. Por eso
+`deckStats` deduce la afinidad sobre las 60 cartas, mientras que los contadores
+por tipo y la curva siguen siendo del principal, que es lo que se juega de
+salida.
 
 **El mínimo de 15 lo cumple un tipo solo, no la suma de los dos**: 14 Aliados y
 14 Tótems son 28 cartas y el mazo sigue sin cumplir. Por eso `deckStats` lleva
