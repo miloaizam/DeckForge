@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
@@ -9,13 +8,15 @@ import {
   Download,
   Hammer,
   Layers,
+  Layers3,
   Link2,
+  List,
   Save,
   Trash2,
   TriangleAlert,
 } from "lucide-react";
 
-import { CARD_RATIO } from "../CardTile";
+import { DeckSections, type DeckLayout } from "./DeckSections";
 import { copyShareLink, downloadDeck } from "./actions";
 import { useDecks, useHydrated } from "./use-decks";
 import { deckTitle, duplicateDeck } from "@/lib/deck";
@@ -26,79 +27,19 @@ import {
   isLegal,
   resolveDeck,
   validateDeck,
-  type ResolvedEntry,
   DECK_TOTAL,
 } from "@/lib/deck-rules";
 import { deleteDeck, saveDeck } from "@/lib/deck-storage";
-import type { Card, Deck, Tipo } from "@/lib/types";
+import type { Card, Deck } from "@/lib/types";
 
 interface DeckDetailViewProps {
   cards: Card[];
 }
 
-const SECCIONES: { tipo: Tipo; titulo: string }[] = [
-  { tipo: "Aliado", titulo: "Aliados" },
-  { tipo: "Tótem", titulo: "Tótems" },
-  { tipo: "Arma", titulo: "Armas" },
-  { tipo: "Talismán", titulo: "Talismanes" },
-  { tipo: "Oro", titulo: "Oros" },
-];
-
 const BOTON =
   "inline-flex h-11 items-center gap-1.5 rounded-chip border border-line px-4 text-[13px] text-muted transition-colors hover:border-brand-500 hover:text-ink focus-visible:outline-brand-500";
 const ICONO =
   "inline-flex size-11 items-center justify-center rounded-chip border border-line text-muted transition-colors hover:border-brand-500 hover:text-ink focus-visible:outline-brand-500";
-
-function Seccion({
-  titulo,
-  filas,
-  oroInicial,
-}: {
-  titulo: string;
-  filas: ResolvedEntry[];
-  oroInicial: string | null;
-}) {
-  if (filas.length === 0) return null;
-  const total = filas.reduce((s, f) => s + f.n, 0);
-
-  return (
-    <section>
-      <h3 className="text-muted border-line mb-2 flex items-baseline justify-between border-b pb-1.5 text-[11px] tracking-[0.18em] uppercase">
-        {titulo}
-        <span className="tabular-nums">{total}</span>
-      </h3>
-      <ul className="divide-line divide-y">
-        {filas.map((f) => (
-          <li key={f.card.id} className="flex items-center gap-2.5 py-1.5">
-            <span className="text-accent w-6 shrink-0 text-[13px] font-medium tabular-nums">
-              {f.n}×
-            </span>
-            <Image
-              src={f.card.thumb}
-              alt=""
-              width={28}
-              height={40}
-              loading="lazy"
-              className="border-line shrink-0 rounded border"
-              style={{ aspectRatio: CARD_RATIO }}
-            />
-            <span className="text-ink min-w-0 flex-1 truncate text-[13px]">
-              {f.card.nombre}
-            </span>
-            {oroInicial === f.card.id && (
-              <span className="text-accent shrink-0 text-[11px] tracking-[0.14em] uppercase">
-                oro inicial
-              </span>
-            )}
-            {f.card.unica && (
-              <span className="text-muted shrink-0 text-[11px]">Única</span>
-            )}
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
-}
 
 /**
  * Muestra un mazo, sea tuyo (`?m=`) o de un enlace compartido (`?d=`).
@@ -113,6 +54,8 @@ export function DeckDetailView({ cards }: DeckDetailViewProps) {
   const d = params.get("d");
 
   const [mensaje, setMensaje] = useState("");
+  /** Las pilas son la vista por defecto; la lista es el recuento compacto. */
+  const [layout, setLayout] = useState<DeckLayout>("pilas");
   /** Borrar no tiene vuelta: se confirma en el mismo boton. */
   const [porBorrar, setPorBorrar] = useState(false);
 
@@ -304,16 +247,25 @@ export function DeckDetailView({ cards }: DeckDetailViewProps) {
         </div>
       )}
 
-      <div className="grid gap-8 sm:grid-cols-2">
-        {SECCIONES.map(({ tipo, titulo }) => (
-          <Seccion
-            key={tipo}
-            titulo={titulo}
-            filas={res.principal.filter((e) => e.card.tipo === tipo)}
-            oroInicial={deck.oroInicial}
-          />
-        ))}
-        <Seccion titulo="Side deck" filas={res.side} oroInicial={null} />
+      <div className="flex flex-col gap-5">
+        <div className="flex justify-end">
+          {/* Un solo boton que alterna: la etiqueta nombra a donde lleva, no
+              donde estas, asi que no necesita aria-pressed. */}
+          <button
+            type="button"
+            onClick={() => setLayout(layout === "pilas" ? "lista" : "pilas")}
+            className={BOTON}
+          >
+            {layout === "pilas" ? (
+              <List size={14} aria-hidden="true" />
+            ) : (
+              <Layers3 size={14} aria-hidden="true" />
+            )}
+            {layout === "pilas" ? "Ver como lista" : "Ver como pilas"}
+          </button>
+        </div>
+
+        <DeckSections res={res} oroInicial={deck.oroInicial} layout={layout} />
       </div>
     </div>
   );

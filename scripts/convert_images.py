@@ -22,8 +22,14 @@ EXTS = {".png", ".jpg", ".jpeg", ".webp"}
 
 
 def resize_to_width(img: Image.Image, width: int) -> Image.Image:
-    if img.width <= width:
-        return img.copy()
+    """Lleva la imagen al ancho pedido, venga mas grande o mas chica.
+
+    Casi todo el catalogo entra a 512x732 desde la API y solo hay que reducir.
+    Las seis Legendarias de Dominio, que la API no tiene, entran a 354x508: si
+    no se amplian salen a 354 de ancho y la grilla las pinta mas blandas que a
+    sus vecinas. Ampliar no inventa detalle, pero deja todas las WebP del mismo
+    tamano, que es lo que la interfaz da por hecho.
+    """
     height = round(img.height * width / img.width)
     return img.resize((width, height), Image.LANCZOS)
 

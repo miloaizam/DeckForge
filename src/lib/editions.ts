@@ -29,8 +29,8 @@ export interface Edition {
 export const EDITIONS: Edition[] = [
   { slug: "bushido", titulo: "Bushido", cargada: true },
   { slug: "sol-naciente", titulo: "Sol Naciente", cargada: true },
-  { slug: "dominio", titulo: "Dominio", cargada: false },
-  { slug: "contraataque", titulo: "ContraAtaque", cargada: false },
+  { slug: "dominio", titulo: "Dominio", cargada: true },
+  { slug: "contraataque", titulo: "ContraAtaque", cargada: true },
   { slug: "aguila-imperial", titulo: "Águila Imperial", cargada: false },
   { slug: "steampunk", titulo: "Steampunk", cargada: false },
   { slug: "axis-mundi", titulo: "Axis Mundi", cargada: false },

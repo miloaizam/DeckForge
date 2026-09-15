@@ -20,8 +20,8 @@ export default async function BuilderPage() {
       <p className="eyebrow mb-3">Mazos</p>
       <h1 className="text-3xl font-bold tracking-[-0.02em]">Builder</h1>
       <p className="text-muted mt-3 leading-relaxed">
-        Arma tu mazo del formato. Se guarda solo en este navegador y puedes compartirlo
-        por enlace.
+        Arma tu mazo del formato escuelas elementales. Presiona &apos;Guardar mazo&apos;
+        para verlo en la pestaña de Mazos.
       </p>
 
       <div className="mt-10">

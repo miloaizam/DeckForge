@@ -84,6 +84,7 @@ export const KEYWORDS_IMPRESAS = [
   "Luz",
   "Oscuridad",
   "Furia",
+  "Guardián",
   "Inmunidad",
   "Alimentar",
   "Purificar",

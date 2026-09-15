@@ -129,6 +129,121 @@ out/           build estático (git-ignorado)
   **Si cambias uno, cambia el otro en el mismo commit.**
 - El formato **no admite Monumentos**: ese tipo no entra al catálogo aunque la
   API lo liste globalmente. Verificado: 0 monumentos en las 10 ediciones.
+- **La API no es consistente entre ediciones.** Los casos ya vistos, y conviene
+  revisar cada edición nueva antes de darla por buena:
+  - El salto de línea del texto de habilidad: Bushido y Sol Naciente usan el
+    carácter `U+21B5`, Dominio un `/n` **literal** (barra y ene). `clean_text()`
+    normaliza los dos.
+  - En Bushido, además, muchas veces el separador **no llega**: el punto queda
+    pegado a la mayúscula siguiente ("…que controles.Juega cualquier número…").
+    Eran 26 cartas; corregidas a mano contra el arte, donde el salto sí existe.
+  - Campos vacíos que no deberían estarlo: ContraAtaque trae `type: null` en
+    CA-111 (Acobardar), que en el arte dice Talismán. Corregido a mano en
+    `data-src/`, que es exactamente para lo que existe ese directorio.
+  - **Y hay datos derechamente malos**: nombres mal escritos, ilustradores
+    intercambiados o vacíos, palabras comidas ("una **ez** por turno") y frases
+    truncadas. En Bushido salieron 60 correcciones y en Sol Naciente 20, todas
+    verificadas contra el arte de la carta. La
+    [lista de cartas del fandom](https://myl.fandom.com/es/wiki/Listas_de_Cartas)
+    sirve para **detectar** las diferencias (se baja por `api.php?action=parse`,
+    la página directa la bloquea Cloudflare), pero no para resolverlas: también
+    se equivoca. Manda el arte, que ya está en `public/cards/`.
+  - **`cost` y `damage` vienen cambiados de orden en 24 Aliados de Sol
+    Naciente** (ninguno en Bushido). No es un fallo del script: la API entrega
+    los dos campos al revés carta por carta. Se ve en el arte, donde el yelmo de
+    la izquierda es la **Fuerza** y la moneda de la derecha el **coste**. Al
+    revisar una edición nueva hay que comparar los dos números de cada Aliado
+    con su arte; el aviso de `build_cards.py` solo lo destapa cuando una carta
+    tiene dos impresiones y solo una salió mal.
+  - **`damage: null` en Aliados**: seis en Bushido (Tomoe, Watatsumi, Nure
+    Onna, Jion, Kiyo Hime). Un Aliado siempre tiene Fuerza impresa; completada
+    a mano.
+  - **El listado puede traer menos cartas que el directorio de imágenes.** En
+    Sol Naciente el listado da 140 cartas (`edid` 001–142, sin 132 ni 140),
+    pero `/static/cards/10/<n>.png` responde hasta la 143. Las tres de más son
+    la tanda promocional de 2017 (`2017-001`…`2017-015` al pie de cada carta):
+    la 132 es **Ordalía**, una *carta de juez*, y la 140 es la promo dorada de
+    **Sarras**, que ya está como CA-126 — las dos quedan fuera a propósito. La
+    143 sí es del bloque japonés (**Takemikazuchi**) y se agregó a mano a
+    `data-src/sol-naciente.json` con los datos leídos del arte. En Bushido el
+    directorio corta justo en 246, igual que el listado: no esconde nada.
+    **Al revisar una edición nueva, tantear `/static/cards/<ed>/<n>.png` unos
+    números más allá del último del listado.**
+  - **Y también puede traer menos cartas por abajo.** En Dominio el listado
+    empieza en la 007: las seis **Legendarias** (DO-001 Adapa, DO-002 Caída del
+    Sol, DO-003 Devorar, DO-004 Nammu, DO-005 Xolotl, DO-006 Carpa Dragón)
+    **no existen en la API** — ni en el listado, ni por `profile`, ni como
+    imagen (`/static/cards/11/001.png` … `006` dan 404). Están cargadas con
+    datos leídos de su arte, que hubo que conseguir aparte. **Al revisar una
+    edición nueva, mirar también si el listado arranca en 001.**
+    Dos cosas de esas seis que conviene saber: llevan **otra plantilla** (el
+    nombre en banda horizontal y no en vertical por el costado, así que los
+    recortes que sirven para el resto no valen aquí), y su arte entra a
+    **354×508**, por debajo de los 512×732 del resto. Por eso
+    `resize_to_width()` **amplía además de reducir**: no inventa detalle, pero
+    deja las 793 WebP a 420 de ancho, que es lo que la interfaz da por hecho.
+    Si algún día aparece el arte a tamaño completo, basta borrar
+    `public/cards/do-00X.webp` y su `thumb/` antes de volver a correr
+    `data:images`, que si no se las salta.
+  - **Un `profile` que no responde deja la carta a medias.** Tres cartas de
+    Dominio (DO-064, DO-108, DO-122) quedaron con el nombre en minúscula y
+    `ilustrador: null` porque ese endpoint falló durante el fetch. No es un
+    dato malo de la API: reintentado, responde bien. **Un nombre en minúscula
+    es la señal** — el listado los entrega así y el `profile` es quien los
+    capitaliza.
+  - **El texto puede venir de relleno.** DO-239 traía la habilidad literal
+    `xxxxxxxxxxxxxxxxxxxxxxxxxx`.
+- **Cómo se revisó Dominio** (250 cartas, 26 corregidas), por si sirve de
+  receta. La [lista del fandom](https://myl.fandom.com/es/wiki/Lista_de_cartas_de_Dominio)
+  se baja por `api.php?action=parse` y sirve para cotejar nombre, tipo, raza,
+  frecuencia e ilustrador de golpe; ojo que **no lista los promos** y que se
+  equivoca (decía "Zititron" por Zitiron, "Códex" por Codex). Lo que no cubre
+  el fandom se saca del arte, y para no abrir 250 imágenes conviene recortar
+  con Pillow y montar planchas: las dos esquinas superiores en una grilla
+  verifican coste y Fuerza de muchas cartas por imagen, y el cuadro de
+  habilidad recortado a 1.6× se lee bien con diez cartas por plancha. Las
+  **Mega Real, Milenarias y promos llevan los números en relieve metálico** y
+  no se leen sin `autocontrast` o `equalize` encima del recorte.
+  - Dominio **no** tiene el intercambio `cost`/`damage` de Sol Naciente:
+    verificados los 119 Aliados contra el arte, solo DO-180 estaba mal (un
+    coste, no un intercambio).
+  - El aviso de `build_cards.py` sobre `shuri` (coste 2 en DO-213, 3 en
+    BU-218) es **correcto y no hay que arreglarlo**: la carta se reimprimió
+    más barata. Comprobado en las dos ilustraciones.
+  - Hay erratas **impresas en la carta**, que la API reproduce fielmente:
+    DO-007 "entre en jugo", DO-182 "Mientas", DO-045 y DO-088 "regresa la
+    demás", DO-078 "Cementerio, Los Aliados", DO-140 "que no sean Oro". Por
+    decisión del proyecto **se corrigen en `data-src/`**, al contrario de lo
+    que se hizo en Bushido: el dato se busca y se lee, y la carta real queda
+    para la página de erratas. DO-053 es el único caso funcional —el arte dice
+    "un Oro" donde la API dice "hasta dos Oros"— y ahí mandó el arte.
+- **Cómo se revisó ContraAtaque** (150 cartas, 71 corregidas). Es una edición
+  **recopilatoria**: casi todas sus cartas son reimpresiones de ediciones
+  anteriores, así que su
+  [lista del fandom](https://myl.fandom.com/es/wiki/Lista_de_cartas_de_ContraAtaque)
+  usa la sexta columna para el **origen**, no para el ilustrador (salvo en las
+  Milenarias, que sí son nuevas). Tampoco lista los Oros ni los promos: da 128
+  de 150. Los tres fallos que trajo esta edición no se habían visto antes:
+  - **La frecuencia venía barajada en 48 de las 128.** No es un error de una
+    carta suelta: la API tiene el `rarity` permutado. Se detecta porque MyL
+    numera por frecuencia y el fandom da tramos limpios, mientras que la API
+    daba 45 trozos sueltos. Se resolvió con el **color del escudo del dragón**
+    que va bajo el cuadro de habilidad, que codifica la frecuencia: negro
+    Ultra Real, plata Mega Real, púrpura Milenaria, dorado Real, rojo
+    Cortesano, azul Vasallo (verde en los promos). Verificadas las 128 una a
+    una; los tramos son 1-6, 7-19, 20-29, 30-62, 63-95 y 96-128. **Vale la
+    pena mirar ese escudo en cada edición nueva antes de fiarse del `rarity`.**
+  - **Los 16 Oros traían el texto de ambientación en el campo `ability`**
+    (CA-129…CA-144). No es cosmético: `deck-rules.ts` decide `oroSinHabilidad`
+    con `tipo === "Oro" && habilidad === ""`, así que esos Oros quedaban
+    topados a 3 copias y no podían hacer de oro inicial. Se vaciaron contra el
+    arte, donde no hay cuadro de habilidad. Esos Oros llevan además su propia
+    numeración al pie (`CAO-001-016`…`CAO-016-016`).
+  - **El campo `ilustrador` arrastra un CRLF** en 15 cartas de ContraAtaque y
+    4 de Bushido. `clean_name()` lo limpia ahora en el fetch.
+  - El resto es lo de siempre: saltos de línea comidos, "de su mano" añadido
+    donde la carta no lo imprime, `Unicá` por `Única` (CA-020), y erratas
+    impresas del tipo "este Aliado este en juego".
 - Ojo con los slugs de la API: `escuelas_elementales` va con **guion bajo**,
   el resto con guion (`legado-gotico`, `aguila-imperial`…).
 
@@ -265,12 +380,32 @@ un Arma es Imbloqueable"). Ojo: ese campo trae además etiquetas internas de
 búsqueda de la API (`Destruir`, `que controles`) que no son keywords impresas;
 se filtran contra `KEYWORDS_IMPRESAS`.
 
+**Cada edición declara la keyword a su manera, y eso rompió el resaltado.**
+Bushido y Sol Naciente la imprimen a secas ("Única. Furia."), pero Dominio y
+ContraAtaque le pegan el recordatorio de reglas entre paréntesis ("Única (Sólo
+puedes tener una copia de esta carta en tu Mazo Castillo)."), y en cinco cartas
+de ContraAtaque ni siquiera llega el punto de cierre. El regex exigía el punto
+pegado a la keyword, así que de 44 cartas de Dominio reconocía 4 y de 37 de
+ContraAtaque, ninguna: salían sin violeta. Ahora salta el paréntesis y acepta
+que la declaración cierre con el fin de línea. En la prosa se **sigue**
+exigiendo el punto, que ahí sin ancla sería ambiguo. `ability.test.ts` corre
+contra el catálogo real y falla si alguna carta abre con una keyword que la UI
+no pinta, que es como aparecieron las cinco de ContraAtaque.
+
+Ojo también con `KEYWORDS_IMPRESAS`: **`Guardián` faltaba**. El campo
+`keywords` de la API no la etiqueta nunca —ni una sola carta de las cuatro
+ediciones—, aunque esté impresa en negrita como cualquier otra. Se agregó a la
+lista para que se resalte; como las facetas del filtro salen de lo que las
+cartas declaran (`catalog.ts`), agregarla no inventa una faceta vacía, pero
+**tampoco se puede filtrar por ella** hasta que el campo `keywords` la traiga.
+
 Tema claro/oscuro conmutable desde la navbar (ver DESIGN.md). Cuidado al
 importar constantes desde un módulo `"use client"` hacia un Server Component:
 Next entrega una referencia de cliente, no el valor. Por eso `THEME_KEY` vive
 en `src/lib/theme.ts` y no en el componente.
 
-Cargadas: **386 cartas** — Bushido (246) y Sol Naciente (140).
+Cargadas: **793 cartas** — Bushido (246), Sol Naciente (141), Dominio (256) y
+ContraAtaque (150).
 
 ### Constructor de mazos (Fase 2)
 
@@ -318,4 +453,4 @@ contra fixtures, porque los bordes que duelen salen de los datos.
 `scripts/ts-imports.mjs` son quince líneas que le enseñan a Node a resolver los
 imports sin extensión que espera el bundler de Next.
 
-**Todavía no hay** las otras 8 ediciones, ni la banlist, ni las erratas.
+**Todavía no hay** las otras 6 ediciones, ni la banlist, ni las erratas.

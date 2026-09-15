@@ -19,6 +19,7 @@ asi que esas correcciones hay que conservarlas.
 
 import argparse
 import json
+import re
 import sys
 import time
 import urllib.error
@@ -97,10 +98,36 @@ def download(url: str, dest: Path) -> bool:
 
 
 def clean_text(value: str | None) -> str:
-    """La API separa lineas con el caracter U+21B5, no con un salto real."""
+    """Normaliza los saltos de linea del texto de habilidad.
+
+    La API no es consistente entre ediciones: Bushido y Sol Naciente separan
+    con el caracter U+21B5, y Dominio con un "/n" literal (barra y ene, no un
+    escape). Verificado: en Dominio las 180 barras del texto son ese separador,
+    ninguna es prosa.
+    """
     if not value:
         return ""
-    return value.replace("\u21b5", "\n").replace("\r\n", "\n").strip()
+    texto = (
+        value.replace("\u21b5", "\n")
+        .replace("/n", "\n")
+        .replace("\r\n", "\n")
+        .strip()
+    )
+    # La API mete espacios dobles y espacios al final de linea. Ninguno esta en
+    # el arte y los dos ensucian la comparacion con la carta.
+    return "\n".join(re.sub(r" {2,}", " ", linea).rstrip() for linea in texto.split("\n"))
+
+
+def clean_name(value: str | None) -> str | None:
+    """Limpia un nombre suelto (ilustrador).
+
+    El campo `illustrator` llega con un CRLF pegado en unas cuantas cartas de
+    Bushido y ContraAtaque. Sin esto se cuela en el JSON y rompe el agrupado
+    por ilustrador.
+    """
+    if not value:
+        return None
+    return re.sub(r"\s+", " ", value).strip() or None
 
 
 def to_int(value: Any) -> int | None:
@@ -141,7 +168,7 @@ def build_card(
 
     details = (profile or {}).get("details") or {}
     nombre = details.get("name") or raw["name"]
-    ilustrador = ((profile or {}).get("illustrator") or {}).get("name")
+    ilustrador = clean_name(((profile or {}).get("illustrator") or {}).get("name"))
 
     return {
         "id": card_id,

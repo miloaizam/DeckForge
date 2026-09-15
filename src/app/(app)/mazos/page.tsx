@@ -16,8 +16,8 @@ export default async function MazosPage() {
       <p className="eyebrow mb-3">Mazos</p>
       <h1 className="text-3xl font-bold tracking-[-0.02em]">Mis mazos</h1>
       <p className="text-muted mt-3 leading-relaxed">
-        Viven solo en este navegador. Para llevártelos a otro equipo, expórtalos a un
-        archivo o comparte cada uno por enlace.
+        Puedes visualizar los mazos, compartirlos por un link y exportarlos/importarlos
+        utilizando un archivo JSON.
       </p>
 
       <div className="mt-10">

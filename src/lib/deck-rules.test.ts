@@ -57,7 +57,7 @@ const uno = (nombre: string): Card => {
 /** Un Oro sin habilidad, que es lo que el formato admite como oro inicial. */
 const SHODO = uno("Shodo");
 /** Un Oro CON habilidad: no puede hacer de oro inicial. */
-const REGALIA = uno("Regalia Imperial");
+const REGALIA = uno("Regalía Imperial");
 
 /**
  * Arma un mazo legal de una raza: 50 cartas, oro inicial puesto y de sobra
