@@ -20,11 +20,17 @@ import {
 
 export const DECK_TOTAL = 50;
 export const SIDE_TOTAL = 10;
-export const MIN_ALIADOS_Y_TOTEMS = 15;
+export const MIN_ALIADOS_O_TOTEMS = 15;
 export const MAX_COPIAS = 3;
 export const MAX_COPIAS_UNICA = 1;
 
-/** Los tipos que suman al minimo obligatorio. */
+/**
+ * Los tipos que pueden cumplir el minimo obligatorio, cada uno POR SU CUENTA.
+ *
+ * El formato pide 15 Aliados o 15 Totems, no 15 entre los dos: un mazo con 14
+ * Aliados y 14 Totems no cumple. Por eso el contador es el mayor de los dos y
+ * no su suma.
+ */
 const TIPOS_DEL_MINIMO: readonly Tipo[] = ["Aliado", "Tótem"];
 
 /**
@@ -197,7 +203,8 @@ export function limiteDeCopias(card: RuleCard): number {
 export interface DeckStats {
   totalPrincipal: number;
   totalSide: number;
-  aliadosYTotems: number;
+  /** El mayor entre Aliados y Totems: es el que tiene que llegar al minimo. */
+  aliadosOTotems: number;
   porTipo: Record<Tipo, number>;
   /** Cartas por coste, para la curva. La clave es el coste; las sin coste fuera. */
   curva: Map<number, number>;
@@ -219,14 +226,14 @@ export function deckStats(res: ResolvedDeck): DeckStats {
   for (const { card, n } of res.principal) {
     porTipo[card.tipo] += n;
     if (card.coste !== null) curva.set(card.coste, (curva.get(card.coste) ?? 0) + n);
-    // Solo los Aliados traen raza; el resto entra en cualquier mazo.
+    // La raza la traen los Aliados y nadie mas; el resto entra en cualquier mazo.
     if (card.raza) razas.add(card.raza);
   }
 
   return {
     totalPrincipal: res.principal.reduce((s, e) => s + e.n, 0),
     totalSide: res.side.reduce((s, e) => s + e.n, 0),
-    aliadosYTotems: TIPOS_DEL_MINIMO.reduce((s, t) => s + porTipo[t], 0),
+    aliadosOTotems: Math.max(...TIPOS_DEL_MINIMO.map((t) => porTipo[t])),
     porTipo,
     curva,
     razas,
@@ -340,12 +347,12 @@ export function validateDeck(deck: Deck, index: CardIndex): DeckIssue[] {
     });
   }
 
-  if (stats.aliadosYTotems < MIN_ALIADOS_Y_TOTEMS) {
-    const falta = MIN_ALIADOS_Y_TOTEMS - stats.aliadosYTotems;
+  if (stats.aliadosOTotems < MIN_ALIADOS_O_TOTEMS) {
+    const falta = MIN_ALIADOS_O_TOTEMS - stats.aliadosOTotems;
     issues.push({
       code: "minimo-aliados",
       gravedad: "error",
-      mensaje: `Necesitas al menos ${MIN_ALIADOS_Y_TOTEMS} cartas entre Aliados y Tótems. Llevas ${stats.aliadosYTotems}, te faltan ${falta}.`,
+      mensaje: `Necesitas ${MIN_ALIADOS_O_TOTEMS} Aliados o ${MIN_ALIADOS_O_TOTEMS} Tótems, que no se suman entre sí. Llevas ${stats.porTipo.Aliado} Aliados y ${stats.porTipo["Tótem"]} Tótems: te faltan ${falta} de un tipo.`,
     });
   }
 

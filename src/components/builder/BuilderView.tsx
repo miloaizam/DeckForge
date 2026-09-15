@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Check, Save } from "lucide-react";
 
 import { DeckClearButton, DeckPanel } from "./DeckPanel";
@@ -41,6 +42,7 @@ import {
 } from "@/lib/deck-rules";
 import { saveDeck } from "@/lib/deck-storage";
 import type { Card, Deck } from "@/lib/types";
+import { DECK_NAME_FIELD } from "@/lib/ui";
 import { cn } from "@/lib/utils";
 
 interface BuilderViewProps {
@@ -92,6 +94,7 @@ export function BuilderView({ cards }: BuilderViewProps) {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [aviso, setAviso] = useState("");
   const [guardado, setGuardado] = useState(false);
+  const router = useRouter();
 
   // Caros de construir y el catalogo no cambia en runtime.
   const search = useMemo(() => buildSearchIndex(cards), [cards]);
@@ -116,8 +119,9 @@ export function BuilderView({ cards }: BuilderViewProps) {
    *
    * En cuanto el mazo tiene un Aliado, su raza queda fija: o sigue mono-raza o
    * crece hacia su escuela. Ofrecer cartas que el validador va a rechazar solo
-   * hace perder el tiempo. Las que no llevan raza —Armas, Talismanes, Tótems y
-   * Oros— entran en cualquier mazo y nunca se filtran.
+   * hace perder el tiempo. La raza la llevan los Aliados y nadie mas, asi que
+   * Talismanes, Armas, Totems y Oros entran en cualquier mazo y nunca se
+   * filtran.
    */
   const permitidas = useMemo(() => razasPermitidas(stats.afinidad), [stats.afinidad]);
   const disponibles = useMemo(
@@ -154,6 +158,9 @@ export function BuilderView({ cards }: BuilderViewProps) {
     [],
   );
 
+  // Guardar termina el trabajo del constructor, asi que lleva a la ficha del
+  // mazo: es donde se ve entero, se comparte y se borra. El mazo ya esta en
+  // localStorage cuando navegamos, y /mazo lo lee de ahi por su id.
   const guardar = () => {
     if (deck.nombre.trim() === "") {
       mostrarAviso("Ponle un nombre al mazo antes de guardarlo.");
@@ -164,7 +171,7 @@ export function BuilderView({ cards }: BuilderViewProps) {
       return;
     }
     setGuardado(true);
-    setTimeout(() => setGuardado(false), 2500);
+    router.push(`/mazo/?m=${deck.id}`);
   };
 
   const agregar = (card: Card, zone: DeckZone = "principal") => {
@@ -226,9 +233,10 @@ export function BuilderView({ cards }: BuilderViewProps) {
               cartas. */}
           {permitidas.size > 0 && (
             <p className="text-muted -mt-4 text-[13px]">
-              Mostrando solo cartas que caben en este mazo:{" "}
-              <span className="text-ink">{[...permitidas].join(" y ")}</span>, más las que
-              no llevan raza. Para cambiar de raza, quita los Aliados del mazo.
+              Mostrando solo cartas que caben en este mazo: Aliados de{" "}
+              <span className="text-ink">{[...permitidas].join(" y ")}</span>, más
+              Talismanes, Armas, Tótems y Oros. Para cambiar de raza, quita los Aliados
+              del mazo.
             </p>
           )}
 
@@ -271,19 +279,24 @@ export function BuilderView({ cards }: BuilderViewProps) {
           )}
         </div>
 
-        {/* En escritorio el panel acompana al catalogo; bajo lg pasa a hoja. */}
-        <aside className="border-line bg-panel rounded-panel sticky top-20 hidden max-h-[calc(100dvh-6rem)] flex-col gap-4 overflow-y-auto border p-4 lg:flex">
-          <input
-            value={deck.nombre}
-            onChange={(e) => setDeck((d) => renameDeck(d, e.target.value))}
-            placeholder="Nombre del mazo"
-            aria-label="Nombre del mazo"
-            className="border-line bg-surface text-ink placeholder:text-muted focus-visible:outline-brand-500 rounded-chip h-11 w-full border px-3 text-sm"
-          />
-          {panel}
-          <div className="border-line flex flex-wrap gap-2 border-t pt-4">
-            <GuardarButton guardado={guardado} onGuardar={guardar} />
-            <DeckClearButton onClear={() => setDeck((d) => clearDeck(d))} />
+        {/* En escritorio el panel acompana al catalogo; bajo lg pasa a hoja.
+            Quien scrollea es el div de dentro, no el <aside>: asi la barra
+            —y las flechas que dibujan Windows y macOS en sus extremos— cae
+            dentro del panel y no montada sobre su esquina redondeada. */}
+        <aside className="border-line bg-panel rounded-panel sticky top-20 hidden max-h-[calc(100dvh-6rem)] flex-col overflow-hidden border p-2 lg:flex">
+          <div className="scrollbar-slim flex min-h-0 flex-col gap-4 overflow-y-auto p-2">
+            <input
+              value={deck.nombre}
+              onChange={(e) => setDeck((d) => renameDeck(d, e.target.value))}
+              placeholder="Nombre del mazo"
+              aria-label="Nombre del mazo"
+              className={cn(DECK_NAME_FIELD, "bg-surface")}
+            />
+            {panel}
+            <div className="border-line flex flex-wrap gap-2 border-t pt-4">
+              <GuardarButton guardado={guardado} onGuardar={guardar} />
+              <DeckClearButton onClear={() => setDeck((d) => clearDeck(d))} />
+            </div>
           </div>
         </aside>
       </div>
@@ -312,7 +325,7 @@ export function BuilderView({ cards }: BuilderViewProps) {
           onChange={(e) => setDeck((d) => renameDeck(d, e.target.value))}
           placeholder="Nombre del mazo"
           aria-label="Nombre del mazo"
-          className="border-line bg-panel text-ink placeholder:text-muted focus-visible:outline-brand-500 rounded-chip mb-4 h-11 w-full border px-3 text-sm"
+          className={cn(DECK_NAME_FIELD, "mb-4")}
         />
         {panel}
         <div className="border-line mt-4 flex flex-wrap gap-2 border-t pt-4">

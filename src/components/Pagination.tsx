@@ -83,7 +83,11 @@ function PageJump({
         }}
         onBlur={(e) => commit(e.currentTarget)}
         aria-label={`Ir a una página, entre 1 y ${total}`}
-        className="border-line bg-panel text-ink focus-visible:outline-brand-500 rounded-chip h-11 w-16 border px-2 text-center text-sm tabular-nums"
+        // Solo una linea bajo el numero, sin recuadro. El foco no puede ser un
+        // outline —dibujaria justo la caja que se quito—, asi que lo marca la
+        // propia linea: pasa a 2px y al color de marca, que se ve sin mover
+        // nada (la altura la fija h-8, no el borde).
+        className="border-line focus-visible:border-brand-500 text-ink h-8 w-12 rounded-none border-0 border-b bg-transparent text-center text-sm tabular-nums outline-none focus-visible:border-b-2"
       />
       <span className="tabular-nums">de {total}</span>
     </form>

@@ -98,7 +98,7 @@ export function DeckSheet({
               <X size={18} aria-hidden="true" />
             </button>
           </div>
-          <div className="max-h-[70dvh] overflow-y-auto overscroll-contain px-4 py-4">
+          <div className="scrollbar-slim max-h-[70dvh] overflow-y-auto overscroll-contain px-4 py-4">
             {children}
           </div>
         </div>

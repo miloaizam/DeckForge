@@ -7,6 +7,7 @@ import { Select } from "./Select";
 import type { CatalogFilters, Facets } from "@/lib/catalog";
 import { countActiveFilters } from "@/lib/catalog";
 import { editionTitle } from "@/lib/editions";
+import { TEXT_FIELD } from "@/lib/ui";
 import { cn } from "@/lib/utils";
 
 interface FiltersProps {
@@ -49,7 +50,7 @@ export function Filters({ filters, facets, onChange, onReset }: FiltersProps) {
             onChange={(e) => set("query")(e.target.value)}
             placeholder="Buscar por nombre o habilidad…"
             aria-label="Buscar cartas"
-            className="border-line bg-panel text-ink placeholder:text-muted focus-visible:outline-brand-500 rounded-chip h-11 w-full border pr-4 pl-10 text-sm"
+            className={cn(TEXT_FIELD, "pr-4 pl-10")}
           />
         </div>
 

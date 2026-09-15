@@ -193,6 +193,12 @@ out/           build estático (git-ignorado)
     capitaliza.
   - **El texto puede venir de relleno.** DO-239 traía la habilidad literal
     `xxxxxxxxxxxxxxxxxxxxxxxxxx`.
+  - **Un Aliado sin raza es un dato malo, no un caso legítimo.** Todos los
+    Aliados del juego llevan raza impresa; la única que nació sin ella, Nana,
+    fue erratada a **Ancestral**. Si una edición nueva trae un Aliado con
+    `raza: null`, hay que leer el arte y completarla. Los Tótems sí van sin
+    raza —los 51 cargados— y entran en cualquier mazo, igual que Talismanes,
+    Armas y Oros.
   - **El oro inicial de cada edición llega mal frecuentado y a veces mal
     nombrado.** Es esa carta a arte completo, sin habilidad y sin cuadro de
     texto, con el nombre de la edición y el año al pie ("Bushido 2016"). La API
@@ -429,8 +435,12 @@ inventan en el navegador.
 
 Reglas del formato, en `src/lib/deck-rules.ts`: 50 cartas, un oro inicial (un
 Oro sin habilidad, señalado con un puntero a una carta de `principal` porque
-cuenta dentro de las 50), mínimo 15 Aliados o Tótems, máximo 3 copias por carta
-(1 si es Única), razas de una sola escuela y side de 0 o 10 cartas.
+cuenta dentro de las 50), mínimo 15 Aliados **o** 15 Tótems, máximo 3 copias por
+carta (1 si es Única), razas de una sola escuela y side de 0 o 10 cartas.
+
+**El mínimo de 15 lo cumple un tipo solo, no la suma de los dos**: 14 Aliados y
+14 Tótems son 28 cartas y el mazo sigue sin cumplir. Por eso `deckStats` lleva
+`aliadosOTotems` con el **mayor** de los dos contadores y no con su suma.
 
 **Los Oros sin habilidad no tienen tope de copias**: son el recurso con que se
 paga todo y el mazo lleva los que necesite. Los cuatro Oros que sí traen

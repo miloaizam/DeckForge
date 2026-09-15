@@ -80,7 +80,7 @@ export function CardModal({
               barra del navegador movil no deje el ultimo trozo fuera de
               alcance, y `overscroll-contain` para que al llegar al final el
               scroll no se encadene a la pagina de atras. */}
-          <div className="max-h-[calc(100dvh-2rem)] overflow-y-auto overscroll-contain">
+          <div className="scrollbar-slim max-h-[calc(100dvh-2rem)] overflow-y-auto overscroll-contain">
             <div className="grid gap-6 p-5 sm:grid-cols-[minmax(0,17rem)_1fr] sm:gap-8 sm:p-8">
               <Image
                 src={card.imagen}

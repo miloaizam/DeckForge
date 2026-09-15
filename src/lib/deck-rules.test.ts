@@ -21,7 +21,7 @@ import {
   resolveDeck,
   validateDeck,
   DECK_TOTAL,
-  MIN_ALIADOS_Y_TOTEMS,
+  MIN_ALIADOS_O_TOTEMS,
   SIDE_TOTAL,
   type CardIndex,
 } from "./deck-rules";
@@ -199,20 +199,47 @@ test("una carta normal sigue con tope de 3", () => {
   assert.ok(validateDeck(deck, index).some((i) => i.code === "copias-exceso"));
 });
 
-test("el minimo de Aliados y Totems cuenta copias", () => {
+test("el minimo de Aliados o Totems cuenta copias", () => {
   let deck = setStartingGold(createDeck(), SHODO.id);
-  const talisman = cards.find((c) => c.tipo === "Talismán")!;
   const aliado = cards.find((c) => c.tipo === "Aliado" && c.raza === "Dragón")!;
 
   // Un solo Aliado repetido no llega al minimo por mucho que se rellene.
   deck = setQuantity(deck, aliado.id, "principal", 3);
   const stats = deckStats(resolveDeck(deck, index));
-  assert.equal(stats.aliadosYTotems, 3);
+  assert.equal(stats.aliadosOTotems, 3);
   assert.ok(
     validateDeck(deck, index).some((i) => i.code === "minimo-aliados"),
-    `con ${stats.aliadosYTotems} de ${MIN_ALIADOS_Y_TOTEMS} deberia faltar`,
+    `con ${stats.aliadosOTotems} de ${MIN_ALIADOS_O_TOTEMS} deberia faltar`,
   );
-  assert.ok(talisman);
+});
+
+test("Aliados y Totems NO se suman para el minimo", () => {
+  // Doce Aliados Dragon y doce Totems son 24 cartas, pero ninguno de los dos
+  // tipos llega solo a las 15: el mazo no cumple.
+  const aliados = cards.filter((c) => c.tipo === "Aliado" && c.raza === "Dragón");
+  const totems = cards.filter((c) => c.tipo === "Tótem");
+  assert.ok(aliados.length >= 4 && totems.length >= 4);
+
+  let deck = setStartingGold(createDeck(), SHODO.id);
+  for (const c of aliados.slice(0, 4)) deck = setQuantity(deck, c.id, "principal", 3);
+  for (const c of totems.slice(0, 4)) deck = setQuantity(deck, c.id, "principal", 3);
+
+  const stats = deckStats(resolveDeck(deck, index));
+  assert.equal(stats.porTipo.Aliado, 12);
+  assert.equal(stats.porTipo["Tótem"], 12);
+  assert.equal(stats.aliadosOTotems, 12, "el contador es el mayor, no la suma");
+  assert.ok(
+    validateDeck(deck, index).some((i) => i.code === "minimo-aliados"),
+    "12 y 12 no cumplen el minimo de 15 de un tipo",
+  );
+
+  // Con un quinto Aliado a tres copias, los Aliados solos llegan a 15.
+  deck = setQuantity(deck, aliados[4].id, "principal", 3);
+  assert.equal(deckStats(resolveDeck(deck, index)).aliadosOTotems, 15);
+  assert.ok(
+    !validateDeck(deck, index).some((i) => i.code === "minimo-aliados"),
+    "15 Aliados cumplen aunque los Totems se queden en 12",
+  );
 });
 
 test("no se pueden mezclar razas de escuelas distintas", () => {

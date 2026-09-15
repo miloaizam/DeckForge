@@ -167,6 +167,38 @@
   }
 }
 
+/* Scroll a la vista pero con la paleta de la casa: barra fina, sin canal y con
+   el pulgar del color de los bordes, que pasa a marca al apuntarlo. La reglas
+   de ::-webkit- y las de scrollbar-* conviven: Firefox lee las segundas (sin
+   hover, que no soporta) y los Chromium las primeras. El borde transparente
+   con background-clip deja aire a los lados sin tocar el ancho real. */
+@utility scrollbar-slim {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) transparent;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  /* El margen solo acorta el recorrido del pulgar; las flechas de los extremos
+     son pseudoelementos aparte y no se mueven con el. Separarlas del borde es
+     cosa del contenedor: quien scrollea va metido dentro del panel, con
+     padding alrededor (ver el <aside> de BuilderView). */
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    margin-block: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-line);
+    background-clip: content-box;
+    border: 3px solid transparent;
+    border-radius: 999px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-brand-600);
+  }
+}
+
 @utility eyebrow {
   font-size: 0.8125rem;
   letter-spacing: 0.28em;
