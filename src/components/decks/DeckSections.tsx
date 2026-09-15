@@ -1,25 +1,13 @@
 import Image from "next/image";
+import { Coins, Star } from "lucide-react";
 
 import { CARD_RATIO } from "../CardTile";
 import type { ResolvedDeck, ResolvedEntry } from "@/lib/deck-rules";
-import type { Tipo } from "@/lib/types";
+import { SECCIONES_DEL_MAZO, type Tipo } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
-/** Como se dibuja el contenido del mazo. */
-export type DeckLayout = "pilas" | "lista";
-
-const SECCIONES: { tipo: Tipo; titulo: string }[] = [
-  { tipo: "Aliado", titulo: "Aliados" },
-  { tipo: "Tótem", titulo: "Tótems" },
-  { tipo: "Arma", titulo: "Armas" },
-  { tipo: "Talismán", titulo: "Talismanes" },
-  { tipo: "Oro", titulo: "Oros" },
-];
-
-/**
- * Orden en que las pilas se reparten sobre la mesa. No es el de SECCIONES: ahi
- * manda la lectura de una lista, aca la de una mesa repartida.
- */
-const ORDEN_EN_MESA: Tipo[] = ["Aliado", "Talismán", "Tótem", "Arma", "Oro"];
+/** Las pilas se reparten en el mismo orden en que se lee la lista. */
+const ORDEN_EN_MESA: Tipo[] = SECCIONES_DEL_MAZO.map((s) => s.tipo);
 
 /** Alto de la carta en proporcion a su ancho (arte de 512 x 732). */
 const ALTO = 732 / 512;
@@ -79,6 +67,47 @@ function ordenarPilas(filas: ResolvedEntry[], oroInicial: string | null): PilaIt
   return inicial ? [...mesa, inicial] : mesa;
 }
 
+/**
+ * Elige esta carta como portada del mazo, o la quita si ya lo es.
+ *
+ * Solo aparece en un mazo propio: uno compartido por enlace no se guarda en
+ * este navegador y no habria donde escribir la eleccion. Fuera de la carta que
+ * ya es portada, se muestra al apuntar o al enfocar con el teclado: cincuenta
+ * estrellas encendidas a la vez serian ruido.
+ */
+function BotonPortada({
+  activa,
+  nombre,
+  onClick,
+  className,
+}: {
+  activa: boolean;
+  nombre: string;
+  onClick: () => void;
+  className?: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={activa}
+      aria-label={
+        activa ? `Quitar a ${nombre} de la portada` : `Usar ${nombre} de portada`
+      }
+      title={activa ? "Quitar de la portada" : "Usar de portada"}
+      className={cn(
+        "focus-visible:outline-brand-500 rounded-chip inline-flex size-7 shrink-0 items-center justify-center transition",
+        activa
+          ? "text-accent"
+          : "text-muted hover:text-ink opacity-0 group-hover:opacity-100 focus-visible:opacity-100",
+        className,
+      )}
+    >
+      <Star size={14} aria-hidden="true" fill={activa ? "currentColor" : "none"} />
+    </button>
+  );
+}
+
 function Encabezado({ titulo, total }: { titulo: string; total: number }) {
   return (
     <h3 className="text-muted border-line mb-3 flex items-baseline justify-between border-b pb-1.5 text-[11px] tracking-[0.18em] uppercase">
@@ -94,54 +123,81 @@ function Encabezado({ titulo, total }: { titulo: string; total: number }) {
  * Se dibujan las N copias de verdad, cada una corrida hacia abajo: la de
  * adelante tapa a las de atras y de ellas solo asoma la franja de arriba. Asi
  * el monton mismo dice cuantas son, sin tener que leer un rotulo.
+ *
+ * No lleva pie: el arte ya trae el nombre y el monton ya dice las copias. Lo
+ * que el pie decia se conserva donde importa —en el `aria-label` del boton,
+ * para quien no ve la imagen— y el oro inicial va marcado sobre la carta.
  */
-function Pila({ fila, oroInicial }: { fila: ResolvedEntry; oroInicial: boolean }) {
-  return (
-    <li className="group flex flex-col gap-2">
-      {/* El alto sale del ancho de la celda: la carta mide ALTO veces su ancho
-          y cada copia extra suma su franja. En padding los % van contra el
-          ancho, y en translate contra el alto propio: de ahi los dos factores. */}
-      <div
-        className="ease-out-soft relative w-full transition-transform duration-200 group-hover:-translate-y-1"
-        style={{ paddingBottom: `${ALTO * (1 + (fila.n - 1) * ASOMO) * 100}%` }}
-      >
-        {Array.from({ length: fila.n }, (_, i) => (
-          // La primera es la del fondo y la ultima la de adelante: el orden del
-          // DOM ya las apila bien, sin z-index. Y van con alt vacio a proposito,
-          // que el nombre lo pone el pie una sola vez.
-          <Image
-            key={i}
-            src={fila.card.thumb}
-            alt=""
-            width={200}
-            height={286}
-            loading="lazy"
-            className="border-line rounded-card shadow-panel absolute inset-x-0 top-0 w-full border"
-            style={{
-              aspectRatio: CARD_RATIO,
-              transform: `translateY(${i * ASOMO * 100}%)`,
-            }}
-          />
-        ))}
-      </div>
+function Pila({
+  fila,
+  oroInicial,
+  esPortada,
+  onPortada,
+  onVer,
+}: {
+  fila: ResolvedEntry;
+  oroInicial: boolean;
+  esPortada: boolean;
+  onPortada?: (cardId: string | null) => void;
+  onVer: (cardId: string) => void;
+}) {
+  const copias = fila.n === 1 ? "1 copia" : `${fila.n} copias`;
 
-      <div className="min-w-0">
-        <p
-          className="text-ink truncate text-[13px] leading-tight"
-          title={fila.card.nombre}
+  return (
+    <li className="group relative">
+      <button
+        type="button"
+        onClick={() => onVer(fila.card.id)}
+        aria-label={`Ver ${fila.card.nombre} · ${copias}${oroInicial ? " · oro inicial" : ""}`}
+        title={fila.card.nombre}
+        className="focus-visible:outline-brand-500 block w-full"
+      >
+        {/* El alto sale del ancho de la celda: la carta mide ALTO veces su ancho
+            y cada copia extra suma su franja. En padding los % van contra el
+            ancho, y en translate contra el alto propio: de ahi los dos factores. */}
+        <div
+          className="ease-out-soft relative w-full transition-transform duration-200 group-hover:-translate-y-1"
+          style={{ paddingBottom: `${ALTO * (1 + (fila.n - 1) * ASOMO) * 100}%` }}
         >
-          {fila.card.nombre}
-        </p>
-        <p className="text-muted mt-0.5 text-[11px] tabular-nums">
-          {fila.n === 1 ? "1 copia" : `${fila.n} copias`}
-        </p>
-        {oroInicial && (
-          <p className="text-accent mt-0.5 text-[11px] tracking-[0.14em] uppercase">
-            oro inicial
-          </p>
-        )}
-        {fila.card.unica && <p className="text-muted mt-0.5 text-[11px]">Única</p>}
-      </div>
+          {Array.from({ length: fila.n }, (_, i) => (
+            // La primera es la del fondo y la ultima la de adelante: el orden del
+            // DOM ya las apila bien, sin z-index. Van con alt vacio a proposito,
+            // que el nombre lo pone el boton una sola vez.
+            <Image
+              key={i}
+              src={fila.card.thumb}
+              alt=""
+              width={200}
+              height={286}
+              loading="lazy"
+              className="border-line rounded-card shadow-panel absolute inset-x-0 top-0 w-full border"
+              style={{
+                aspectRatio: CARD_RATIO,
+                transform: `translateY(${i * ASOMO * 100}%)`,
+              }}
+            />
+          ))}
+        </div>
+      </button>
+
+      {oroInicial && (
+        <span
+          aria-hidden="true"
+          title="Oro inicial"
+          className="bg-surface/85 text-accent rounded-chip absolute top-1 right-1 flex size-7 items-center justify-center backdrop-blur"
+        >
+          <Coins size={14} />
+        </span>
+      )}
+
+      {onPortada && (
+        <BotonPortada
+          activa={esPortada}
+          nombre={fila.card.nombre}
+          onClick={() => onPortada(esPortada ? null : fila.card.id)}
+          className="bg-surface/85 absolute top-1 left-1 backdrop-blur"
+        />
+      )}
     </li>
   );
 }
@@ -151,106 +207,79 @@ function Pila({ fila, oroInicial }: { fila: ResolvedEntry; oroInicial: boolean }
  *
  * items-start hace que todas cuelguen de la misma linea y cada una crezca
  * hacia abajo segun sus copias.
+ *
+ * Diez por fila en escritorio, que es el ancho en que un mazo de 50 se lee de
+ * una. Abajo bajan por tramos: a 10 columnas un telefono daria cartas de 30px.
  */
-function Mesa({ items }: { items: PilaItem[] }) {
+function Mesa({
+  items,
+  portada,
+  onPortada,
+  onVer,
+}: {
+  items: PilaItem[];
+  portada: string | null;
+  onPortada?: (cardId: string | null) => void;
+  onVer: (cardId: string) => void;
+}) {
   return (
-    <ul className="grid grid-cols-[repeat(auto-fill,minmax(112px,1fr))] items-start gap-x-4 gap-y-6">
+    <ul className="grid grid-cols-4 items-start gap-x-3 gap-y-6 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10">
       {items.map((it) => (
-        <Pila key={it.key} fila={it.fila} oroInicial={it.esOroInicial} />
+        <Pila
+          key={it.key}
+          fila={it.fila}
+          oroInicial={it.esOroInicial}
+          esPortada={it.fila.card.id === portada}
+          onPortada={onPortada}
+          onVer={onVer}
+        />
       ))}
     </ul>
-  );
-}
-
-function SeccionLista({
-  titulo,
-  filas,
-  oroInicial,
-}: {
-  titulo: string;
-  filas: ResolvedEntry[];
-  oroInicial: string | null;
-}) {
-  if (filas.length === 0) return null;
-
-  return (
-    <section>
-      <Encabezado titulo={titulo} total={filas.reduce((s, f) => s + f.n, 0)} />
-      <ul className="divide-line divide-y">
-        {filas.map((f) => (
-          <li key={f.card.id} className="flex items-center gap-2.5 py-1.5">
-            <span className="text-accent w-6 shrink-0 text-[13px] font-medium tabular-nums">
-              {f.n}×
-            </span>
-            <Image
-              src={f.card.thumb}
-              alt=""
-              width={28}
-              height={40}
-              loading="lazy"
-              className="border-line shrink-0 rounded border"
-              style={{ aspectRatio: CARD_RATIO }}
-            />
-            <span className="text-ink min-w-0 flex-1 truncate text-[13px]">
-              {f.card.nombre}
-            </span>
-            {oroInicial === f.card.id && (
-              <span className="text-accent shrink-0 text-[11px] tracking-[0.14em] uppercase">
-                oro inicial
-              </span>
-            )}
-            {f.card.unica && (
-              <span className="text-muted shrink-0 text-[11px]">Única</span>
-            )}
-          </li>
-        ))}
-      </ul>
-    </section>
   );
 }
 
 /**
  * El contenido de un mazo, con el side al final.
  *
- * `pilas` lo reparte como sobre una mesa: una sola grilla, ordenada por tipo,
- * con las copias de cada carta superpuestas. `lista` es el recuento compacto,
- * partido por tipo con un encabezado y un total en cada seccion.
+ * Se reparte como sobre una mesa: una sola grilla ordenada por tipo, con las
+ * copias de cada carta superpuestas.
  */
 export function DeckSections({
   res,
   oroInicial,
-  layout,
+  portada,
+  onPortada,
+  onVer,
 }: {
   res: ResolvedDeck;
   oroInicial: string | null;
-  layout: DeckLayout;
+  /** Que carta hace de portada en /mazos. */
+  portada: string | null;
+  /** Si falta, el mazo no es de este navegador y la portada no se puede tocar. */
+  onPortada?: (cardId: string | null) => void;
+  /** Abre el detalle de una carta. */
+  onVer: (cardId: string) => void;
 }) {
-  if (layout === "lista") {
-    return (
-      <div className="grid gap-8 sm:grid-cols-2">
-        {SECCIONES.map(({ tipo, titulo }) => (
-          <SeccionLista
-            key={tipo}
-            titulo={titulo}
-            filas={res.principal.filter((e) => e.card.tipo === tipo)}
-            oroInicial={oroInicial}
-          />
-        ))}
-        <SeccionLista titulo="Side deck" filas={res.side} oroInicial={null} />
-      </div>
-    );
-  }
-
   return (
     <div className="flex flex-col gap-9">
-      <Mesa items={ordenarPilas(res.principal, oroInicial)} />
+      <Mesa
+        items={ordenarPilas(res.principal, oroInicial)}
+        portada={portada}
+        onPortada={onPortada}
+        onVer={onVer}
+      />
 
       {/* El side si se separa: no son 10 cartas del mazo, son las 10 que no
           estan en el. Mezclarlas en la misma mesa mentiria sobre el mazo. */}
       {res.side.length > 0 && (
         <section>
           <Encabezado titulo="Side deck" total={res.side.reduce((s, f) => s + f.n, 0)} />
-          <Mesa items={ordenarPilas(res.side, null)} />
+          <Mesa
+            items={ordenarPilas(res.side, null)}
+            portada={portada}
+            onPortada={onPortada}
+            onVer={onVer}
+          />
         </section>
       )}
     </div>

@@ -20,12 +20,14 @@ import {
   pageCount,
   pageRange,
   paginate,
+  PAGE_SIZE_BUILDER,
   type CatalogFilters,
 } from "@/lib/catalog";
 import {
   addCard,
   clearDeck,
   createDeck,
+  describeDeck,
   renameDeck,
   setQuantity,
   setStartingGold,
@@ -39,10 +41,12 @@ import {
   razasPermitidas,
   resolveDeck,
   validateDeck,
+  DECK_TOTAL,
+  SIDE_TOTAL,
 } from "@/lib/deck-rules";
 import { saveDeck } from "@/lib/deck-storage";
-import type { Card, Deck } from "@/lib/types";
-import { DECK_NAME_FIELD } from "@/lib/ui";
+import { MAX_DESCRIPCION_MAZO, MAX_NOMBRE_MAZO, type Card, type Deck } from "@/lib/types";
+import { DECK_NAME_FIELD, DECK_NOTE_FIELD } from "@/lib/ui";
 import { cn } from "@/lib/utils";
 
 interface BuilderViewProps {
@@ -86,6 +90,54 @@ function GuardarButton({
   );
 }
 
+/**
+ * A donde van las cartas que se agregan: al mazo o al side.
+ *
+ * El side deck es opcional y va vacio o con SIDE_TOTAL cartas exactas, pero no
+ * es un mazo aparte: comparte el tope de copias y las Unicas con el principal.
+ * Por eso esto elige un destino y no abre una vista distinta.
+ */
+function ZonaSwitch({
+  zona,
+  onZona,
+  enPrincipal,
+  enElSide,
+}: {
+  zona: DeckZone;
+  onZona: (z: DeckZone) => void;
+  enPrincipal: number;
+  enElSide: number;
+}) {
+  const opciones: { z: DeckZone; texto: string; cuenta: string }[] = [
+    { z: "principal", texto: "Mazo", cuenta: `${enPrincipal}/${DECK_TOTAL}` },
+    { z: "side", texto: "Side deck", cuenta: `${enElSide}/${SIDE_TOTAL}` },
+  ];
+
+  return (
+    <div className="flex flex-wrap items-center gap-2 text-[13px]">
+      <span className="text-muted">Agregar a:</span>
+      <div className="border-line rounded-chip flex gap-1 border p-1">
+        {opciones.map(({ z, texto, cuenta }) => (
+          <button
+            key={z}
+            type="button"
+            onClick={() => onZona(z)}
+            aria-pressed={zona === z}
+            className={cn(
+              "rounded-chip focus-visible:outline-brand-500 px-3 py-1.5 transition-colors",
+              zona === z
+                ? "bg-brand-600 font-medium text-white"
+                : "text-muted hover:text-ink",
+            )}
+          >
+            {texto} <span className="tabular-nums opacity-80">{cuenta}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function BuilderView({ cards }: BuilderViewProps) {
   const [deck, setDeck] = useState<Deck>(() => createDeck());
   const [filters, setFilters] = useState<CatalogFilters>(EMPTY_FILTERS);
@@ -94,6 +146,14 @@ export function BuilderView({ cards }: BuilderViewProps) {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [aviso, setAviso] = useState("");
   const [guardado, setGuardado] = useState(false);
+  /**
+   * A que zona van las cartas que se agregan desde el catalogo.
+   *
+   * El side es una EXTENSION del mazo, no un mazo aparte: comparte el tope de
+   * copias, las Unicas y la afinidad de raza, de eso se encarga `canAdd`. Aqui
+   * solo se elige el destino.
+   */
+  const [zona, setZona] = useState<DeckZone>("principal");
   const router = useRouter();
 
   // Caros de construir y el catalogo no cambia en runtime.
@@ -124,12 +184,15 @@ export function BuilderView({ cards }: BuilderViewProps) {
    * filtran.
    */
   const permitidas = useMemo(() => razasPermitidas(stats.afinidad), [stats.afinidad]);
+  // El filtro de raza vale para las dos zonas: el side entra al mazo entre
+  // partidas, asi que no puede traer una raza que el mazo no admite.
+  const acotarPorRaza = permitidas.size > 0;
   const disponibles = useMemo(
     () =>
-      permitidas.size === 0
-        ? cards
-        : cards.filter((c) => c.raza === null || permitidas.has(c.raza)),
-    [cards, permitidas],
+      acotarPorRaza
+        ? cards.filter((c) => c.raza === null || permitidas.has(c.raza))
+        : cards,
+    [cards, permitidas, acotarPorRaza],
   );
 
   // Las facetas salen de lo que de verdad se puede agregar: si el filtro de
@@ -140,9 +203,9 @@ export function BuilderView({ cards }: BuilderViewProps) {
     () => applyFilters(disponibles, filters, search),
     [disponibles, filters, search],
   );
-  const totalPages = pageCount(results.length);
+  const totalPages = pageCount(results.length, PAGE_SIZE_BUILDER);
   const currentPage = Math.min(page, totalPages);
-  const visible = paginate(results, currentPage);
+  const visible = paginate(results, currentPage, PAGE_SIZE_BUILDER);
 
   // El aviso se borra solo: es un mensaje de paso, no un estado del mazo.
   const avisoTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -174,7 +237,7 @@ export function BuilderView({ cards }: BuilderViewProps) {
     router.push(`/mazo/?m=${deck.id}`);
   };
 
-  const agregar = (card: Card, zone: DeckZone = "principal") => {
+  const agregar = (card: Card, zone: DeckZone = zona) => {
     const rc = index.porId.get(card.id);
     if (!rc) return;
     const check = canAdd(deck, rc, zone, index);
@@ -190,7 +253,7 @@ export function BuilderView({ cards }: BuilderViewProps) {
   const bloqueoDe = (card: Card): string | undefined => {
     const rc = index.porId.get(card.id);
     if (!rc) return undefined;
-    const check = canAdd(deck, rc, "principal", index);
+    const check = canAdd(deck, rc, zona, index);
     return check.ok ? undefined : check.mensaje;
   };
 
@@ -214,8 +277,8 @@ export function BuilderView({ cards }: BuilderViewProps) {
         <DeckParamLoader onLoad={setDeck} onError={mostrarAviso} />
       </Suspense>
 
-      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start lg:gap-6">
-        <div className="flex flex-col gap-8">
+      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_28rem] lg:items-start lg:gap-6">
+        <div className="flex flex-col gap-5">
           <Filters
             filters={filters}
             facets={facets}
@@ -229,10 +292,17 @@ export function BuilderView({ cards }: BuilderViewProps) {
             }}
           />
 
+          <ZonaSwitch
+            zona={zona}
+            onZona={setZona}
+            enElSide={stats.totalSide}
+            enPrincipal={stats.totalPrincipal}
+          />
+
           {/* Que el catalogo este acotado tiene que verse, o parece que faltan
               cartas. */}
-          {permitidas.size > 0 && (
-            <p className="text-muted -mt-4 text-[13px]">
+          {acotarPorRaza && (
+            <p className="text-muted -mt-2 text-[13px]">
               Mostrando solo cartas que caben en este mazo: Aliados de{" "}
               <span className="text-ink">{[...permitidas].join(" y ")}</span>, más
               Talismanes, Armas, Tótems y Oros. Para cambiar de raza, quita los Aliados
@@ -264,11 +334,12 @@ export function BuilderView({ cards }: BuilderViewProps) {
                 copies={copiasPorId}
                 onAdd={(c) => agregar(c)}
                 addBlocked={bloqueoDe}
+                variante="constructor"
               />
               <Pagination
                 page={currentPage}
                 total={totalPages}
-                range={pageRange(currentPage, results.length)}
+                range={pageRange(currentPage, results.length, PAGE_SIZE_BUILDER)}
                 results={results.length}
                 onChange={(n) => {
                   setPage(n);
@@ -289,8 +360,18 @@ export function BuilderView({ cards }: BuilderViewProps) {
               value={deck.nombre}
               onChange={(e) => setDeck((d) => renameDeck(d, e.target.value))}
               placeholder="Nombre del mazo"
+              maxLength={MAX_NOMBRE_MAZO}
               aria-label="Nombre del mazo"
               className={cn(DECK_NAME_FIELD, "bg-surface")}
+            />
+            <textarea
+              value={deck.descripcion}
+              onChange={(e) => setDeck((d) => describeDeck(d, e.target.value))}
+              placeholder="Descripción (opcional)"
+              aria-label="Descripción del mazo"
+              maxLength={MAX_DESCRIPCION_MAZO}
+              rows={2}
+              className={cn(DECK_NOTE_FIELD, "bg-surface")}
             />
             {panel}
             <div className="border-line flex flex-wrap gap-2 border-t pt-4">
@@ -324,8 +405,18 @@ export function BuilderView({ cards }: BuilderViewProps) {
           value={deck.nombre}
           onChange={(e) => setDeck((d) => renameDeck(d, e.target.value))}
           placeholder="Nombre del mazo"
+          maxLength={MAX_NOMBRE_MAZO}
           aria-label="Nombre del mazo"
-          className={cn(DECK_NAME_FIELD, "mb-4")}
+          className={DECK_NAME_FIELD}
+        />
+        <textarea
+          value={deck.descripcion}
+          onChange={(e) => setDeck((d) => describeDeck(d, e.target.value))}
+          placeholder="Descripción (opcional)"
+          aria-label="Descripción del mazo"
+          maxLength={MAX_DESCRIPCION_MAZO}
+          rows={2}
+          className={cn(DECK_NOTE_FIELD, "mt-2 mb-4")}
         />
         {panel}
         <div className="border-line mt-4 flex flex-wrap gap-2 border-t pt-4">

@@ -58,7 +58,7 @@ export function CatalogView({ cards }: CatalogViewProps) {
   };
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-5">
       <Filters
         filters={filters}
         facets={facets}

@@ -50,7 +50,7 @@ export function Navbar() {
     <header className="border-line bg-bg/85 sticky top-0 z-30 border-b backdrop-blur">
       <nav
         aria-label="Principal"
-        className="mx-auto flex max-w-[1280px] items-center gap-2 px-4 py-3 sm:px-6"
+        className="mx-auto flex max-w-[1480px] items-center gap-2 px-4 py-3 sm:px-6"
       >
         <Link href="/" className="focus-visible:outline-brand-500 mr-1 rounded sm:mr-2">
           {/* El logotipo blanco es invisible sobre el fondo claro: cada tema
@@ -117,7 +117,7 @@ export function Navbar() {
           id="menu-principal"
           className="border-line bg-bg border-t px-4 py-2 md:hidden"
         >
-          <ul className="mx-auto flex max-w-[1280px] flex-col">
+          <ul className="mx-auto flex max-w-[1480px] flex-col">
             {LINKS.map(({ href, label, Icon }) => (
               <li key={href}>
                 <Link

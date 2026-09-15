@@ -15,9 +15,8 @@ import {
   type ResolvedDeck,
   type ResolvedEntry,
   DECK_TOTAL,
-  SIDE_TOTAL,
 } from "@/lib/deck-rules";
-import type { Deck, Tipo } from "@/lib/types";
+import { SECCIONES_DEL_MAZO, type Deck, type Tipo } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 interface DeckPanelProps {
@@ -30,20 +29,6 @@ interface DeckPanelProps {
   onSetStartingGold: (cardId: string | null) => void;
   onBlocked: (mensaje: string) => void;
 }
-
-/**
- * Las secciones del mazo, en el orden en que se leen en una lista impresa.
- *
- * El plural va escrito y no derivado: los terminos del juego se respetan tal
- * cual, y en castellano ninguna regla automatica los acierta todos.
- */
-const SECCIONES: { tipo: Tipo; titulo: string }[] = [
-  { tipo: "Aliado", titulo: "Aliados" },
-  { tipo: "Tótem", titulo: "Tótems" },
-  { tipo: "Arma", titulo: "Armas" },
-  { tipo: "Talismán", titulo: "Talismanes" },
-  { tipo: "Oro", titulo: "Oros" },
-];
 
 function Fila({
   entry,
@@ -241,7 +226,7 @@ export function DeckPanel({
         </p>
       ) : (
         <>
-          {SECCIONES.map(({ tipo, titulo }) => (
+          {SECCIONES_DEL_MAZO.map(({ tipo, titulo }) => (
             <Seccion
               key={tipo}
               titulo={titulo}
@@ -251,12 +236,7 @@ export function DeckPanel({
             />
           ))}
 
-          <Seccion
-            titulo={`Side deck (0 o ${SIDE_TOTAL})`}
-            filas={res.side}
-            zone="side"
-            {...comun}
-          />
+          <Seccion titulo="Side deck" filas={res.side} zone="side" {...comun} />
         </>
       )}
     </div>

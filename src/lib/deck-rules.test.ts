@@ -358,14 +358,30 @@ test("el side va vacio o con 10 cartas exactas", () => {
   );
 });
 
-test("el side admite cualquier raza", () => {
-  // El mazo principal es de Dragón; en el side entra un Oni sin romper nada.
+test("el side tampoco puede romper la afinidad", () => {
+  // El mazo principal es de Dragón; un Oni en el side lo rompe igual, porque
+  // el side entra al mazo entre partidas.
   const base = mazoLegal("Dragón");
   const oni = cards.find((c) => c.tipo === "Aliado" && c.raza === "Oni")!;
   const conOni = addCard(base, oni.id, "side");
   assert.ok(
-    !validateDeck(conOni, index).some((i) => i.code === "razas-incompatibles"),
-    "la restriccion de raza es solo del mazo principal",
+    validateDeck(conOni, index).some((i) => i.code === "razas-incompatibles"),
+    "una raza ajena en el side deja el mazo ilegal",
+  );
+
+  const rc = index.porId.get(oni.id)!;
+  assert.equal(
+    canAdd(base, rc, "side", index).ok,
+    false,
+    "y el boton + tampoco deja agregarla",
+  );
+
+  // La otra raza de la escuela si entra: Dragón y Guerrero son Dragones de Ley.
+  const guerrero = cards.find((c) => c.tipo === "Aliado" && c.raza === "Guerrero")!;
+  const conGuerrero = addCard(base, guerrero.id, "side");
+  assert.ok(
+    !validateDeck(conGuerrero, index).some((i) => i.code === "razas-incompatibles"),
+    "la escuela entera sigue siendo legal en el side",
   );
 });
 

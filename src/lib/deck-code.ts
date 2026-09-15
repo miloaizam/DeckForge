@@ -2,7 +2,7 @@ import lzString from "lz-string";
 import { z } from "zod";
 
 import { createDeck } from "./deck";
-import { deckSchema, MAX_NOMBRE_MAZO, type Deck } from "./types";
+import { deckSchema, type Deck } from "./types";
 
 /**
  * Codificar y decodificar un mazo para compartirlo por enlace.
@@ -42,7 +42,9 @@ const entradasSchema = z.array(
 /** [ version, nombre, oroInicial, principal, side ] */
 const wireSchema = z.tuple([
   z.literal(WIRE_VERSION),
-  z.string().max(MAX_NOMBRE_MAZO),
+  // Igual que el esquema del mazo: se admite leer mas largo de lo que se
+  // deja escribir, para no romper un enlace hecho cuando el tope era otro.
+  z.string().max(200),
   z.string().regex(SLUG).nullable(),
   entradasSchema.max(60),
   entradasSchema.max(20),

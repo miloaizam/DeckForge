@@ -19,6 +19,25 @@ import { z } from "zod";
 export const TIPOS = ["Aliado", "Talismán", "Arma", "Tótem", "Oro"] as const;
 
 /**
+ * Las secciones de un mazo, en el orden en que se presentan: Aliados, Armas,
+ * Talismanes, Totems y Oros.
+ *
+ * Vale para las tres vistas —la lista y las pilas de /mazo y el panel del
+ * constructor—, que antes llevaban cada una su propio orden. No es el de
+ * TIPOS, que ordena el filtro del catalogo y se queda como esta.
+ *
+ * El plural va escrito y no derivado: los terminos del juego se respetan tal
+ * cual, y en castellano ninguna regla automatica los acierta todos.
+ */
+export const SECCIONES_DEL_MAZO: readonly { tipo: Tipo; titulo: string }[] = [
+  { tipo: "Aliado", titulo: "Aliados" },
+  { tipo: "Arma", titulo: "Armas" },
+  { tipo: "Talismán", titulo: "Talismanes" },
+  { tipo: "Tótem", titulo: "Tótems" },
+  { tipo: "Oro", titulo: "Oros" },
+];
+
+/**
  * Las 13 razas del formato. Verificado contra las 10 ediciones de la API: no
  * aparece ninguna otra. El orden es el de la lista, no alfabetico.
  */
@@ -188,7 +207,23 @@ export const ESCUELA_POR_RAZA: Partial<Record<Raza, Escuela>> = Object.fromEntri
 export const DECK_VERSION = 1;
 
 /** Tope del nombre que el usuario le pone al mazo. */
-export const MAX_NOMBRE_MAZO = 60;
+export const MAX_NOMBRE_MAZO = 30;
+
+/** Tope de la descripcion del mazo. Es una nota corta, no un articulo. */
+export const MAX_DESCRIPCION_MAZO = 50;
+
+/**
+ * Lo que el esquema admite LEER, que es mas de lo que la interfaz deja
+ * escribir.
+ *
+ * Los topes de arriba se han acortado ya una vez, y acortar el `.max()` del
+ * esquema con ellos tiraria a la basura los mazos ya guardados con un nombre
+ * mas largo: `deck-storage` descarta lo que no valida. Asi en cambio entran y
+ * se recortan al leerlos. La cota sigue existiendo —un localStorage hostil no
+ * va a meternos un nombre de un mega—, solo que mas arriba.
+ */
+const MAX_NOMBRE_LEIBLE = 200;
+const MAX_DESCRIPCION_LEIBLE = 600;
 
 /**
  * Cotas de forma, deliberadamente mas anchas que las reglas del formato.
@@ -227,13 +262,31 @@ export const deckSchema = z.object({
    * escribir otro nombre. Es obligatorio para GUARDAR, no para existir, y de
    * eso se encarga `validateDeck`.
    */
-  nombre: z.string().max(MAX_NOMBRE_MAZO),
+  nombre: z
+    .string()
+    .max(MAX_NOMBRE_LEIBLE)
+    .transform((t) => t.slice(0, MAX_NOMBRE_MAZO)),
+  /**
+   * Nota corta del autor sobre el mazo. Opcional: casi siempre viene vacia.
+   * Con `.default("")` los mazos ya guardados se siguen leyendo.
+   */
+  descripcion: z
+    .string()
+    .max(MAX_DESCRIPCION_LEIBLE)
+    .transform((t) => t.slice(0, MAX_DESCRIPCION_MAZO))
+    .default(""),
   /**
    * Que carta del mazo hace de oro inicial. Es un PUNTERO a una entrada de
    * `principal`, no una zona aparte: el oro inicial cuenta dentro de las 50,
    * y darle un hueco propio garantizaba un error de conteo de uno.
    */
   oroInicial: z.string().regex(SLUG).nullable().default(null),
+  /**
+   * Que carta del mazo hace de portada en la lista. Presentacion pura: no
+   * entra en las reglas ni en el enlace compartido, como `afinidadFijada`.
+   * Lleva `.default(null)` para que los mazos ya guardados sigan leyendose.
+   */
+  portada: z.string().regex(SLUG).nullable().default(null),
   principal: z.array(deckEntrySchema).max(MAX_ENTRADAS),
   side: z.array(deckEntrySchema).max(MAX_ENTRADAS_SIDE),
   /**

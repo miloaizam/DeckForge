@@ -1,4 +1,10 @@
-import { DECK_VERSION, MAX_NOMBRE_MAZO, type Deck, type DeckEntry } from "./types";
+import {
+  DECK_VERSION,
+  MAX_DESCRIPCION_MAZO,
+  MAX_NOMBRE_MAZO,
+  type Deck,
+  type DeckEntry,
+} from "./types";
 
 /**
  * Construccion y mutacion de mazos.
@@ -31,7 +37,9 @@ export function createDeck(nombre = ""): Deck {
     v: DECK_VERSION,
     id: newDeckId(),
     nombre: nombre.slice(0, MAX_NOMBRE_MAZO),
+    descripcion: "",
     oroInicial: null,
+    portada: null,
     principal: [],
     side: [],
     afinidadFijada: null,
@@ -73,7 +81,23 @@ export function setQuantity(deck: Deck, cardId: string, zone: DeckZone, n: numbe
   const oroInicial =
     deck.oroInicial === cardId && !sigueEnPrincipal ? null : deck.oroInicial;
 
-  return touch(deck, { [zone]: entries, oroInicial });
+  // La portada puede ser cualquier carta del mazo, side incluido, asi que se
+  // limpia solo cuando no queda ninguna copia en ninguna de las dos zonas.
+  const otraZona: DeckZone = zone === "principal" ? "side" : "principal";
+  const sigueEnElMazo = n > 0 || deck[otraZona].some((e) => e.id === cardId);
+  const portada = deck.portada === cardId && !sigueEnElMazo ? null : deck.portada;
+
+  return touch(deck, { [zone]: entries, oroInicial, portada });
+}
+
+/**
+ * Elige que carta hace de portada del mazo en /mazos. `null` la quita.
+ *
+ * No agrega la carta al mazo si no esta —al reves que el oro inicial—: la
+ * portada se elige desde el detalle, entre las que el mazo ya lleva.
+ */
+export function setCover(deck: Deck, cardId: string | null): Deck {
+  return touch(deck, { portada: cardId });
 }
 
 export function addCard(deck: Deck, cardId: string, zone: DeckZone, cuantas = 1): Deck {
@@ -113,6 +137,11 @@ export function renameDeck(deck: Deck, nombre: string): Deck {
   return touch(deck, { nombre: nombre.slice(0, MAX_NOMBRE_MAZO) });
 }
 
+/** Cambia la descripcion. Es opcional: vacia es un valor legitimo. */
+export function describeDeck(deck: Deck, descripcion: string): Deck {
+  return touch(deck, { descripcion: descripcion.slice(0, MAX_DESCRIPCION_MAZO) });
+}
+
 /** Como se muestra un mazo que todavia no tiene nombre. */
 export function deckTitle(deck: Deck): string {
   return deck.nombre.trim() || "Mazo sin nombre";
@@ -130,5 +159,5 @@ export function duplicateDeck(deck: Deck, nombre?: string): Deck {
 }
 
 export function clearDeck(deck: Deck): Deck {
-  return touch(deck, { principal: [], side: [], oroInicial: null });
+  return touch(deck, { principal: [], side: [], oroInicial: null, portada: null });
 }

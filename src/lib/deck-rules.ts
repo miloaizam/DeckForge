@@ -226,6 +226,13 @@ export function deckStats(res: ResolvedDeck): DeckStats {
   for (const { card, n } of res.principal) {
     porTipo[card.tipo] += n;
     if (card.coste !== null) curva.set(card.coste, (curva.get(card.coste) ?? 0) + n);
+  }
+
+  // La afinidad se mira sobre las 60 cartas, no sobre las 50: el side es una
+  // extension del mazo y entra a el entre partidas, asi que no puede traer una
+  // raza que el mazo no admite. Los contadores y la curva, en cambio, siguen
+  // siendo del principal: son lo que se juega de salida.
+  for (const { card } of [...res.principal, ...res.side]) {
     // La raza la traen los Aliados y nadie mas; el resto entra en cualquier mazo.
     if (card.raza) razas.add(card.raza);
   }
@@ -444,8 +451,9 @@ export function canAdd(
     return { ok: false, mensaje: `El side deck ya tiene sus ${SIDE_TOTAL} cartas.` };
   }
 
-  // La raza solo restringe el mazo principal: el side admite cualquier carta.
-  if (zone === "principal" && card.raza) {
+  // La raza restringe las dos zonas: un side de otra escuela seria un mazo
+  // ilegal en cuanto se usara.
+  if (card.raza) {
     const razas = new Set(stats.razas);
     razas.add(card.raza);
     if (deckAffinity(razas).modo === "invalida") {

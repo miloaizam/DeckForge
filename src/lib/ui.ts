@@ -34,3 +34,15 @@ export const TEXT_FIELD =
  * cuanto se empezaba a armar el mazo, que es justo cuando se usa.
  */
 export const DECK_NAME_FIELD = cn(TEXT_FIELD, "h-12 shrink-0 rounded-md");
+
+/**
+ * La descripcion del mazo: la misma caja del nombre, pero de dos lineas y con
+ * la tipografia de un pie, que es una nota y no un titulo.
+ *
+ * `resize-none` porque el alto lo fija `rows`: un textarea estirable dentro de
+ * un panel que ya scrollea confunde mas que ayuda.
+ */
+export const DECK_NOTE_FIELD = cn(
+  TEXT_FIELD,
+  "h-auto shrink-0 resize-none rounded-md py-2 text-[13px] leading-snug",
+);

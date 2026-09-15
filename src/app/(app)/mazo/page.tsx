@@ -25,7 +25,9 @@ export default async function MazoPage() {
   const cards = await getCards();
 
   return (
-    <main className="mx-auto w-full max-w-[1040px] flex-1 px-4 py-10 sm:px-6">
+    // 1480 es el ancho de toda la web: aqui sale de que a diez cartas por fila
+    // deja la carta en 132px, que es donde se reconoce sin abrirla.
+    <main className="mx-auto w-full max-w-[1480px] flex-1 px-4 py-10 sm:px-6">
       {/* Toda la pagina depende del parametro, asi que el limite va afuera. */}
       <Suspense
         fallback={

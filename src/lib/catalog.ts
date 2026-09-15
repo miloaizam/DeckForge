@@ -10,7 +10,14 @@ import {
   type Card,
 } from "./types";
 
-export const PAGE_SIZE = 30;
+/**
+ * Cuantas cartas por pagina.
+ *
+ * El catalogo llena siete columnas y el constructor seis, que ademas cede
+ * ancho al panel del mazo: cada uno cierra sus filas con un numero distinto.
+ */
+export const PAGE_SIZE = 35;
+export const PAGE_SIZE_BUILDER = 30;
 
 /** Un filtro sin valor es `""`: significa "todos". */
 export interface CatalogFilters {

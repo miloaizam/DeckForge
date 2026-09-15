@@ -8,18 +8,17 @@ import {
   Download,
   Hammer,
   Layers,
-  Layers3,
   Link2,
-  List,
   Save,
   Trash2,
   TriangleAlert,
 } from "lucide-react";
 
-import { DeckSections, type DeckLayout } from "./DeckSections";
+import { DeckSections } from "./DeckSections";
+import { CardModal } from "../CardModal";
 import { copyShareLink, downloadDeck } from "./actions";
 import { useDecks, useHydrated } from "./use-decks";
-import { deckTitle, duplicateDeck } from "@/lib/deck";
+import { deckTitle, duplicateDeck, setCover } from "@/lib/deck";
 import { decodeDeck } from "@/lib/deck-code";
 import {
   buildCardIndex,
@@ -54,8 +53,8 @@ export function DeckDetailView({ cards }: DeckDetailViewProps) {
   const d = params.get("d");
 
   const [mensaje, setMensaje] = useState("");
-  /** Las pilas son la vista por defecto; la lista es el recuento compacto. */
-  const [layout, setLayout] = useState<DeckLayout>("pilas");
+  /** Que carta se esta mirando en el modal. */
+  const [vista, setVista] = useState<Card | null>(null);
   /** Borrar no tiene vuelta: se confirma en el mismo boton. */
   const [porBorrar, setPorBorrar] = useState(false);
 
@@ -85,6 +84,19 @@ export function DeckDetailView({ cards }: DeckDetailViewProps) {
     setMensaje(texto);
     setTimeout(() => setMensaje(""), 4000);
   }, []);
+
+  /**
+   * La portada se guarda al vuelo: el mazo sale del store, asi que escribirlo
+   * basta para que la lista y esta vista se enteren. En un mazo compartido no
+   * se ofrece —no hay nada guardado que actualizar—, y de eso se encarga el
+   * `onPortada` que se le pasa (o no) a DeckSections.
+   */
+  const elegirPortada = (cardId: string | null) => {
+    if (!deck) return;
+    if (!saveDeck(setCover(deck, cardId))) {
+      avisar("No pude guardarlo: el almacenamiento del navegador está lleno.");
+    }
+  };
 
   const guardar = () => {
     if (!deck) return;
@@ -128,20 +140,34 @@ export function DeckDetailView({ cards }: DeckDetailViewProps) {
   const compartido = Boolean(d);
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-5">
       {/* El nombre del mazo ES el titulo de la pagina; a su lado, el conteo y
           las mismas acciones que trae su tarjeta en /mazos. */}
       <header className="flex flex-wrap items-start justify-between gap-x-6 gap-y-4">
         <div className="min-w-0">
           <p className="eyebrow mb-3">Mazo</p>
           <h1 className="text-3xl font-bold tracking-[-0.02em]">{deckTitle(deck)}</h1>
+          {/* La descripcion es opcional: si esta vacia no deja hueco. */}
+          {deck.descripcion.trim() !== "" && (
+            <p className="text-muted mt-2 max-w-[60ch] text-[13px] leading-relaxed">
+              {deck.descripcion}
+            </p>
+          )}
         </div>
 
         <div className="flex flex-col items-start gap-3 sm:items-end">
-          <p className="text-muted text-[13px] tabular-nums">
-            {stats.totalPrincipal}/{DECK_TOTAL} cartas
-            {stats.totalSide > 0 && ` · side ${stats.totalSide}`}
-          </p>
+          {/* El aviso va en la linea del recuento y no bajo los botones: ahi
+              reservaba su alto siempre —para no empujar el mazo al aparecer— y
+              eran 32px de aire permanente entre los botones y las cartas. */}
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <p role="status" aria-live="polite" className="text-muted text-[13px]">
+              {mensaje}
+            </p>
+            <p className="text-muted text-[13px] tabular-nums">
+              {stats.totalPrincipal}/{DECK_TOTAL} cartas
+              {stats.totalSide > 0 && ` · side ${stats.totalSide}`}
+            </p>
+          </div>
 
           <div className="flex flex-wrap gap-2">
             {compartido ? (
@@ -224,10 +250,6 @@ export function DeckDetailView({ cards }: DeckDetailViewProps) {
               </>
             )}
           </div>
-
-          <p role="status" aria-live="polite" className="text-muted min-h-5 text-[13px]">
-            {mensaje}
-          </p>
         </div>
       </header>
 
@@ -247,26 +269,17 @@ export function DeckDetailView({ cards }: DeckDetailViewProps) {
         </div>
       )}
 
-      <div className="flex flex-col gap-5">
-        <div className="flex justify-end">
-          {/* Un solo boton que alterna: la etiqueta nombra a donde lleva, no
-              donde estas, asi que no necesita aria-pressed. */}
-          <button
-            type="button"
-            onClick={() => setLayout(layout === "pilas" ? "lista" : "pilas")}
-            className={BOTON}
-          >
-            {layout === "pilas" ? (
-              <List size={14} aria-hidden="true" />
-            ) : (
-              <Layers3 size={14} aria-hidden="true" />
-            )}
-            {layout === "pilas" ? "Ver como lista" : "Ver como pilas"}
-          </button>
-        </div>
+      <DeckSections
+        res={res}
+        oroInicial={deck.oroInicial}
+        portada={deck.portada}
+        onPortada={compartido ? undefined : elegirPortada}
+        onVer={(cardId) => setVista(cards.find((c) => c.id === cardId) ?? null)}
+      />
 
-        <DeckSections res={res} oroInicial={deck.oroInicial} layout={layout} />
-      </div>
+      {/* El mismo modal del catalogo, sin el boton de agregar: aqui el mazo ya
+          esta armado y se viene a mirar la carta, no a cambiarla. */}
+      <CardModal card={vista} onClose={() => setVista(null)} />
     </div>
   );
 }
