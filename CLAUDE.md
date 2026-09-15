@@ -193,6 +193,17 @@ out/           build estático (git-ignorado)
     capitaliza.
   - **El texto puede venir de relleno.** DO-239 traía la habilidad literal
     `xxxxxxxxxxxxxxxxxxxxxxxxxx`.
+  - **El oro inicial de cada edición llega mal frecuentado y a veces mal
+    nombrado.** Es esa carta a arte completo, sin habilidad y sin cuadro de
+    texto, con el nombre de la edición y el año al pie ("Bushido 2016"). La API
+    la entrega como `Promocional` —lo es de origen, pero en el catálogo su
+    frecuencia útil es **Oro**, que es lo que el jugador busca en el filtro— y
+    en Dominio además la llamaba "Dominio 2017". Las cuatro quedan como
+    `frecuencia: "Oro"` y con el nombre unificado **Oro Inicial <edición>**
+    (BU-237, SN-129, DO-237, CA-145). Al cargar una edición nueva, buscar la
+    suya y dejarla igual. Ojo de no arrastrar a los Oros promocionales de
+    verdad, que sí traen habilidad: DO-256 (Carmina Burana) se queda
+    `Promocional`.
 - **Cómo se revisó Dominio** (250 cartas, 26 corregidas), por si sirve de
   receta. La [lista del fandom](https://myl.fandom.com/es/wiki/Lista_de_cartas_de_Dominio)
   se baja por `api.php?action=parse` y sirve para cotejar nombre, tipo, raza,

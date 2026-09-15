@@ -97,8 +97,12 @@ export function Filters({ filters, facets, onChange, onReset }: FiltersProps) {
           className="border-line bg-surface rounded-panel border p-4 sm:p-5"
         >
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            {/* La edicion solo aparece en /catalogo: en la pagina de una
-                edicion la faceta viene vacia y el Select no se dibuja. */}
+            {/* Dos filas de cuatro en pantalla ancha, en el orden en que se
+                suele filtrar. La edicion solo aparece en /catalogo: en la
+                pagina de una edicion la faceta viene vacia y el Select no se
+                dibuja, asi que las ocho restantes siguen cuadrando. Atributo
+                va al final y hoy tampoco se dibuja: ninguna de las cuatro
+                ediciones cargadas trae Luz ni Oscuridad. */}
             <Select
               label="Edición"
               value={filters.edicion}
@@ -107,11 +111,16 @@ export function Filters({ filters, facets, onChange, onReset }: FiltersProps) {
               format={editionTitle}
             />
             <Select
-              label="Habilidad"
-              value={filters.habilidad}
-              options={facets.habilidades}
-              onChange={set("habilidad")}
-              placeholder="Todas"
+              label="Frecuencia"
+              value={filters.frecuencia}
+              options={facets.frecuencias}
+              onChange={set("frecuencia")}
+            />
+            <Select
+              label="Escuela elemental"
+              value={filters.escuela}
+              options={facets.escuelas}
+              onChange={set("escuela")}
             />
             <Select
               label="Tipo"
@@ -126,28 +135,23 @@ export function Filters({ filters, facets, onChange, onReset }: FiltersProps) {
               onChange={set("raza")}
             />
             <Select
-              label="Escuela elemental"
-              value={filters.escuela}
-              options={facets.escuelas}
-              onChange={set("escuela")}
-            />
-            <Select
-              label="Frecuencia"
-              value={filters.frecuencia}
-              options={facets.frecuencias}
-              onChange={set("frecuencia")}
-            />
-            <Select
-              label="Coste"
-              value={filters.coste}
-              options={facets.costes}
-              onChange={set("coste")}
+              label="Habilidad"
+              value={filters.habilidad}
+              options={facets.habilidades}
+              onChange={set("habilidad")}
+              placeholder="Todas"
             />
             <Select
               label="Fuerza"
               value={filters.fuerza}
               options={facets.fuerzas}
               onChange={set("fuerza")}
+            />
+            <Select
+              label="Coste"
+              value={filters.coste}
+              options={facets.costes}
+              onChange={set("coste")}
             />
             <Select
               label="Atributo"

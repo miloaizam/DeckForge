@@ -46,20 +46,25 @@ export const ESCUELAS = [
 ] as const;
 
 /**
- * Las 9 frecuencias del formato, de la mas rara a la mas comun.
+ * Las 9 frecuencias del formato, en el orden en que se muestran.
+ *
+ * Es el orden del catalogo y el del filtro de frecuencia. `schema.py` declara
+ * los mismos valores pero en el orden de la tabla `rarities` de la API: lo que
+ * tiene que coincidir son los valores, no el orden, y `audit_build.py` los
+ * compara como conjuntos.
  *
  * La API declara ademas Secreta, Ficha y Set Paralelo, pero no las usa ninguna
  * carta de las 10 ediciones, asi que quedan fuera.
  */
 export const FRECUENCIAS = [
   "Promocional",
-  "Milenaria",
   "Legendaria",
   "Ultra Real",
   "Mega Real",
+  "Milenaria",
   "Real",
-  "Vasallo",
   "Cortesano",
+  "Vasallo",
   "Oro",
 ] as const;
 
