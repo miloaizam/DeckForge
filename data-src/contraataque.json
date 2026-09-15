@@ -833,7 +833,8 @@
     "legalidad": "libre",
     "keywords": [
       "Indestructible",
-      "que controles"
+      "que controles",
+      "Guardián"
     ]
   },
   {
@@ -1276,7 +1277,9 @@
     "imagen": "/cards/ca-047.webp",
     "thumb": "/cards/thumb/ca-047.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Guardián"
+    ]
   },
   {
     "id": "ca-048",

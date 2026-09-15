@@ -35,7 +35,7 @@ export const EDITIONS: Edition[] = [
   { slug: "steampunk", titulo: "Steampunk", cargada: true },
   { slug: "axis-mundi", titulo: "Axis Mundi", cargada: true },
   { slug: "hijos-del-sol", titulo: "Hijos del Sol", cargada: true },
-  { slug: "legado-gotico", titulo: "Legado Gótico", cargada: false },
+  { slug: "legado-gotico", titulo: "Legado Gótico", cargada: true },
   { slug: "escuelas_elementales", titulo: "Escuelas Elementales", cargada: false },
 
   // De fuera del formato: solo aportan las cartas sueltas que se agregaron por

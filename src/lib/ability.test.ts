@@ -112,13 +112,23 @@ test("una keyword con coste se queda en el cuerpo, resaltada", () => {
 });
 
 test("el catalogo no deja ninguna keyword con coste sin resaltar", () => {
-  const mudas = CATALOGO.filter(
-    (c) =>
-      ABRE_CON_KEYWORD_CON_COSTE.test(c.habilidad) &&
-      !c.habilidad.split(KEYWORD_EN_PROSA).some((t) => t === "Traición"),
+  // No es solo Traición: "Inmunidad - Cartas Luz" es la misma forma y sale en
+  // catorce cartas de Legado Gótico. Se comprueba la keyword que abre cada
+  // carta, sea cual sea, y no una fijada a mano.
+  const conCoste = CATALOGO.map((c) => ({
+    codigo: c.codigo,
+    keyword: ABRE_CON_KEYWORD_CON_COSTE.exec(c.habilidad)?.[1],
+    habilidad: c.habilidad,
+  })).filter((c) => c.keyword !== undefined);
+
+  assert.ok(conCoste.length > 0, "el catalogo deberia traer keywords con coste");
+
+  const mudas = conCoste.filter(
+    (c) => !c.habilidad.split(KEYWORD_EN_PROSA).some((t) => t === c.keyword),
   );
   assert.deepEqual(
     mudas.map((c) => c.codigo),
     [],
+    "estas cartas abren con una keyword con coste que la UI no esta pintando",
   );
 });

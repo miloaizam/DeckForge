@@ -3621,7 +3621,9 @@
     "imagen": "/cards/am-185.webp",
     "thumb": "/cards/thumb/am-185.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Guardián"
+    ]
   },
   {
     "id": "am-186",
@@ -3741,7 +3743,9 @@
     "imagen": "/cards/am-176.webp",
     "thumb": "/cards/thumb/am-176.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Guardián"
+    ]
   },
   {
     "id": "am-177",

@@ -79,7 +79,7 @@ export const KEYWORD_EN_PROSA = new RegExp(
  * distinguir de una declaracion que la UI se este comiendo.
  */
 export const ABRE_CON_KEYWORD_CON_COSTE = new RegExp(
-  `^(?:${ALTERNATIVA})${COSTE_DE_KEYWORD}`,
+  `^(${ALTERNATIVA})${COSTE_DE_KEYWORD}`,
   "u",
 );
 

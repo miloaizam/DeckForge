@@ -206,7 +206,8 @@
     "thumb": "/cards/thumb/do-010.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única"
+      "Única",
+      "Guardián"
     ]
   },
   {
@@ -522,7 +523,9 @@
     "imagen": "/cards/do-025.webp",
     "thumb": "/cards/thumb/do-025.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Guardián"
+    ]
   },
   {
     "id": "do-026",
@@ -802,7 +805,8 @@
     "thumb": "/cards/thumb/do-039.webp",
     "legalidad": "libre",
     "keywords": [
-      "Destruir"
+      "Destruir",
+      "Guardián"
     ]
   },
   {
@@ -1305,7 +1309,8 @@
     "thumb": "/cards/thumb/do-064.webp",
     "legalidad": "libre",
     "keywords": [
-      "Destruir"
+      "Destruir",
+      "Guardián"
     ]
   },
   {
@@ -1325,7 +1330,9 @@
     "imagen": "/cards/do-065.webp",
     "thumb": "/cards/thumb/do-065.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Guardián"
+    ]
   },
   {
     "id": "do-066",
@@ -1346,7 +1353,8 @@
     "legalidad": "libre",
     "keywords": [
       "Indestructible",
-      "que controles"
+      "que controles",
+      "Guardián"
     ]
   },
   {
@@ -2458,7 +2466,9 @@
     "imagen": "/cards/do-122.webp",
     "thumb": "/cards/thumb/do-122.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Guardián"
+    ]
   },
   {
     "id": "do-123",
@@ -2478,7 +2488,8 @@
     "thumb": "/cards/thumb/do-123.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles"
+      "que controles",
+      "Guardián"
     ]
   },
   {
@@ -3543,7 +3554,8 @@
     "thumb": "/cards/thumb/do-177.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible"
+      "Indestructible",
+      "Guardián"
     ]
   },
   {
@@ -3564,7 +3576,8 @@
     "thumb": "/cards/thumb/do-178.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles"
+      "que controles",
+      "Guardián"
     ]
   },
   {
@@ -4789,7 +4802,8 @@
     "thumb": "/cards/thumb/do-241.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles"
+      "que controles",
+      "Guardián"
     ]
   },
   {

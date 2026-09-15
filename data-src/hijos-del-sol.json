@@ -193,7 +193,8 @@
     "thumb": "/cards/thumb/hs-009.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única"
+      "Única",
+      "Guardián"
     ]
   },
   {
@@ -534,7 +535,8 @@
     "legalidad": "libre",
     "keywords": [
       "Indesterrable",
-      "que controles"
+      "que controles",
+      "Guardián"
     ]
   },
   {
@@ -1033,7 +1035,9 @@
     "imagen": "/cards/hs-049.webp",
     "thumb": "/cards/thumb/hs-049.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Guardián"
+    ]
   },
   {
     "id": "hs-050",
@@ -1052,7 +1056,9 @@
     "imagen": "/cards/hs-050.webp",
     "thumb": "/cards/thumb/hs-050.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Guardián"
+    ]
   },
   {
     "id": "hs-051",
@@ -1877,7 +1883,8 @@
     "thumb": "/cards/thumb/hs-090.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles"
+      "que controles",
+      "Guardián"
     ]
   },
   {
@@ -1897,7 +1904,9 @@
     "imagen": "/cards/hs-091.webp",
     "thumb": "/cards/thumb/hs-091.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Guardián"
+    ]
   },
   {
     "id": "hs-092",
@@ -3041,7 +3050,8 @@
     "thumb": "/cards/thumb/hs-148.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles"
+      "que controles",
+      "Guardián"
     ]
   },
   {
@@ -3080,7 +3090,9 @@
     "imagen": "/cards/hs-150.webp",
     "thumb": "/cards/thumb/hs-150.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Guardián"
+    ]
   },
   {
     "id": "hs-151",

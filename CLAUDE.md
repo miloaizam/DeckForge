@@ -520,6 +520,51 @@ out/           build estático (git-ignorado)
     pone "Mauricio Herrera". No lista los 25 promos: da 232 de 261.
   - Ninguna carta escondida: el listado va de 001 a 261 sin huecos y
     `/static/cards/16/262.png` da 404.
+- **Cómo se revisó Legado Gótico** (258 cartas, 57 corregidas). Es la primera
+  edición cuyo **código impreso no lleva desfase**: `edid` == número impreso.
+  Base `LGO-001-230`…`LGO-230-230`, Legendarias `LGO-231`…`LGO-236` (siguen la
+  serie, sin sufijo) y 22 promos `2018-0XX`. O sea que `LG-<edid>` coincide con
+  lo que el jugador lee al pie en 236 de 258. El arte llega a **419×600** en
+  las 236 primeras —el único set por debajo de los 420 que asume la interfaz— y
+  a 512×734 en los promos.
+  - **El fandom de esta edición trae columna de atributo**, y con ella se pudo
+    cruzar a tres bandas: la derivación por **declaración del texto** coincide
+    con el fandom en **230 de 230**, mientras que los **flags de la API fallan
+    en 29**. Es la confirmación independiente de lo que se decidió en
+    Steampunk. Son 103 cartas con atributo (52 Luz, 51 Oscuridad), tres veces
+    más que Steampunk: la vía Luz/Oscuridad por fin da para armar mazo.
+  - **Las 6 Legendarias son reimpresiones premium** de las 6 primeras Ultra
+    Real, mismo nombre y mismo texto: Lilith (`LG-234`/`LG-001`), Solomon
+    (`231`/`002`), Caín (`233`/`003`), Shoki el Cazador (`232`/`008`), Crear
+    Obsesión (`236`/`011`) y Ritual de Sombras (`235`/`012`). Comparten
+    identidad, como las doradas de Hijos del Sol. Ojo: la API llama "Solomón"
+    con tilde a la Legendaria y "Solomon" a la base; el arte no la lleva.
+  - **`Inmunidad - Cartas Luz` es otra keyword con coste**, como `Traición`, y
+    sale en **14 cartas**. La regla del guion que se metió en Hijos del Sol la
+    cubre sin tocar nada… pero el test que la acompañaba daba por hecho que la
+    única keyword con coste era Traición y **falló aquí**. Ahora comprueba la
+    keyword que abre cada carta, sea cual sea. Es justo el tipo de fallo que
+    justifica que los tests corran contra el catálogo real.
+  - **Cinco Aliados llegan sin raza y son Oni**: `LG-039`, `040`, `127`, `183`
+    y `184`. La API solo etiquetaba Oni al promo `LG-242`. Es otra vez el caso
+    de CLAUDE.md: un Aliado sin raza es un dato malo, no un caso legítimo.
+  - **`LG-034` dice "Único." donde la carta dice "Única."** y además la API no
+    le pone el flag. Sin las dos correcciones el validador no la trataría como
+    Única. Es el único sitio donde el texto se sale de `KEYWORDS_IMPRESAS`.
+  - **Textos que la API entrega mal**: `LG-044` invierte una frase y se come
+    "en juego"; `LG-125` cambia la condición entera ("por ese daño" donde la
+    carta dice "por el último daño que recibiste"); `LG-055` se come un verbo;
+    `LG-058` invierte el orden de las keywords. Más "objetivo" que falta en
+    `LG-201` y `LG-203` y sobra en `LG-156`, y "a la mano de su dueño" donde la
+    carta dice "a tu mano" (`LG-071`, `LG-179`).
+  - **El fandom se equivoca más que de costumbre**: "Thevetal", "Arconte de
+    Fuego", "Ayuda Féerica", "Peter Blagojevich", "Jak Zizka", "Knockmashee",
+    "Furtivo" y el ilustrador "Chamán" en tres cartas, donde el pie dice
+    `CHAMAKOSO`. Acierta, en cambio, en "Solomon" sin tilde, en "Hija de
+    Chacal" (la API decía Hijo), en las cinco razas Oni y en el ilustrador de
+    `LG-146`, donde el pie dice `CRISTIÁN HUERTA` y la API pone "JP Aguirre".
+  - Ninguna carta escondida: el listado va de 001 a 258 sin huecos,
+    `/static/cards/17/259.png` da 404 y no hay imágenes duplicadas.
 - Ojo con los slugs de la API: `escuelas_elementales` va con **guion bajo**,
   el resto con guion (`legado-gotico`, `aguila-imperial`…).
 
@@ -681,9 +726,12 @@ Ojo también con `KEYWORDS_IMPRESAS`: **`Guardián` faltaba**. El campo
 ediciones—, aunque esté impresa en negrita como cualquier otra. Se agregó a la
 lista para que se resalte; como las facetas del filtro salen de lo que las
 cartas declaran (`catalog.ts`), agregarla no inventa una faceta vacía, pero
-**tampoco se puede filtrar por ella** hasta que el campo `keywords` la traiga.
-Sigue así en sus 24 cartas, y es un pendiente con arreglo conocido: basta
-agregarla a mano en `data-src`, que es lo que se hizo con `Traición`.
+no se podía filtrar por ella, porque el campo `keywords` no la traía. **Se
+arregló al cargar Legado Gótico**: se agregó a mano en `data-src` a las **24
+cartas que la DECLARAN**, repartidas por cinco ediciones. Las que solo la
+mencionan ("por cada Aliado Guardián que controles") quedan fuera a propósito:
+hablan de otras cartas, no de sí mismas. Es el mismo arreglo que se hizo con la
+Furia que le faltaba a Haures y con `Traición`.
 
 **`Traición` es la única keyword que se imprime con un coste pegado**
 ("Traición - Descartar una carta"), y llega con Hijos del Sol. No sube a la
@@ -698,9 +746,9 @@ importar constantes desde un módulo `"use client"` hacia un Server Component:
 Next entrega una referencia de cliente, no el valor. Por eso `THEME_KEY` vive
 en `src/lib/theme.ts` y no en el componente.
 
-Cargadas: **1575 cartas** — Bushido (246), Sol Naciente (141), Dominio (256),
-ContraAtaque (150), Águila Imperial (261), Steampunk (71), Axis Mundi (189) e
-Hijos del Sol (261).
+Cargadas: **1833 cartas** — Bushido (246), Sol Naciente (141), Dominio (256),
+ContraAtaque (150), Águila Imperial (261), Steampunk (71), Axis Mundi (189),
+Hijos del Sol (261) y Legado Gótico (258).
 
 Steampunk es la primera edición que imprime Luz y Oscuridad, así que el filtro
 de **habilidad** las ofrece desde ahora.
@@ -795,4 +843,5 @@ contra fixtures, porque los bordes que duelen salen de los datos.
 `scripts/ts-imports.mjs` son quince líneas que le enseñan a Node a resolver los
 imports sin extensión que espera el bundler de Next.
 
-**Todavía no hay** las otras 2 ediciones, ni la banlist, ni las erratas.
+**Todavía no hay** Escuelas Elementales —la última que falta—, ni la banlist,
+ni las erratas.
