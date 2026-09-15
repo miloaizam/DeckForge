@@ -392,6 +392,70 @@ out/           build estático (git-ignorado)
     más alto que el resto; `resize_to_width()` no se entera.
   - Ninguna carta escondida: el listado va de 001 a 071 sin huecos y
     `/static/cards/14/072.png` da 404.
+- **Cómo se revisó Axis Mundi** (189 cartas, 57 corregidas). Es **la edición
+  que introduce las escuelas elementales**, y lo primero que hubo que resolver
+  fue si eso cambiaba el modelo. **No lo cambia**: la edición no nombra las
+  escuelas ni las imprime como símbolo. El emblema hexagonal bajo el cuadro de
+  habilidad es la **frecuencia** (negro Ultra Real, plata Mega Real, dorado
+  Real, rojo Cortesano, azul Vasallo, verde Promocional) y la etiqueta bajo la
+  Fuerza es la raza a secas, igual que siempre. Las escuelas viven en el texto
+  de reglas, como **parejas de razas**: "si todos los Aliados que controlas son
+  de Raza Oni y/o Sombra" (21 cartas), Faerie y/o Eterno (16), Sacerdote y/o
+  Caballero (16), Dragón y/o Guerrero (12). Las cuatro exactas que ya teníamos
+  y ninguna otra; los Tótems AM-150 a AM-153 son literalmente las cartas de
+  escuela ("se consideran de ambas Razas"). `ESCUELA_POR_RAZA` sigue valiendo.
+  - **Es la edición más limpia en lo estructural**: cero intercambios
+    `cost`/`damage` (verificados los 83 Aliados), cero costes mal (verificados
+    los 106 no-Aliados), cero razas mal, frecuencias en tramos contiguos que el
+    fandom confirma, sin `↵`, sin `/n`, sin puntos pegados y `flavour` en su
+    campo. Todo lo que falla está en el texto.
+  - **El `edid` va desfasado en −4 respecto del código impreso**, por el mismo
+    motivo que en Águila Imperial: las **4 Legendarias** ocupan los `edid`
+    001–004 con numeración propia (`LAM-01-04`) y el set base de 160 corre
+    `AM-001-160`…`AM-160-160` sobre los `edid` 005–164. Los 25 promos
+    (`edid` 165–189) van aparte, entre `2017-059`…`073` y `PE-18`…`PE-25`. Por
+    decisión del proyecto el `codigo` se queda en **`AM-<edid>`**, uniforme con
+    el resto, igual que en Águila Imperial.
+  - **El arte de las 4 Legendarias entra a 709×1016**, no a 512×734 como el
+    resto. `resize_to_width()` ni se entera.
+  - **Tres textos que la API entrega derechamente mal**: AM-184 (Akbar) trae
+    una habilidad que no es la suya; AM-137 (Convocar Prisión) se come media
+    frase del paréntesis; y AM-189 (Espejo Negro) **añade una condición que la
+    carta no imprime** ("Si este Oro está en tu Reserva de Oros"). Más siete
+    frases cambiadas (AM-018, AM-020, AM-022, AM-037, AM-094, AM-167, AM-172).
+  - **Siete cartas sin el punto que cierra `Exhumar (…)`** —AM-043, 044, 085,
+    086, 126, 127 y 132— mientras otras siete de la misma edición sí lo traen.
+    El arte lo imprime en las catorce.
+  - **Cuatro promos son reimpresiones TEXTLESS** (AM-175 Lemuralia, AM-177
+    Trampa, AM-178 Depredar, AM-180 Necromancia). Se les copió el texto y las
+    keywords de su impresión original, como en Águila Imperial. Necromancia
+    tenía dos impresiones donde elegir y **se tomó la de Dominio (DO-021), no
+    la Legendaria de Águila Imperial (AI-006)**: esta es una reimpresión
+    normal, y la Legendaria declara las keywords a secas y ordena las frases al
+    revés.
+  - **Las 4 Legendarias llegan con el ilustrador de relleno** `Mitos y
+    Leyendas`, igual que las 261 de Águila Imperial. Los de verdad están al pie
+    de la carta: Trejoe, Alvaro Estrada, Felipe Gaona y Andrés Silva.
+  - **Y aquí se resolvió de una vez la duda de las tildes en el pie.** El pie
+    de estas cartas **sí las lleva** —imprime `ANDRÉS SILVA` y `NICOLÁS
+    ESPINOZA`— y aun así imprime `ALVARO ESTRADA` sin ella. O sea que
+    `Alvaro Estrada`, como está desde ContraAtaque, es lo correcto y el fandom
+    es el que se equivoca. Ojo igual con `Francisco Ruíz`: dentro de esta misma
+    edición el pie lo escribe sin tilde en AM-026 y AM-069 y **con** tilde en
+    AM-178, así que se queda `Francisco Ruiz` para no partir el nombre en dos.
+    También hubo que normalizar `Nicolas Espinoza` → `Nicolás` (6 cartas, el
+    pie lo confirma) y `Argus Del Norte` → `del Norte` (3).
+  - **El fandom se equivoca en dos nombres**: da "Al-Mashi Ad-Dajjal" por
+    Al-Masih y "Veintiun Infiernos" sin tilde. Acierta, en cambio, en las seis
+    mayúsculas que la API escribía en minúscula (Arena de **S**ueños,
+    **Hermanos** de Armas, Ver lo **I**nvisible, Curar la **T**ierra, Espiral
+    de **D**agas, Anillo **L**lave). No lista los 25 promos: da 164 de 189.
+  - **Solo 9 de sus 20 Oros sirven de oro inicial.** Es la primera edición con
+    tantos Oros CON habilidad (11), repartidos además por todas las
+    frecuencias: uno Mega Real, dos Real, tres Cortesano, dos Vasallo y tres
+    promocionales. En las anteriores los Oros con habilidad eran la excepción.
+  - Ninguna carta escondida: el listado va de 001 a 189 sin huecos y
+    `/static/cards/15/190.png` da 404.
 - Ojo con los slugs de la API: `escuelas_elementales` va con **guion bajo**,
   el resto con guion (`legado-gotico`, `aguila-imperial`…).
 
@@ -560,8 +624,8 @@ importar constantes desde un módulo `"use client"` hacia un Server Component:
 Next entrega una referencia de cliente, no el valor. Por eso `THEME_KEY` vive
 en `src/lib/theme.ts` y no en el componente.
 
-Cargadas: **1125 cartas** — Bushido (246), Sol Naciente (141), Dominio (256),
-ContraAtaque (150), Águila Imperial (261) y Steampunk (71).
+Cargadas: **1314 cartas** — Bushido (246), Sol Naciente (141), Dominio (256),
+ContraAtaque (150), Águila Imperial (261), Steampunk (71) y Axis Mundi (189).
 
 Steampunk es la primera edición que imprime Luz y Oscuridad, así que el filtro
 de **habilidad** las ofrece desde ahora.
@@ -656,4 +720,4 @@ contra fixtures, porque los bordes que duelen salen de los datos.
 `scripts/ts-imports.mjs` son quince líneas que le enseñan a Node a resolver los
 imports sin extensión que espera el bundler de Next.
 
-**Todavía no hay** las otras 4 ediciones, ni la banlist, ni las erratas.
+**Todavía no hay** las otras 3 ediciones, ni la banlist, ni las erratas.
