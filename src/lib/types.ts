@@ -119,6 +119,11 @@ export const KEYWORDS_IMPRESAS = [
   "Errante",
   "Exhumar",
   "Mercenario",
+  // Llega con Hijos del Sol y es la primera que se imprime CON UN COSTE
+  // pegado ("Traición - Descartar una carta"). Por eso `ability.ts` la
+  // resalta en la prosa y no la sube a la fila de keywords: el coste es
+  // texto de reglas y se perderia.
+  "Traición",
 ] as const;
 
 export const LEGALIDADES = ["libre", "restringida", "prohibida"] as const;

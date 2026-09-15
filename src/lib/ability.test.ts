@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-import { splitAbility, KEYWORD_EN_PROSA } from "./ability";
+import { splitAbility, ABRE_CON_KEYWORD_CON_COSTE, KEYWORD_EN_PROSA } from "./ability";
 import { catalogSchema, KEYWORDS_IMPRESAS, type Card } from "./types";
 
 /**
@@ -65,6 +65,10 @@ test("toda carta del catalogo que abre con keyword la muestra en su fila", () =>
     (c) =>
       c.habilidad &&
       ABRE_CON_KEYWORD.test(c.habilidad) &&
+      // Una keyword con coste ("Traición - Descartar una carta") se queda en
+      // el cuerpo a proposito: el coste es texto de reglas. Se comprueba
+      // aparte, en el test de abajo.
+      !ABRE_CON_KEYWORD_CON_COSTE.test(c.habilidad) &&
       splitAbility(c.habilidad).keywords.length === 0,
   );
   assert.deepEqual(
@@ -87,4 +91,34 @@ test("ninguna edicion se queda sin keywords declaradas", () => {
       `${edicion} no muestra ninguna keyword declarada`,
     );
   }
+});
+
+test("una keyword con coste se queda en el cuerpo, resaltada", () => {
+  const texto =
+    "Traición - Descartar una carta de tu mano (En su Fase de Vigilia, tu " +
+    "oponente puede pagar el coste de Traición de este Aliado para ganar su " +
+    "control).\nAl comienzo de tu Fase de Vigilia, puedes Robar dos cartas.";
+
+  const { keywords, cuerpo } = splitAbility(texto);
+  assert.deepEqual(keywords, [], "el coste se perderia si subiera a la fila");
+  assert.ok(cuerpo.startsWith("Traición - Descartar una carta de tu mano"));
+
+  const trozos = cuerpo.split(KEYWORD_EN_PROSA);
+  assert.equal(
+    trozos.filter((t) => t === "Traición").length,
+    1,
+    "se resalta la keyword, no la mencion del recordatorio",
+  );
+});
+
+test("el catalogo no deja ninguna keyword con coste sin resaltar", () => {
+  const mudas = CATALOGO.filter(
+    (c) =>
+      ABRE_CON_KEYWORD_CON_COSTE.test(c.habilidad) &&
+      !c.habilidad.split(KEYWORD_EN_PROSA).some((t) => t === "Traición"),
+  );
+  assert.deepEqual(
+    mudas.map((c) => c.codigo),
+    [],
+  );
 });

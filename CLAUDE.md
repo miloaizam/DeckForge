@@ -456,6 +456,70 @@ out/           build estático (git-ignorado)
     promocionales. En las anteriores los Oros con habilidad eran la excepción.
   - Ninguna carta escondida: el listado va de 001 a 189 sin huecos y
     `/static/cards/15/190.png` da 404.
+- **Cómo se revisó Hijos del Sol** (261 cartas, 65 corregidas). Los números
+  vienen impecables —verificados los 114 Aliados y los 147 no-Aliados contra el
+  arte, cero errores de coste, Fuerza o raza, sin intercambio `cost`/`damage`—
+  y las frecuencias van en tramos contiguos que el fandom confirma. Todo lo que
+  falla está en el texto. Trajo, eso sí, **dos fallos que no se habían visto**:
+  - **La API sirve la imagen equivocada en una carta.**
+    `/static/cards/16/017.png` devuelve el arte de la 021, byte por byte. La
+    URL **sin el cero a la izquierda** (`/16/17.png`) sí trae la correcta
+    (Kawtcho, `SOL-013-232`). No se detecta leyendo los datos, solo comparando
+    las imágenes entre sí, así que `fetch_edition.py` **avisa ahora cuando dos
+    cartas bajan el mismo PNG**. Era el único par duplicado de las 261.
+  - **`Traición`, la primera keyword que se imprime CON UN COSTE pegado**
+    ("Traición - Destierra la primera carta de tu Mazo Castillo"). Como
+    `Guardián`, la API no la etiqueta nunca. Por decisión del proyecto **no
+    sube a la fila de keywords**: el coste es texto de reglas y allí se
+    perdería. Se queda en el cuerpo con la palabra resaltada, que es justo lo
+    que hace la carta (negrita la keyword, redonda el coste). `ability.ts`
+    reconoce ahora esa forma anclando en el guion en vez del punto, y
+    `ability.test.ts` la cubre con dos pruebas. En las 9 cartas se agregó
+    `Traición` al campo `keywords` a mano, para que el filtro no mienta —lo
+    mismo que se hizo con la Furia que le faltaba a Haures en Steampunk—.
+    **`Guardián` sigue sin estar en `keywords` en sus 24 cartas**, así que se
+    resalta pero no se puede filtrar: queda pendiente y es el mismo arreglo.
+  - **Las cartas doradas son reimpresiones premium, no cartas nuevas.** La API
+    las marca `Legendaria` y son cuatro Oros **con** habilidad, pintados
+    enteros en oro, que repiten nombre y texto de cuatro Oros del set base:
+    Cuerno de Camahueto (`HS-001` / `HS-020`), Quetzal (`HS-002` / `HS-039`),
+    Huitzilin (`HS-003` / `HS-040`) y Camino del Inca (`HS-004` / `HS-076`).
+    Por decisión del proyecto **comparten `identidad` con su versión normal**,
+    igual que Kirin normal y Kirin Milenaria: son la misma carta y el tope de
+    copias las cuenta juntas. Cuerno de Camahueto es además Única, así que
+    entre las dos impresiones solo cabe una.
+  - **Las doradas se numeran distinto que las Legendarias de las dos ediciones
+    anteriores**: aquí no llevan prefijo propio, siguen la serie y ocupan
+    `SOL-233`…`SOL-236`, o sea DESPUÉS de las 232 del set base. En Águila
+    Imperial eran `LAI-`, en Axis Mundi `LAM-`. El desfase del set base sigue
+    siendo **`edid` − 4** (`SOL-001-232`…`SOL-232-232` sobre los `edid`
+    005–236); los 25 promos van aparte, `2018-001`…`2018-025`.
+  - **El atributo tiene aquí su propio dibujo**: un disco en el borde superior
+    del cuadro de habilidad, sol para Luz y luna para Oscuridad. Son 10 cartas
+    (5 y 5) y —al revés que en Steampunk— la declaración del texto y los flags
+    de la API **coinciden**. La excepción es **Yasy Yateré (`HS-154`), que
+    declara Oscuridad y no imprime el disco**: mandó el texto, que es lo que
+    mira la regla.
+  - **Los promos declaran las keywords a secas y el set base con el
+    recordatorio entre paréntesis.** La API le pega el paréntesis a los promos
+    igual; se quitó en seis (`HS-242`, `243`, `244`, `245`, `254`, `260`). Lo
+    mismo pasaba con las Legendarias de Águila Imperial.
+  - **Dos promos vienen marcadas `TEXTLESS` y sí tienen texto impreso**
+    (`HS-257`, `HS-258`). Al revés que en Águila Imperial y Axis Mundi, donde
+    el TEXTLESS era real.
+  - **Y el resto es lo de siempre**: `HS-077` trae otro texto; a `HS-018` y
+    `HS-172` les falta la primera línea entera; `HS-146` se corta a media
+    declaración sin cerrar el paréntesis; falta "objetivo" en `HS-190`,
+    `HS-199` y `HS-201`; y el nombre de `HS-035` llega como **"Trempulcahue
+    Hijos del Sol"**, con el nombre de la edición pegado.
+  - El recordatorio de Traición no es igual en todas: `HS-093`, `094` y `095`
+    **no** imprimen "En su Fase de Vigilia," y `HS-153`, `154` y `155` sí.
+  - **El fandom acierta más que la API en los nombres, pero no en todo**: se
+    equivoca en "Garras de Xibalba" (el arte lleva tilde en la í) y en el
+    ilustrador de `HS-007`, donde el pie dice `MAURICIO CERECERA` y el fandom
+    pone "Mauricio Herrera". No lista los 25 promos: da 232 de 261.
+  - Ninguna carta escondida: el listado va de 001 a 261 sin huecos y
+    `/static/cards/16/262.png` da 404.
 - Ojo con los slugs de la API: `escuelas_elementales` va con **guion bajo**,
   el resto con guion (`legado-gotico`, `aguila-imperial`…).
 
@@ -618,14 +682,25 @@ ediciones—, aunque esté impresa en negrita como cualquier otra. Se agregó a 
 lista para que se resalte; como las facetas del filtro salen de lo que las
 cartas declaran (`catalog.ts`), agregarla no inventa una faceta vacía, pero
 **tampoco se puede filtrar por ella** hasta que el campo `keywords` la traiga.
+Sigue así en sus 24 cartas, y es un pendiente con arreglo conocido: basta
+agregarla a mano en `data-src`, que es lo que se hizo con `Traición`.
+
+**`Traición` es la única keyword que se imprime con un coste pegado**
+("Traición - Descartar una carta"), y llega con Hijos del Sol. No sube a la
+fila de keywords a propósito: el coste es texto de reglas y allí se perdería.
+Se queda en el cuerpo con la palabra resaltada, igual que la imprime la carta.
+Por eso `ability.ts` tiene ahora dos anclas —el punto para la declaración de
+siempre, el guion para esta— y `ABRE_CON_KEYWORD_CON_COSTE`, que el test usa
+para no confundirla con una declaración que la UI se esté comiendo.
 
 Tema claro/oscuro conmutable desde la navbar (ver DESIGN.md). Cuidado al
 importar constantes desde un módulo `"use client"` hacia un Server Component:
 Next entrega una referencia de cliente, no el valor. Por eso `THEME_KEY` vive
 en `src/lib/theme.ts` y no en el componente.
 
-Cargadas: **1314 cartas** — Bushido (246), Sol Naciente (141), Dominio (256),
-ContraAtaque (150), Águila Imperial (261), Steampunk (71) y Axis Mundi (189).
+Cargadas: **1575 cartas** — Bushido (246), Sol Naciente (141), Dominio (256),
+ContraAtaque (150), Águila Imperial (261), Steampunk (71), Axis Mundi (189) e
+Hijos del Sol (261).
 
 Steampunk es la primera edición que imprime Luz y Oscuridad, así que el filtro
 de **habilidad** las ofrece desde ahora.
@@ -720,4 +795,4 @@ contra fixtures, porque los bordes que duelen salen de los datos.
 `scripts/ts-imports.mjs` son quince líneas que le enseñan a Node a resolver los
 imports sin extensión que espera el bundler de Next.
 
-**Todavía no hay** las otras 3 ediciones, ni la banlist, ni las erratas.
+**Todavía no hay** las otras 2 ediciones, ni la banlist, ni las erratas.

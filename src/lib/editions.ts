@@ -34,7 +34,7 @@ export const EDITIONS: Edition[] = [
   { slug: "aguila-imperial", titulo: "Águila Imperial", cargada: true },
   { slug: "steampunk", titulo: "Steampunk", cargada: true },
   { slug: "axis-mundi", titulo: "Axis Mundi", cargada: true },
-  { slug: "hijos-del-sol", titulo: "Hijos del Sol", cargada: false },
+  { slug: "hijos-del-sol", titulo: "Hijos del Sol", cargada: true },
   { slug: "legado-gotico", titulo: "Legado Gótico", cargada: false },
   { slug: "escuelas_elementales", titulo: "Escuelas Elementales", cargada: false },
 

@@ -18,6 +18,7 @@ asi que esas correcciones hay que conservarlas.
 """
 
 import argparse
+import hashlib
 import json
 import re
 import sys
@@ -249,6 +250,12 @@ def main() -> int:
 
     cards, images = [], 0
     sin_perfil: list[str] = []
+    # Huella de cada PNG, para cazar el caso de Hijos del Sol: la API servia en
+    # /static/cards/16/017.png el arte de OTRA carta, byte por byte. No hay
+    # forma de detectarlo leyendo los datos, solo comparando las imagenes entre
+    # si. (Alli la URL sin el cero a la izquierda, /16/17.png, si traia la
+    # correcta.)
+    huellas: dict[str, str] = {}
     for i, raw in enumerate(cards_raw, 1):
         profile = None
         if not args.no_profiles:
@@ -287,9 +294,16 @@ def main() -> int:
         src_url = card.pop("_source_image")
 
         if not args.no_images:
-            if download(src_url, IMAGES_SRC / f"{card['id']}.png"):
+            destino = IMAGES_SRC / f"{card['id']}.png"
+            if download(src_url, destino):
                 images += 1
                 time.sleep(PAUSE)
+            if destino.exists():
+                huella = hashlib.sha256(destino.read_bytes()).hexdigest()
+                if huella in huellas:
+                    print(f"  [WARN] {card['id']} tiene el MISMO arte que {huellas[huella]}")
+                else:
+                    huellas[huella] = card["id"]
 
         cards.append(card)
         print(f"[{i:>3}/{total}] {card['codigo']:<8} {card['nombre']}")
@@ -298,6 +312,12 @@ def main() -> int:
     out_json.write_text(
         json.dumps(cards, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
+
+    repetidas = len(cards) - len(huellas) if huellas else 0
+    if repetidas > 0:
+        print(f"\n[WARN] {repetidas} carta(s) bajaron un arte que ya tenia otra.")
+        print("       La API sirve a veces la imagen equivocada. Busca el PNG bueno")
+        print("       (prueba la URL sin el cero a la izquierda) antes de seguir.")
 
     if sin_perfil:
         print(f"\n[WARN] {len(sin_perfil)} carta(s) sin perfil tras {PROFILE_REINTENTOS}")

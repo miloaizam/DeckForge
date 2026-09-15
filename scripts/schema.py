@@ -145,6 +145,7 @@ KEYWORDS_IMPRESAS = [
     "Errante",
     "Exhumar",
     "Mercenario",
+    "Traición",
 ]
 
 _ALTERNATIVA = "|".join(re.escape(k) for k in KEYWORDS_IMPRESAS)
