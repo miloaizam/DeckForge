@@ -248,10 +248,17 @@ export const deckEntrySchema = z.object({
   n: z.number().int().min(1).max(MAX_COPIAS_REPRESENTABLES),
 });
 
-/** Raza sola o escuela: las dos formas que puede tomar un mazo del formato. */
+/**
+ * Raza, escuela o atributo: las tres formas que puede tomar un mazo.
+ *
+ * La de atributo llega con Steampunk, la primera edicion que imprime Luz y
+ * Oscuridad. Se agrega sin subir `DECK_VERSION` porque el cambio es aditivo:
+ * ningun mazo ya guardado deja de leerse por esto.
+ */
 export const deckAffinitySchema = z.discriminatedUnion("modo", [
   z.object({ modo: z.literal("raza"), valor: z.enum(RAZAS) }),
   z.object({ modo: z.literal("escuela"), valor: z.enum(ESCUELAS) }),
+  z.object({ modo: z.literal("atributo"), valor: z.enum(ATRIBUTOS) }),
 ]);
 
 export const deckSchema = z.object({

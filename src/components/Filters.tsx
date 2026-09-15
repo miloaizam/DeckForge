@@ -101,9 +101,8 @@ export function Filters({ filters, facets, onChange, onReset }: FiltersProps) {
             {/* Dos filas de cuatro en pantalla ancha, en el orden en que se
                 suele filtrar. La edicion solo aparece en /catalogo: en la
                 pagina de una edicion la faceta viene vacia y el Select no se
-                dibuja, asi que las ocho restantes siguen cuadrando. Atributo
-                va al final y hoy tampoco se dibuja: ninguna de las cuatro
-                ediciones cargadas trae Luz ni Oscuridad. */}
+                dibuja. Luz y Oscuridad no tienen selector propio: son
+                keywords impresas y salen en Habilidad. */}
             <Select
               label="Edición"
               value={filters.edicion}
@@ -153,12 +152,6 @@ export function Filters({ filters, facets, onChange, onReset }: FiltersProps) {
               value={filters.coste}
               options={facets.costes}
               onChange={set("coste")}
-            />
-            <Select
-              label="Atributo"
-              value={filters.atributo}
-              options={facets.atributos}
-              onChange={set("atributo")}
             />
           </div>
         </div>

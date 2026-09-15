@@ -12,20 +12,38 @@ import {
   setQuantity,
 } from "./deck";
 import {
+  admite,
+  affinityLabel,
   buildCardIndex,
   canAdd,
   deckAffinity,
   deckStats,
   isLegal,
-  razasPermitidas,
   resolveDeck,
+  toRuleCard,
   validateDeck,
   DECK_TOTAL,
   MIN_ALIADOS_O_TOTEMS,
   SIDE_TOTAL,
+  type Afinidad,
   type CardIndex,
 } from "./deck-rules";
-import { catalogSchema, type Card, type Deck, type Raza } from "./types";
+import { catalogSchema, type Atributo, type Card, type Deck, type Raza } from "./types";
+
+/** Atajo para pedirle una afinidad a `deckAffinity` con solo las razas. */
+const porRazas = (...razas: Raza[]): Afinidad =>
+  deckAffinity({
+    razas: new Set(razas),
+    atributos: new Set(),
+    neutros: razas.length > 0,
+  });
+
+/** La misma, pero de un mazo cuyos Aliados llevan todos ese atributo. */
+const porAtributo = (atributo: Atributo, ...razas: Raza[]): Afinidad =>
+  deckAffinity({ razas: new Set(razas), atributos: new Set([atributo]), neutros: false });
+
+/** Los modos de las vias abiertas, ordenados, para comparar de un vistazo. */
+const modos = (a: Afinidad): string[] => a.vias.map((v) => v.modo).sort();
 
 /**
  * Los tests corren con el corredor de Node (`node --test`), que desde Node 24
@@ -60,10 +78,10 @@ const SHODO = uno("Shodo");
 const REGALIA = uno("Regalía Imperial");
 
 /**
- * Arma un mazo legal de una raza: 50 cartas, oro inicial puesto y de sobra
- * sobre el minimo de Aliados y Totems. Es la base de casi todos los tests.
+ * Arma un mazo legal con los Aliados que cumplan ese criterio: 50 cartas, oro
+ * inicial puesto y de sobra sobre el minimo de Aliados y Totems.
  */
-function mazoLegal(raza: Raza): Deck {
+function mazoConAliados(elegir: (c: Card) => boolean): Deck {
   let deck = setStartingGold(createDeck("Prueba"), SHODO.id);
 
   // Las copias se cuentan por identidad, no por impresion: Fuku y Wani tienen
@@ -72,7 +90,7 @@ function mazoLegal(raza: Raza): Deck {
   const puestas = new Map<string, number>([[SHODO.identidad, 1]]);
   const cabe = (c: Card) => (c.keywords.includes("Única") ? 1 : 3);
 
-  const aliados = cards.filter((c) => c.tipo === "Aliado" && c.raza === raza);
+  const aliados = cards.filter((c) => c.tipo === "Aliado" && elegir(c));
   const neutrales = cards.filter(
     (c) => c.raza === null && c.tipo !== "Oro" && c.id !== SHODO.id,
   );
@@ -87,6 +105,9 @@ function mazoLegal(raza: Raza): Deck {
   }
   return deck;
 }
+
+/** El caso de siempre: un mazo mono-raza. Es la base de casi todos los tests. */
+const mazoLegal = (raza: Raza): Deck => mazoConAliados((c) => c.raza === raza);
 
 test("un mazo armado con las reglas es legal", () => {
   const deck = mazoLegal("Dragón");
@@ -253,21 +274,21 @@ test("no se pueden mezclar razas de escuelas distintas", () => {
     faerie.id,
     "principal",
   );
-  assert.equal(deckStats(resolveDeck(mixto, index)).afinidad.modo, "escuela");
-  assert.ok(!validateDeck(mixto, index).some((i) => i.code === "razas-incompatibles"));
+  assert.deepEqual(modos(deckStats(resolveDeck(mixto, index)).afinidad), ["escuela"]);
+  assert.ok(!validateDeck(mixto, index).some((i) => i.code === "afinidad-incompatible"));
 
   // Eterno + Dragón son de escuelas distintas: ilegal.
   mixto = addCard(mixto, dragon.id, "principal");
-  assert.equal(deckStats(resolveDeck(mixto, index)).afinidad.modo, "invalida");
-  assert.ok(validateDeck(mixto, index).some((i) => i.code === "razas-incompatibles"));
+  assert.deepEqual(deckStats(resolveDeck(mixto, index)).afinidad.vias, []);
+  assert.ok(validateDeck(mixto, index).some((i) => i.code === "afinidad-incompatible"));
 });
 
 test("una raza sin escuela puede armar mazo mono-raza", () => {
   // Samurái no pertenece a ninguna escuela: solo puede ir sola, y eso es legal.
   const deck = mazoLegal("Samurái");
   const { afinidad } = deckStats(resolveDeck(deck, index));
-  assert.equal(afinidad.modo, "mono");
-  assert.equal(afinidad.modo === "mono" ? afinidad.escuela : "?", null);
+  assert.deepEqual(modos(afinidad), ["raza"], "sin escuela hacia la que crecer");
+  assert.equal(affinityLabel(afinidad), "Samurái");
   assert.ok(isLegal(validateDeck(deck, index)));
 });
 
@@ -285,33 +306,40 @@ test("el mazo necesita un nombre para ser valido", () => {
   assert.equal(deckTitle(vaciado), "Mazo sin nombre", "y se muestra con relleno");
 });
 
-test("razasPermitidas acota el catalogo del constructor", () => {
-  // Vacio: todavia cabe cualquier cosa, asi que no se filtra nada.
-  assert.equal(razasPermitidas(deckAffinity(new Set())).size, 0);
+test("admite acota el catalogo del constructor", () => {
+  const aliado = (raza: Raza) =>
+    toRuleCard(cards.find((c) => c.tipo === "Aliado" && c.raza === raza)!);
 
-  // Con una raza de escuela, caben las dos de esa escuela: el mazo aun puede
+  // Vacio: todavia cabe cualquier cosa.
+  const vacio = porRazas();
+  assert.ok(admite(vacio, aliado("Dragón")) && admite(vacio, aliado("Oni")));
+
+  // Con una raza de escuela caben las dos de esa escuela: el mazo aun puede
   // crecer hacia ella.
-  const conDragon = razasPermitidas(deckAffinity(new Set<Raza>(["Dragón"])));
-  assert.deepEqual([...conDragon].sort(), ["Dragón", "Guerrero"]);
+  const conDragon = porRazas("Dragón");
+  assert.ok(admite(conDragon, aliado("Guerrero")));
+  assert.ok(!admite(conDragon, aliado("Oni")));
 
   // Una raza sin escuela solo se admite a si misma.
-  const conSamurai = razasPermitidas(deckAffinity(new Set<Raza>(["Samurái"])));
-  assert.deepEqual([...conSamurai], ["Samurái"]);
+  const conSamurai = porRazas("Samurái");
+  assert.ok(admite(conSamurai, aliado("Samurái")));
+  assert.ok(!admite(conSamurai, aliado("Bestia")));
 
-  // Con la escuela ya formada, siguen siendo esas dos.
-  const escuela = razasPermitidas(deckAffinity(new Set<Raza>(["Eterno", "Faerie"])));
-  assert.deepEqual([...escuela].sort(), ["Eterno", "Faerie"]);
+  // Los que no son Aliados entran siempre: la afinidad no los mira.
+  assert.ok(admite(conSamurai, toRuleCard(SHODO)));
 });
 
-test("deckAffinity distingue los cuatro casos", () => {
-  assert.equal(deckAffinity(new Set()).modo, "vacio");
-  assert.equal(deckAffinity(new Set<Raza>(["Dragón"])).modo, "mono");
-  assert.equal(deckAffinity(new Set<Raza>(["Dragón", "Guerrero"])).modo, "escuela");
-  assert.equal(deckAffinity(new Set<Raza>(["Dragón", "Faerie"])).modo, "invalida");
-  assert.equal(
-    deckAffinity(new Set<Raza>(["Dragón", "Guerrero", "Faerie"])).modo,
-    "invalida",
-  );
+test("deckAffinity abre una via por cada forma que el mazo cumple", () => {
+  assert.ok(porRazas().vacio);
+  // Una raza con escuela deja las dos vias abiertas a la vez.
+  assert.deepEqual(modos(porRazas("Dragón")), ["escuela", "raza"]);
+  // Una raza sin escuela, solo la suya.
+  assert.deepEqual(modos(porRazas("Samurái")), ["raza"]);
+  // Ya formada la escuela, la via de raza se cierra.
+  assert.deepEqual(modos(porRazas("Dragón", "Guerrero")), ["escuela"]);
+  // Razas de escuelas distintas y sin atributo comun: no queda ninguna.
+  assert.deepEqual(porRazas("Dragón", "Faerie").vias, []);
+  assert.deepEqual(porRazas("Dragón", "Guerrero", "Faerie").vias, []);
 });
 
 test("el oro inicial tiene que ser un Oro sin habilidad", () => {
@@ -385,7 +413,7 @@ test("el side tampoco puede romper la afinidad", () => {
   const oni = cards.find((c) => c.tipo === "Aliado" && c.raza === "Oni")!;
   const conOni = addCard(base, oni.id, "side");
   assert.ok(
-    validateDeck(conOni, index).some((i) => i.code === "razas-incompatibles"),
+    validateDeck(conOni, index).some((i) => i.code === "afinidad-incompatible"),
     "una raza ajena en el side deja el mazo ilegal",
   );
 
@@ -400,7 +428,7 @@ test("el side tampoco puede romper la afinidad", () => {
   const guerrero = cards.find((c) => c.tipo === "Aliado" && c.raza === "Guerrero")!;
   const conGuerrero = addCard(base, guerrero.id, "side");
   assert.ok(
-    !validateDeck(conGuerrero, index).some((i) => i.code === "razas-incompatibles"),
+    !validateDeck(conGuerrero, index).some((i) => i.code === "afinidad-incompatible"),
     "la escuela entera sigue siendo legal en el side",
   );
 });
@@ -447,4 +475,95 @@ test("canAdd frena al llegar a las 50 y a las 10 del side", () => {
   const check = canAdd(deck, card, "principal", index);
   assert.equal(check.ok, false);
   assert.match(check.ok === false ? check.mensaje : "", /50/);
+});
+
+/* ------------------------------------------------------------------ *
+ * Afinidad por atributo (Luz / Oscuridad)
+ *
+ * Llega con Steampunk, la primera edicion que los imprime. Es la tercera forma
+ * de armar un mazo, alternativa a la raza y a la escuela: no las reemplaza ni
+ * se suma a ellas.
+ * ------------------------------------------------------------------ */
+
+const aliadosLuz = cards.filter((c) => c.tipo === "Aliado" && c.atributo === "Luz");
+const aliadosOscuridad = cards.filter(
+  (c) => c.tipo === "Aliado" && c.atributo === "Oscuridad",
+);
+
+test("el catalogo trae Aliados Luz y Oscuridad de varias razas", () => {
+  // Si esto falla, los tests de abajo no estan probando nada.
+  assert.ok(aliadosLuz.length > 0 && aliadosOscuridad.length > 0);
+  const razasLuz = new Set(aliadosLuz.map((c) => c.raza));
+  assert.ok(razasLuz.size > 2, "la gracia del atributo es que cruza escuelas");
+});
+
+test("un atributo comun sostiene un mazo que la raza no explica", () => {
+  // Sacerdote y Heroe son de escuelas distintas (Heroe no tiene ninguna), asi
+  // que por raza este mazo seria ilegal. Por atributo no lo es.
+  const af = porAtributo("Luz", "Sacerdote", "Héroe");
+  assert.deepEqual(modos(af), ["atributo"]);
+  assert.equal(affinityLabel(af), "Luz");
+});
+
+test("un Aliado sin atributo cierra la via del atributo", () => {
+  // Un Aliado neutro no es "de los dos": no hay mazo Luz que lo admita.
+  const conNeutro = deckAffinity({
+    razas: new Set<Raza>(["Sacerdote", "Héroe"]),
+    atributos: new Set<Atributo>(["Luz"]),
+    neutros: true,
+  });
+  assert.deepEqual(conNeutro.vias, [], "y sin via de raza, el mazo es ilegal");
+
+  // Con una sola raza el mazo se sostiene igual, pero por la raza, no por Luz.
+  const monoRaza = deckAffinity({
+    razas: new Set<Raza>(["Héroe"]),
+    atributos: new Set<Atributo>(["Luz"]),
+    neutros: true,
+  });
+  assert.deepEqual(modos(monoRaza), ["raza"]);
+});
+
+test("Luz y Oscuridad no se mezclan", () => {
+  const mezcla = deckAffinity({
+    razas: new Set<Raza>(["Héroe", "Sombra"]),
+    atributos: new Set<Atributo>(["Luz", "Oscuridad"]),
+    neutros: false,
+  });
+  assert.deepEqual(mezcla.vias, []);
+});
+
+test("un mazo de Aliados Luz de varias razas es legal", () => {
+  const deck = mazoConAliados((c) => c.atributo === "Luz");
+  const stats = deckStats(resolveDeck(deck, index));
+  const issues = validateDeck(deck, index);
+
+  assert.ok(stats.razas.size > 1, "y de verdad cruza razas");
+  assert.deepEqual(modos(stats.afinidad), ["atributo"]);
+  assert.ok(isLegal(issues), `deberia ser legal: ${issues.map((i) => i.mensaje)}`);
+
+  // Un Aliado del atributo contrario lo rompe, venga por donde venga.
+  const conOscuridad = addCard(deck, aliadosOscuridad[0].id, "side");
+  assert.ok(
+    validateDeck(conOscuridad, index).some((i) => i.code === "afinidad-incompatible"),
+    "el side tampoco puede romper el atributo",
+  );
+  assert.equal(
+    canAdd(deck, index.porId.get(aliadosOscuridad[0].id)!, "side", index).ok,
+    false,
+    "y el boton + tampoco deja agregarlo",
+  );
+});
+
+test("el atributo solo restringe a los Aliados", () => {
+  // Decision del proyecto: un Talisman Oscuridad cabe en un mazo Luz, igual
+  // que un Talisman cualquiera cabe en un mazo de una raza que no es la suya.
+  const talismanOscuro = cards.find(
+    (c) => c.tipo !== "Aliado" && c.atributo === "Oscuridad",
+  );
+  assert.ok(talismanOscuro, "Steampunk imprime cartas de atributo que no son Aliados");
+
+  const deck = mazoConAliados((c) => c.atributo === "Luz");
+  const { afinidad } = deckStats(resolveDeck(deck, index));
+  assert.ok(admite(afinidad, talismanOscuro));
+  assert.ok(canAdd(deck, index.porId.get(talismanOscuro.id)!, "side", index).ok);
 });

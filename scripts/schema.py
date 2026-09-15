@@ -118,3 +118,49 @@ class Card(BaseModel):
         if not self.identidad:
             self.identidad = slug_identidad(self.nombre)
         return self
+
+
+# Keywords que el juego imprime como declaracion al inicio del texto de
+# habilidad ("Unica.", "Furia.", "Luz."). Espejo de KEYWORDS_IMPRESAS en
+# src/lib/types.ts: si agregas una alli, agregala aqui.
+#
+# Vive en este modulo y no en fetch_edition.py porque describe el modelo, no la
+# descarga: `atributo` se deduce de esta lista.
+KEYWORDS_IMPRESAS = [
+    "Única",
+    "Imbloqueable",
+    "Indesterrable",
+    "Indestructible",
+    "Luz",
+    "Oscuridad",
+    "Furia",
+    "Guardián",
+    "Inmunidad",
+    "Alimentar",
+    "Purificar",
+    "Retador",
+    "Ilusión",
+    "Espectral",
+    "Honor",
+    "Errante",
+    "Exhumar",
+    "Mercenario",
+]
+
+_ALTERNATIVA = "|".join(re.escape(k) for k in KEYWORDS_IMPRESAS)
+# El recordatorio de reglas entre parentesis que algunas ediciones pegan tras
+# la keyword, y el punto (o el fin de linea) que cierra la declaracion.
+_FIN_DECLARACION = r"(?:\s*\([^)]*\))?(?:\.|(?=\n|$))"
+_DECLARACION_INICIAL = re.compile(rf"^(?:(?:{_ALTERNATIVA}){_FIN_DECLARACION}\s*)+")
+_CADA_KEYWORD = re.compile(rf"({_ALTERNATIVA}){_FIN_DECLARACION}")
+
+
+def keywords_declaradas(habilidad: str) -> list[str]:
+    """Las keywords declaradas al INICIO del texto, en el orden impreso.
+
+    Espejo de `splitAbility()` en src/lib/ability.ts. Una keyword mencionada
+    dentro de la prosa ("Destruye una carta Oscuridad") no cuenta: solo cuenta
+    la declaracion, que es lo que la carta imprime como propiedad suya.
+    """
+    m = _DECLARACION_INICIAL.match(habilidad or "")
+    return [x.group(1) for x in _CADA_KEYWORD.finditer(m.group(0))] if m else []

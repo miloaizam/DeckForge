@@ -34,11 +34,13 @@ import {
   type DeckZone,
 } from "@/lib/deck";
 import {
+  admite,
+  affinityAdmits,
+  affinityLabel,
   buildCardIndex,
   canAdd,
   deckStats,
   isLegal,
-  razasPermitidas,
   resolveDeck,
   validateDeck,
   DECK_TOTAL,
@@ -51,20 +53,6 @@ import { cn } from "@/lib/utils";
 
 interface BuilderViewProps {
   cards: Card[];
-}
-
-/** Como se lee la afinidad del mazo en una linea. */
-function textoAfinidad(stats: ReturnType<typeof deckStats>): string {
-  switch (stats.afinidad.modo) {
-    case "vacio":
-      return "Sin raza aún";
-    case "mono":
-      return stats.afinidad.raza;
-    case "escuela":
-      return stats.afinidad.escuela;
-    case "invalida":
-      return "Razas incompatibles";
-  }
 }
 
 function GuardarButton({
@@ -177,22 +165,19 @@ export function BuilderView({ cards }: BuilderViewProps) {
   /**
    * Solo las cartas que pueden entrar en ESTE mazo.
    *
-   * En cuanto el mazo tiene un Aliado, su raza queda fija: o sigue mono-raza o
-   * crece hacia su escuela. Ofrecer cartas que el validador va a rechazar solo
-   * hace perder el tiempo. La raza la llevan los Aliados y nadie mas, asi que
-   * Talismanes, Armas, Totems y Oros entran en cualquier mazo y nunca se
-   * filtran.
+   * En cuanto el mazo tiene un Aliado su afinidad empieza a cerrarse: o sigue
+   * mono-raza, o crece hacia su escuela, o se sostiene por el atributo.
+   * Ofrecer cartas que el validador va a rechazar solo hace perder el tiempo.
+   * La afinidad la llevan los Aliados y nadie mas, asi que Talismanes, Armas,
+   * Totems y Oros entran en cualquier mazo y nunca se filtran.
+   *
+   * Vale para las dos zonas: el side entra al mazo entre partidas, asi que no
+   * puede traer un Aliado que el mazo no admite.
    */
-  const permitidas = useMemo(() => razasPermitidas(stats.afinidad), [stats.afinidad]);
-  // El filtro de raza vale para las dos zonas: el side entra al mazo entre
-  // partidas, asi que no puede traer una raza que el mazo no admite.
-  const acotarPorRaza = permitidas.size > 0;
+  const acotado = !stats.afinidad.vacio && stats.afinidad.vias.length > 0;
   const disponibles = useMemo(
-    () =>
-      acotarPorRaza
-        ? cards.filter((c) => c.raza === null || permitidas.has(c.raza))
-        : cards,
-    [cards, permitidas, acotarPorRaza],
+    () => (acotado ? cards.filter((c) => admite(stats.afinidad, c)) : cards),
+    [cards, stats.afinidad, acotado],
   );
 
   // Las facetas salen de lo que de verdad se puede agregar: si el filtro de
@@ -301,12 +286,12 @@ export function BuilderView({ cards }: BuilderViewProps) {
 
           {/* Que el catalogo este acotado tiene que verse, o parece que faltan
               cartas. */}
-          {acotarPorRaza && (
+          {acotado && (
             <p className="text-muted -mt-2 text-[13px]">
-              Mostrando solo cartas que caben en este mazo: Aliados de{" "}
-              <span className="text-ink">{[...permitidas].join(" y ")}</span>, más
-              Talismanes, Armas, Tótems y Oros. Para cambiar de raza, quita los Aliados
-              del mazo.
+              Mostrando solo cartas que caben en este mazo: Aliados{" "}
+              <span className="text-ink">{affinityAdmits(stats.afinidad)}</span>, más
+              Talismanes, Armas, Tótems y Oros. Para cambiar de afinidad, quita los
+              Aliados del mazo.
             </p>
           )}
 
@@ -397,7 +382,7 @@ export function BuilderView({ cards }: BuilderViewProps) {
       <DeckSheet
         total={stats.totalPrincipal}
         legal={legal}
-        afinidad={textoAfinidad(stats)}
+        afinidad={affinityLabel(stats.afinidad)}
         open={sheetOpen}
         onOpenChange={setSheetOpen}
       >

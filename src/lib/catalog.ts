@@ -28,7 +28,6 @@ export interface CatalogFilters {
   raza: string;
   escuela: string;
   frecuencia: string;
-  atributo: string;
   coste: string;
   fuerza: string;
 }
@@ -41,7 +40,6 @@ export const EMPTY_FILTERS: CatalogFilters = {
   raza: "",
   escuela: "",
   frecuencia: "",
-  atributo: "",
   coste: "",
   fuerza: "",
 };
@@ -64,8 +62,13 @@ export function countActiveFilters(f: CatalogFilters): number {
  *
  * Tipo, raza, escuela y frecuencia usan las listas canonicas del formato: la
  * oferta es la misma en toda edicion, asi el filtro no cambia de forma segun
- * lo que este cargado. Coste, fuerza y atributo si se derivan de las cartas,
- * porque son rangos abiertos.
+ * lo que este cargado. Coste y fuerza si se derivan de las cartas, porque son
+ * rangos abiertos.
+ *
+ * El atributo NO tiene faceta propia: Luz y Oscuridad son keywords impresas
+ * como cualquier otra y se filtran desde `habilidades`, que sale del campo
+ * `keywords`. Una novena faceta que dijera lo mismo solo parte la busqueda en
+ * dos sitios.
  *
  * `ediciones` queda vacia cuando todas las cartas son de la misma edicion: en
  * /catalogo/<edicion> el filtro no tendria nada que elegir, y un Select sin
@@ -78,7 +81,6 @@ export interface Facets {
   razas: string[];
   escuelas: string[];
   frecuencias: string[];
-  atributos: string[];
   costes: string[];
   fuerzas: string[];
 }
@@ -110,14 +112,6 @@ export function buildFacets(cards: Card[]): Facets {
     razas: [...RAZAS],
     escuelas: [...ESCUELAS],
     frecuencias: [...FRECUENCIAS],
-    atributos: [
-      ...new Set(
-        cards
-          .map((c) => c.atributo)
-          .filter((v) => v !== null)
-          .map(String),
-      ),
-    ].sort((a, b) => a.localeCompare(b, "es")),
     costes: numeric((c) => c.coste),
     fuerzas: numeric((c) => c.fuerza),
   };
@@ -171,7 +165,6 @@ export function applyFilters(
       matches(c.raza, filters.raza) &&
       matches(c.escuela, filters.escuela) &&
       matches(c.frecuencia, filters.frecuencia) &&
-      matches(c.atributo, filters.atributo) &&
       matches(c.coste, filters.coste) &&
       matches(c.fuerza, filters.fuerza),
   );

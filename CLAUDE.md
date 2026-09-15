@@ -261,6 +261,137 @@ out/           build estático (git-ignorado)
   - El resto es lo de siempre: saltos de línea comidos, "de su mano" añadido
     donde la carta no lo imprime, `Unicá` por `Única` (CA-020), y erratas
     impresas del tipo "este Aliado este en juego".
+- **Cómo se revisó Águila Imperial** (261 cartas, 26 corregidas). Es la
+  edición con los datos **más limpios** hasta ahora en lo que suele fallar —el
+  `rarity` viene en tramos contiguos y correctos, nada del barajado de
+  ContraAtaque; el texto usa saltos de línea reales, sin `↵` ni `/n` ni puntos
+  pegados; el `flavour` va en su propio campo y los 16 Oros traen `ability`
+  vacío— y aun así trajo tres fallos nuevos que conviene buscar en las que
+  faltan:
+  - **El `edid` de la API va desfasado respecto del código impreso.** Las 9
+    Legendarias ocupan los `edid` 001–009 pero llevan su **propia numeración**
+    al pie (`LAI-01-09`…`LAI-09-09`) y **no cuentan** dentro del set base, que
+    va `AI-001-227`…`AI-227-227` sobre los `edid` 010–236. O sea: el código
+    impreso es `edid − 9`. Los 25 promos (`edid` 237–261) van aparte, entre
+    preestrenos (`PE-09`, `PE-14`…) y la tanda de 2017 (`2017-042`…). En
+    Dominio no pasaba: allí las Legendarias sí van dentro del 236 y la API
+    simplemente no las entregaba. **Por decisión del proyecto el `codigo` se
+    queda en `AI-<edid>`**, uniforme con el resto del repo, aunque en 227
+    cartas no coincida con lo que el jugador lee al pie. Verificado en el arte
+    de AI-010, AI-011, AI-012, AI-218, AI-221 y AI-236.
+  - **El `ilustrador` llega de relleno en las 261 cartas.** La API devuelve
+    `Mitos y Leyendas` para todas, que es el valor legítimo **solo** del oro
+    inicial (BU-237, SN-129, DO-237, CA-145 y aquí AI-237, cuyo arte dice
+    literalmente "ARTE: MYL"). La edición viene, en la práctica, **sin dato de
+    ilustrador**. Se rellenó con la
+    [lista del fandom](https://myl.fandom.com/es/wiki/Lista_de_cartas_de_%C3%81guila_Imperial)
+    para las 227 del set base y leyendo el pie de la carta para las 34 que el
+    fandom no lista (9 Legendarias + 25 promos). **Las 227 se cotejaron una a
+    una contra el pie: cero discrepancias**, así que en esta edición la
+    columna del fandom es de fiar. Ojo con la grafía: el pie va en VERSALES y
+    no sirve para las tildes ni para el camelCase (`CristianAC`); esos salen
+    del fandom o del catálogo ya cargado. Único ajuste: AI-133 y AI-253
+    imprimen "RUÍZ", pero el ilustrador ya estaba como `Francisco Ruiz` desde
+    otra edición y partirlo en dos nombres rompería el agrupado.
+  - **22 nombres llegan con espacios al final** ("Aníbal ", "Falx "). Es la
+    primera edición donde pasa. `clean_name()` se aplica ahora también al
+    nombre de la carta, no solo al del ilustrador.
+  - **Las Legendarias usan otra plantilla y declaran la keyword a secas**, una
+    por línea y **sin** el recordatorio entre paréntesis: el arte de Nanna dice
+    "Única" y punto, el de Loki "Furia" / "Exhumar". La API les pega el
+    paréntesis igual que al set base, donde sí va impreso. Se quitó en las 9.
+  - **Ocho promos son reimpresiones TEXTLESS**: la carta se imprimió sin cuadro
+    de reglas y la API entrega la cadena literal `TEXTLESS` en `ability`
+    (AI-254…AI-261). Por decisión del proyecto **se les copia el texto y las
+    keywords de su impresión original**, para que la carta diga lo que hace.
+    Siete originales ya estaban en el catálogo; Relámpago Faérico (AI-256) es
+    de **Camelot**, que no es del formato, y se sacó de
+    `/cards/edition/camelot`.
+  - **Tres Oros venían marcados `Vasallo`**: Laura, Rudi y Rota Fortunae
+    (AI-218/219/220) son Oros **con** habilidad, pero su código impreso
+    (`AI-209/210/211-227`) los pone dentro del bloque de Oros y el fandom los
+    lista ahí. Quedaron en `frecuencia: "Oro"`, que es donde el jugador los
+    busca. No cambia nada de las reglas: `oroSinHabilidad` mira tipo y
+    habilidad, no frecuencia.
+  - **Y hay datos derechamente malos, como siempre.** AI-198 traía **la
+    habilidad de otra carta entera** (y el nombre: la API la llamaba
+    "Canibus"); AI-076 y AI-077 también venían con otro nombre ("Bipennis",
+    "Panteón de Agripa"); AI-076 arrastra además una línea que la carta no
+    imprime ("El Aliado portador gana 1 a la Fuerza."); **AI-118 dice "un Oro
+    menos" donde el arte dice "dos Oros menos"** —el único caso funcional, el
+    DO-053 de esta edición—; AI-244 "que no sean Oro" por "que no sea";
+    AI-248 "del coste elegido" por "del tipo elegido"; y AI-051 traía Fuerza 1
+    donde el arte marca 2. El fandom **también** se equivoca: daba "Musa de
+    Patria" por Musa de Partia.
+  - **Y una carta con `ability` vacío que sí tiene texto impreso**: AI-252
+    (Asteria de Delos). Leída del arte, keyword `Purificar` incluida.
+  - **AI-003 (Leonardo) imprime `Guardián`** y el campo `keywords` no la
+    etiqueta, igual que en las cuatro ediciones anteriores. Sigue sin poder
+    filtrarse por ella.
+  - **AI-080 lleva `Áquila Imperialis` con tilde impresa en el arte.** En latín
+    no la lleva y el fandom la escribe sin ella, pero aquí **mandó la carta**:
+    es un nombre propio, no una palabra mal escrita dentro de una frase. Las
+    erratas de *texto* sí se corrigen, como en Dominio: AI-089 y AI-120 sin
+    punto final, AI-094 y AI-249 con "este en juego" sin tilde, y AI-162 con
+    "(Este no puede ser bloqueado)" comiéndose "Aliado".
+  - No hay intercambio `cost`/`damage`: verificados los 110 Aliados contra el
+    arte. Tampoco hay Milenarias en esta edición —las sustituye el bloque de 9
+    Legendarias—, ni ninguna carta escondida: el listado arranca en 001, no
+    tiene huecos y `/static/cards/13/262.png` ya da 404.
+- **Cómo se revisó Steampunk** (71 cartas, 26 corregidas). Es una edición
+  **especial** y pequeña —30 cartas Luz, 30 Oscuridad y 11 promos— y la primera
+  que imprime el **atributo**. Sus datos están entre los más limpios: el
+  `rarity` viene en tramos contiguos, el texto usa saltos de línea reales, el
+  `flavour` va en su campo y los 13 Oros sin habilidad traen `ability` vacío.
+  Trajo, eso sí, el fallo más traicionero de todos:
+  - **El atributo NO está en el campo `keywords`.** Los flags 16 y 32 marcan la
+    **mención**, no la propiedad: Rayo (SP-015) trae el flag de Oscuridad
+    porque su texto dice "Destruye una carta Oscuridad", Van Helsing trae los
+    dos aunque solo es Luz, y Otto Lidenbrock trae Luz siendo neutro. Serían 25
+    Luz y 21 Oscuridad; los de verdad son **18 y 17**. Lo que manda es la
+    **declaración al inicio del texto** ("Luz." / "Oscuridad."), que es como el
+    juego imprime cualquier keyword. `fetch_edition.py` lo deduce ahora con
+    `keywords_declaradas()` de `schema.py`, espejo de `splitAbility()`, y
+    reescribe el campo `keywords` para que no mienta el filtro de habilidad.
+  - **En el arte el atributo está en un medallón** sobre el cuadro de
+    habilidad: **sol = Luz, luna = Oscuridad, manómetro = ninguno**. Es el
+    equivalente al escudo del dragón de ContraAtaque y verifica las 71 de una
+    sentada montando planchas con el recorte `(212,455)-(302,528)`. Coincidió
+    con la declaración carta por carta, cero excepciones. **Vale la pena mirar
+    ese medallón en Hijos del Sol y Legado Gótico**, que son las otras dos
+    ediciones con atributo.
+  - El **engranaje** que va a la derecha del cuadro de habilidad codifica la
+    frecuencia: negro Ultra Real, dorado Real, rojo Cortesano, azul Vasallo,
+    morado Promocional. Sirvió para confirmar que aquí el `rarity` sí es de
+    fiar.
+  - **Dos razas mal**: Blavatsky (SP-002) y Carnacki (SP-005) son
+    **Sacerdote**, no Faerie ni Caballero. El fandom acertaba en las dos.
+  - **Dos Fuerzas mal**: Dorian Grey (SP-011) es Fuerza 3 y Drácula (SP-031)
+    también, no 2 ni 4. **Un coste mal**: ¡Vive! (SP-046) cuesta 4, no 3. No
+    hay intercambio `cost`/`damage`: verificados los 31 Aliados contra el arte.
+  - **A Haures (SP-066) le falta la keyword entera**: el arte declara `Furia` y
+    la API no la entrega ni en el texto ni en `keywords`.
+  - **Un nombre derechamente cambiado**: SP-054 es **Contrabando de Seda**, no
+    "Gusanos de Seda". El fandom acertaba.
+  - **El caso funcional de la edición**, el DO-053 de esta: Ada Lovelace
+    (SP-065) genera **un Oro**, no dos. Mandó el arte.
+  - **El fandom también se equivoca**, y aquí en tres nombres: imprime "A la
+    Luna", "Ratas en los Muros" y "Gabriel Ernest" donde la carta dice "A la
+    luna", "Ratas en los muros" y "Gabriel-Ernest". Tampoco lista el
+    ilustrador del oro inicial. La sexta columna sí es de fiar para el resto.
+  - El resto es lo de siempre: seis nombres con espacio al final, `pgar` por
+    "pagar" (SP-071), dos puntos finales que no llegan, y el recordatorio de
+    `Exhumar` cambiado por el genérico en SP-039 y SP-068.
+  - El **oro inicial** es SP-061, y la API ya lo llama "Oro Inicial Steampunk";
+    solo hubo que pasarlo de `Promocional` a `frecuencia: "Oro"`, como los
+    otros cuatro. Su arte dice "Edición Especial STEAMPUNK **2017**" aunque la
+    API feche la edición en 2018.
+  - El código impreso lleva **tres letras** (`SPK-01-71`), pero el `codigo` del
+    repo se queda en `SP-<edid>`: uniforme con las otras cinco, mismo criterio
+    que ya se tomó en Águila Imperial. El arte entra a **512×734**, dos píxeles
+    más alto que el resto; `resize_to_width()` no se entera.
+  - Ninguna carta escondida: el listado va de 001 a 071 sin huecos y
+    `/static/cards/14/072.png` da 404.
 - Ojo con los slugs de la API: `escuelas_elementales` va con **guion bajo**,
   el resto con guion (`legado-gotico`, `aguila-imperial`…).
 
@@ -384,9 +515,17 @@ pliegan detrás de un botón de menú: no caben junto al logotipo en un teléfon
 
 Los filtros del catálogo van plegados detrás de un botón con embudo, que lleva
 el número de filtros puestos; solo el buscador queda siempre a la vista. Hay
-nueve facetas: edición (solo en `/catalogo`, porque en la página de una edición
-no tendría nada que elegir), habilidad, tipo, raza, escuela, frecuencia, coste,
-fuerza y atributo.
+ocho facetas: edición (solo en `/catalogo`, porque en la página de una edición
+no tendría nada que elegir), habilidad, tipo, raza, escuela, frecuencia, coste
+y fuerza.
+
+**El atributo no tiene faceta propia, a propósito.** Luz y Oscuridad son
+keywords impresas como cualquier otra, así que se filtran desde *habilidad*,
+que sale del campo `keywords`. Hubo un `Select` de atributo —vacío mientras no
+hubo cartas que lo llevaran— y se quitó al llegar Steampunk: un selector que
+dijera lo mismo que otro solo parte la búsqueda en dos sitios. El campo
+`atributo` de la carta **sigue existiendo** y es el que usan las reglas de
+mazo; lo que se fue es el filtro.
 
 `src/lib/ability.ts` separa las keywords declaradas al inicio del texto de
 habilidad ("Única. Furia. …") del resto de la prosa: el modal las muestra en
@@ -421,8 +560,11 @@ importar constantes desde un módulo `"use client"` hacia un Server Component:
 Next entrega una referencia de cliente, no el valor. Por eso `THEME_KEY` vive
 en `src/lib/theme.ts` y no en el componente.
 
-Cargadas: **793 cartas** — Bushido (246), Sol Naciente (141), Dominio (256) y
-ContraAtaque (150).
+Cargadas: **1125 cartas** — Bushido (246), Sol Naciente (141), Dominio (256),
+ContraAtaque (150), Águila Imperial (261) y Steampunk (71).
+
+Steampunk es la primera edición que imprime Luz y Oscuridad, así que el filtro
+de **habilidad** las ofrece desde ahora.
 
 ### Constructor de mazos (Fase 2)
 
@@ -436,23 +578,56 @@ inventan en el navegador.
 Reglas del formato, en `src/lib/deck-rules.ts`: 50 cartas, un oro inicial (un
 Oro sin habilidad, señalado con un puntero a una carta de `principal` porque
 cuenta dentro de las 50), mínimo 15 Aliados **o** 15 Tótems, máximo 3 copias por
-carta (1 si es Única), razas de una sola escuela y side de hasta 10 cartas.
+carta (1 si es Única), una sola afinidad y side de hasta 10 cartas.
 
 **El side deck es una extensión del mazo, no un mazo aparte**: lleva las cartas
 que quiera entre 0 y 10 —no hay mínimo ni tamaño exacto—, pero comparte con el
-principal el máximo de copias, las Únicas y la afinidad de raza. Por eso
+principal el máximo de copias, las Únicas y la afinidad. Por eso
 `deckStats` deduce la afinidad sobre las 60 cartas, mientras que los contadores
 por tipo y la curva siguen siendo del principal, que es lo que se juega de
 salida.
+
+**Un mazo se arma de una de tres formas, y son alternativas**: por raza, por
+escuela elemental (sus dos razas exactas) o **por atributo** —todos sus Aliados
+Luz, o todos Oscuridad—. Basta con cumplir **una**. La tercera llega con
+Steampunk y es la que obligó a reescribir la afinidad: un mazo de Aliados Luz
+de cuatro razas distintas es legal, y ninguna vía de raza lo explica.
+
+Por eso `Afinidad` ya no es un veredicto único sino una **lista de vías
+abiertas**. Mientras el mazo se arma cumple varias a la vez —el primer Aliado
+las abre todas las que le correspondan— y se van cerrando a medida que entran
+cartas. La clave que hace esto simple: **cada vía es una condición sobre TODOS
+los Aliados**, así que una vía abierta sigue abierta al agregar un Aliado si y
+solo si ese Aliado la cumple. De ahí sale `admite()`, de una línea, y de ahí
+que el catálogo del constructor pueda filtrarse sin recalcular el mazo entero.
+
+**El atributo restringe solo a los Aliados**, exactamente igual que la raza.
+Es una decisión del proyecto y no es obvia: en Steampunk el atributo lo
+imprimen también Talismanes, Armas, Tótems y Oros, así que Quiebra Mentes
+(Talismán Oscuridad) **cabe en un mazo Luz**. Como la raza solo la llevan los
+Aliados, el conteo de razas nunca necesitó mirar el tipo; el del atributo sí, y
+por eso `deckStats` ahora filtra por `tipo === "Aliado"` antes de contar.
+
+**Un Aliado sin atributo cierra la vía del atributo.** No es "de los dos": no
+hay mazo Luz que lo admita, igual que un Aliado de otra raza cierra la vía de
+la raza. En Steampunk eso deja a nueve Aliados neutros (Dorian Grey, Dupin,
+Otto, Jack, Peter Pan, Ada Lovelace, Haures, Cthulhu y Fu Manchú) fuera del
+arquetipo de atributo, aunque sigan entrando en cualquier mazo de su raza.
+
+`deckAffinitySchema` ganó la variante `{ modo: "atributo" }` **sin subir
+`DECK_VERSION`**: el cambio es aditivo y ningún mazo ya guardado deja de leerse.
 
 **El mínimo de 15 lo cumple un tipo solo, no la suma de los dos**: 14 Aliados y
 14 Tótems son 28 cartas y el mazo sigue sin cumplir. Por eso `deckStats` lleva
 `aliadosOTotems` con el **mayor** de los dos contadores y no con su suma.
 
 **Los Oros sin habilidad no tienen tope de copias**: son el recurso con que se
-paga todo y el mazo lleva los que necesite. Los cuatro Oros que sí traen
-habilidad (Regalia Imperial, Pantano Sagrado, Mon y Chozuya) son todos Únicos,
-así que siguen limitados a una copia. Por eso el esquema de Zod acota las
+paga todo y el mazo lleva los que necesite. Los 25 que sí traen habilidad son
+cartas como cualquier otra y van al tope de 3; solo seis de ellos (Regalía
+Imperial, Pantano Sagrado, Mon, Chozuya, Biblioteca Eterna y Mochuelo) son
+además Únicos. Ojo: esto **decía "los cuatro Oros con habilidad son todos
+Únicos"** y dejó de ser cierto en Dominio, mucho antes de que nadie lo notara.
+Por eso el esquema de Zod acota las
 entradas a 50 y no a 3: describe lo que se puede **representar**, no lo que es
 legal — si recortara a 3, un mazo importado con 4 copias se volvería legal en
 silencio al leerlo.
@@ -481,4 +656,4 @@ contra fixtures, porque los bordes que duelen salen de los datos.
 `scripts/ts-imports.mjs` son quince líneas que le enseñan a Node a resolver los
 imports sin extensión que espera el bundler de Next.
 
-**Todavía no hay** las otras 6 ediciones, ni la banlist, ni las erratas.
+**Todavía no hay** las otras 4 ediciones, ni la banlist, ni las erratas.

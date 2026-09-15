@@ -2,6 +2,7 @@ import { copiesOf, totalCards, type DeckZone } from "./deck";
 import {
   ESCUELA_POR_RAZA,
   RAZAS_POR_ESCUELA,
+  type Atributo,
   type Card,
   type Deck,
   type Escuela,
@@ -46,10 +47,16 @@ export interface RuleCard {
   nombre: string;
   tipo: Tipo;
   raza: Raza | null;
+  /**
+   * Luz, Oscuridad o ninguno. Lo imprimen tambien Talismanes, Armas, Totems y
+   * Oros, pero para las reglas solo cuenta el de los Aliados: el atributo
+   * restringe el mazo igual que la raza, y por los mismos motivos.
+   */
+  atributo: Atributo | null;
   coste: number | null;
   thumb: string;
   legalidad: Legalidad;
-  /** Lleva la keyword Unica: 1 copia por mazo. Tambien la traen 4 Oros. */
+  /** Lleva la keyword Unica: 1 copia por mazo. Tambien la traen seis Oros. */
   unica: boolean;
   /**
    * Es un Oro sin habilidad. De ese hecho salen dos reglas: puede ocupar el
@@ -65,6 +72,7 @@ export function toRuleCard(c: Card): RuleCard {
     nombre: c.nombre,
     tipo: c.tipo,
     raza: c.raza,
+    atributo: c.atributo,
     coste: c.coste,
     thumb: c.thumb,
     legalidad: c.legalidad,
@@ -83,55 +91,161 @@ export function buildCardIndex(cards: Card[]): CardIndex {
 }
 
 /* ------------------------------------------------------------------ *
- * Afinidad de raza
+ * Afinidad
+ *
+ * Un mazo del formato se arma de una de tres formas: por raza, por escuela
+ * elemental (las dos razas exactas de una) o por atributo (todos sus Aliados
+ * Luz, o todos Oscuridad). Son ALTERNATIVAS, no niveles: basta con cumplir una.
+ *
+ * La via del atributo llega con Steampunk, que es la primera edicion que
+ * imprime Luz y Oscuridad, y es la que justifica que esto sea una lista de
+ * vias abiertas y no un solo veredicto: mientras el mazo se arma suele cumplir
+ * varias a la vez —el primer Aliado abre todas las que le corresponden— y se
+ * van cerrando a medida que entran cartas. Un mazo de Aliados Luz de cuatro
+ * razas distintas es legal, y ninguna via de raza lo explica.
  * ------------------------------------------------------------------ */
 
-export type Afinidad =
-  | { modo: "vacio" }
-  | { modo: "mono"; raza: Raza; escuela: Escuela | null }
-  | { modo: "escuela"; escuela: Escuela; razas: readonly [Raza, Raza] }
-  | { modo: "invalida"; razas: Raza[] };
-
-/**
- * Deduce la afinidad de un conjunto de razas.
- *
- * Un mazo es o mono-raza o de una escuela (sus dos razas exactas). Con una sola
- * raza el mazo es mono-raza y ademas puede crecer hacia su escuela, si la
- * tiene: por eso `mono` la lleva de la mano.
- */
-export function deckAffinity(razas: Set<Raza>): Afinidad {
-  const lista = [...razas];
-
-  if (lista.length === 0) return { modo: "vacio" };
-
-  if (lista.length === 1) {
-    const raza = lista[0];
-    return { modo: "mono", raza, escuela: ESCUELA_POR_RAZA[raza] ?? null };
-  }
-
-  if (lista.length === 2) {
-    const escuela = ESCUELA_POR_RAZA[lista[0]];
-    if (escuela && ESCUELA_POR_RAZA[lista[1]] === escuela) {
-      return { modo: "escuela", escuela, razas: RAZAS_POR_ESCUELA[escuela] };
-    }
-  }
-
-  return { modo: "invalida", razas: lista };
+/** Solo los Aliados llevan afinidad; el resto entra en cualquier mazo. */
+export interface ConAfinidad {
+  tipo: Tipo;
+  raza: Raza | null;
+  atributo: Atributo | null;
 }
 
-/** Las razas que un mazo con esta afinidad admite. Vacio = todavia cualquiera. */
-export function razasPermitidas(afinidad: Afinidad): Set<Raza> {
-  switch (afinidad.modo) {
-    case "vacio":
-    case "invalida":
-      return new Set();
-    case "mono":
-      return new Set(
-        afinidad.escuela ? RAZAS_POR_ESCUELA[afinidad.escuela] : [afinidad.raza],
-      );
-    case "escuela":
-      return new Set(afinidad.razas);
+export type Via =
+  | { modo: "raza"; raza: Raza }
+  | { modo: "escuela"; escuela: Escuela; razas: readonly [Raza, Raza] }
+  | { modo: "atributo"; atributo: Atributo };
+
+export interface Afinidad {
+  /** El mazo no tiene Aliados todavia: sigue abierto a cualquier cosa. */
+  vacio: boolean;
+  /**
+   * Las vias que los Aliados del mazo todavia cumplen, de la mas estrecha a la
+   * mas ancha. Si el mazo tiene Aliados y esto queda vacio, es ilegal.
+   */
+  vias: Via[];
+}
+
+/** Lo que las reglas de afinidad miran de los Aliados de un mazo. */
+export interface Afinidades {
+  razas: Set<Raza>;
+  atributos: Set<Atributo>;
+  /** Hay al menos un Aliado sin atributo impreso. Cierra la via del atributo. */
+  neutros: boolean;
+}
+
+/** La escuela comun a todas esas razas, o nada si no comparten una. */
+function escuelaComun(razas: Raza[]): Escuela | null {
+  const escuela = ESCUELA_POR_RAZA[razas[0]];
+  if (!escuela) return null;
+  return razas.every((r) => ESCUELA_POR_RAZA[r] === escuela) ? escuela : null;
+}
+
+/**
+ * Deduce que vias sigue cumpliendo un mazo.
+ *
+ * Cada via es una condicion sobre TODOS los Aliados ("todos de esta raza",
+ * "todos de este atributo"), asi que una via abierta sigue abierta al agregar
+ * un Aliado si y solo si ese Aliado la cumple. De ahi sale `admite()`.
+ */
+export function deckAffinity({ razas, atributos, neutros }: Afinidades): Afinidad {
+  const lista = [...razas];
+
+  // Todos los Aliados llevan raza impresa, asi que sin razas no hay Aliados.
+  if (lista.length === 0) return { vacio: true, vias: [] };
+
+  const vias: Via[] = [];
+
+  if (lista.length === 1) vias.push({ modo: "raza", raza: lista[0] });
+
+  // Con una sola raza la via de escuela se abre igual: el mazo todavia puede
+  // crecer hacia la otra raza de su escuela.
+  const escuela = escuelaComun(lista);
+  if (escuela) {
+    vias.push({ modo: "escuela", escuela, razas: RAZAS_POR_ESCUELA[escuela] });
   }
+
+  // Un Aliado sin atributo no es "de los dos": no hay mazo de atributo que lo
+  // admita, igual que un Aliado de otra raza cierra la via de la raza.
+  if (!neutros && atributos.size === 1) {
+    vias.push({ modo: "atributo", atributo: [...atributos][0] });
+  }
+
+  return { vacio: false, vias };
+}
+
+export function afinidadValida(afinidad: Afinidad): boolean {
+  return afinidad.vacio || afinidad.vias.length > 0;
+}
+
+function viaAdmite(via: Via, card: ConAfinidad): boolean {
+  switch (via.modo) {
+    case "raza":
+      return card.raza === via.raza;
+    case "escuela":
+      return card.raza !== null && via.razas.includes(card.raza);
+    case "atributo":
+      return card.atributo === via.atributo;
+  }
+}
+
+/**
+ * Si esa carta puede entrar en un mazo con esta afinidad.
+ *
+ * Los que no son Aliados entran siempre: la afinidad restringe los Aliados y
+ * nadie mas, asi que un Talisman Oscuridad cabe en un mazo Luz. Es la misma
+ * regla de siempre para la raza, ahora tambien para el atributo.
+ */
+export function admite(afinidad: Afinidad, card: ConAfinidad): boolean {
+  if (card.tipo !== "Aliado") return true;
+  if (afinidad.vacio) return true;
+  return afinidad.vias.some((via) => viaAdmite(via, card));
+}
+
+/**
+ * Como se lee la afinidad en una linea.
+ *
+ * Muestra la via de raza mas estrecha que siga abierta y, si el mazo ademas
+ * comparte atributo, tambien ese: "Caballero", "Gremio de Paladines · Luz".
+ * Las dos vias de raza juntas ("Caballero" y "Gremio de Paladines") dirian lo
+ * mismo dos veces, asi que manda la estrecha.
+ */
+export function affinityLabel(afinidad: Afinidad): string {
+  if (afinidad.vacio) return "Sin afinidad aún";
+  if (afinidad.vias.length === 0) return "Afinidad incompatible";
+
+  const porRaza = afinidad.vias.find((v) => v.modo === "raza" || v.modo === "escuela");
+  const porAtributo = afinidad.vias.find((v) => v.modo === "atributo");
+
+  const partes: string[] = [];
+  if (porRaza) partes.push(porRaza.modo === "raza" ? porRaza.raza : porRaza.escuela);
+  if (porAtributo) partes.push(porAtributo.atributo);
+  return partes.join(" · ");
+}
+
+/**
+ * Que Aliados admite todavia el mazo, en prosa, para explicar por que el
+ * catalogo del constructor esta acotado.
+ *
+ * Cuando sigue abierta la via de la escuela, la de la raza sobra: las razas de
+ * la escuela ya incluyen la suya.
+ */
+export function affinityAdmits(afinidad: Afinidad): string {
+  const porEscuela = afinidad.vias.some((v) => v.modo === "escuela");
+  return afinidad.vias
+    .filter((v) => !(porEscuela && v.modo === "raza"))
+    .map((via) => {
+      switch (via.modo) {
+        case "raza":
+          return `de raza ${via.raza}`;
+        case "escuela":
+          return `de ${via.escuela} (${via.razas.join(" y ")})`;
+        case "atributo":
+          return `de ${via.atributo}`;
+      }
+    })
+    .join(" o ");
 }
 
 /* ------------------------------------------------------------------ *
@@ -192,8 +306,8 @@ export function copiasPorIdentidad(res: ResolvedDeck): Map<string, number> {
  * Cuantas copias de una carta admite el mazo.
  *
  * Los Oros sin habilidad no tienen tope: son el recurso con el que se paga
- * todo y el mazo lleva las que necesite. Los cuatro Oros que SI traen
- * habilidad son todos Únicos, asi que siguen limitados a una copia.
+ * todo y el mazo lleva las que necesite. Los que SI traen habilidad son cartas
+ * como cualquier otra y van al tope de 3, salvo los que ademas son Únicos.
  */
 export function limiteDeCopias(card: RuleCard): number {
   if (card.unica) return MAX_COPIAS_UNICA;
@@ -210,6 +324,10 @@ export interface DeckStats {
   /** Cartas por coste, para la curva. La clave es el coste; las sin coste fuera. */
   curva: Map<number, number>;
   razas: Set<Raza>;
+  /** Los atributos que llevan los Aliados del mazo. Vacio hasta Steampunk. */
+  atributos: Set<Atributo>;
+  /** Hay Aliados sin atributo impreso. Junto a `atributos`, explica el error. */
+  aliadosNeutros: boolean;
   afinidad: Afinidad;
 }
 
@@ -223,6 +341,8 @@ export function deckStats(res: ResolvedDeck): DeckStats {
   };
   const curva = new Map<number, number>();
   const razas = new Set<Raza>();
+  const atributos = new Set<Atributo>();
+  let aliadosNeutros = false;
 
   for (const { card, n } of res.principal) {
     porTipo[card.tipo] += n;
@@ -231,11 +351,16 @@ export function deckStats(res: ResolvedDeck): DeckStats {
 
   // La afinidad se mira sobre las 60 cartas, no sobre las 50: el side es una
   // extension del mazo y entra a el entre partidas, asi que no puede traer una
-  // raza que el mazo no admite. Los contadores y la curva, en cambio, siguen
-  // siendo del principal: son lo que se juega de salida.
+  // raza ni un atributo que el mazo no admite. Los contadores y la curva, en
+  // cambio, siguen siendo del principal: son lo que se juega de salida.
   for (const { card } of [...res.principal, ...res.side]) {
-    // La raza la traen los Aliados y nadie mas; el resto entra en cualquier mazo.
+    // La afinidad la llevan los Aliados y nadie mas. La raza basta para
+    // reconocerlos en la practica, pero el atributo lo imprimen tambien
+    // Talismanes, Armas, Totems y Oros, asi que aqui hay que mirar el tipo.
+    if (card.tipo !== "Aliado") continue;
     if (card.raza) razas.add(card.raza);
+    if (card.atributo) atributos.add(card.atributo);
+    else aliadosNeutros = true;
   }
 
   return {
@@ -245,7 +370,9 @@ export function deckStats(res: ResolvedDeck): DeckStats {
     porTipo,
     curva,
     razas,
-    afinidad: deckAffinity(razas),
+    atributos,
+    aliadosNeutros,
+    afinidad: deckAffinity({ razas, atributos, neutros: aliadosNeutros }),
   };
 }
 
@@ -261,7 +388,7 @@ export type IssueCode =
   | "minimo-aliados"
   | "copias-exceso"
   | "copias-unica"
-  | "razas-incompatibles"
+  | "afinidad-incompatible"
   | "tamano-side"
   | "carta-desconocida"
   | "carta-prohibida"
@@ -274,6 +401,25 @@ export interface DeckIssue {
   mensaje: string;
   /** A que carta apunta, para resaltar su fila en el panel. */
   identidad?: string;
+}
+
+/**
+ * Por que los Aliados del mazo no forman ninguna afinidad.
+ *
+ * Decir solo las razas ya no basta: desde Steampunk un mazo puede romperse por
+ * el atributo con las razas en orden ("todos Sombra, pero uno es Oscuridad y
+ * otro no"), o por los dos a la vez.
+ */
+function mensajeDeAfinidad(stats: DeckStats): string {
+  const razas = [...stats.razas].join(", ");
+  const base = `Los Aliados de un mazo comparten una raza, una escuela o un atributo. Llevas ${razas}`;
+
+  if (stats.atributos.size > 1) return `${base}, y mezclas Luz con Oscuridad.`;
+  if (stats.atributos.size === 1 && stats.aliadosNeutros) {
+    const [atributo] = [...stats.atributos];
+    return `${base}, y junto a los Aliados ${atributo} hay Aliados sin atributo.`;
+  }
+  return `${base}.`;
 }
 
 /** El mensaje de exceso de copias vive aqui solo, para que no se contradiga. */
@@ -374,11 +520,11 @@ export function validateDeck(deck: Deck, index: CardIndex): DeckIssue[] {
     if (n > limiteDeCopias(card)) issues.push(mensajeDeCopias(card, n));
   }
 
-  if (stats.afinidad.modo === "invalida") {
+  if (!afinidadValida(stats.afinidad)) {
     issues.push({
-      code: "razas-incompatibles",
+      code: "afinidad-incompatible",
       gravedad: "error",
-      mensaje: `No puedes mezclar razas de escuelas distintas. Llevas ${stats.afinidad.razas.join(" y ")}.`,
+      mensaje: mensajeDeAfinidad(stats),
     });
   }
 
@@ -425,6 +571,11 @@ export function isLegal(issues: DeckIssue[]): boolean {
 
 export type AddCheck = { ok: true } | { ok: false; mensaje: string };
 
+/** Como se nombra un Aliado al explicar por que no entra: "Sombra Oscuridad". */
+function describirCarta(card: RuleCard): string {
+  return [card.raza, card.atributo].filter(Boolean).join(" ") || card.tipo;
+}
+
 /**
  * Si se puede sumar una copia mas, y si no, por que.
  *
@@ -453,17 +604,13 @@ export function canAdd(
     return { ok: false, mensaje: `El side deck ya tiene sus ${SIDE_TOTAL} cartas.` };
   }
 
-  // La raza restringe las dos zonas: un side de otra escuela seria un mazo
-  // ilegal en cuanto se usara.
-  if (card.raza) {
-    const razas = new Set(stats.razas);
-    razas.add(card.raza);
-    if (deckAffinity(razas).modo === "invalida") {
-      return {
-        ok: false,
-        mensaje: `Ese mazo es de ${[...stats.razas].join(" y ")}. ${card.nombre} es ${card.raza} y no puede entrar.`,
-      };
-    }
+  // La afinidad restringe las dos zonas: un side de otra escuela o de otro
+  // atributo seria un mazo ilegal en cuanto se usara.
+  if (!admite(stats.afinidad, card)) {
+    return {
+      ok: false,
+      mensaje: `Ese mazo es de ${affinityLabel(stats.afinidad)}. ${card.nombre} es ${describirCarta(card)} y no puede entrar.`,
+    };
   }
 
   if (card.legalidad === "prohibida") {
