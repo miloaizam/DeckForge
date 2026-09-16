@@ -17,8 +17,7 @@
     "thumb": "/cards/thumb/am-001.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única",
-      "que controles"
+      "Única"
     ]
   },
   {
@@ -40,8 +39,7 @@
     "legalidad": "libre",
     "keywords": [
       "Única",
-      "Imbloqueable",
-      "que controles"
+      "Imbloqueable"
     ]
   },
   {
@@ -61,10 +59,7 @@
     "imagen": "/cards/am-003.webp",
     "thumb": "/cards/thumb/am-003.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "am-004",
@@ -84,8 +79,7 @@
     "thumb": "/cards/thumb/am-004.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única",
-      "que controles"
+      "Única"
     ]
   },
   {
@@ -128,8 +122,7 @@
     "thumb": "/cards/thumb/am-006.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única",
-      "Purificar"
+      "Única"
     ]
   },
   {
@@ -151,8 +144,7 @@
     "legalidad": "libre",
     "keywords": [
       "Única",
-      "Indesterrable",
-      "que controles"
+      "Indesterrable"
     ]
   },
   {
@@ -174,8 +166,7 @@
     "legalidad": "libre",
     "keywords": [
       "Única",
-      "Ilusión",
-      "que controles"
+      "Ilusión"
     ]
   },
   {
@@ -190,7 +181,7 @@
     "coste": 3,
     "fuerza": 4,
     "frecuencia": "Ultra Real",
-    "habilidad": "Única (Sólo puedes tener una copia de esta carta en tu Mazo Castillo).\nEspectral (Esta carta se convierte en un Talismán mientras esté en un Cementerio).\nCuando este Aliado entra en juego, puedes elegir hasta dos cartas Espectral de tu Cementerio y jugarlas sin pagar su coste.\nEn tu Fase de Vigilia, una vez por turno, puedes Desterrar una carta de Raza Oni o Sombra de tu Cementerio para Desterrar una carta oponente en juego que no sea Oro.",
+    "habilidad": "Única (Sólo puedes tener una copia de esta carta en tu Mazo Castillo). Espectral (Esta carta se convierte en un Talismán mientras esté en un Cementerio).\nCuando este Aliado entra en juego, puedes elegir hasta dos cartas Espectral de tu Cementerio y jugarlas sin pagar su coste.\nEn tu Fase de Vigilia, una vez por turno, puedes Desterrar un carta de Raza Oni o Sombra de tu Cementerio para Desterrar una carta oponente en juego que no sea Oro.",
     "ilustrador": "Kaek",
     "imagen": "/cards/am-009.webp",
     "thumb": "/cards/thumb/am-009.webp",
@@ -212,16 +203,14 @@
     "coste": 3,
     "fuerza": 4,
     "frecuencia": "Ultra Real",
-    "habilidad": "Única (Sólo puedes tener una copia de este Aliado en tu Mazo Castillo).\nExhumar (Puedes jugar esta carta desde tu Cementerio pagando su coste. Si es un Talismán, Destiérralo).\nCuando este Aliado entra en juego, puedes elegir hasta tres cartas de un Cementerio y Desterrarlas. Luego, busca en el Mazo Castillo de su dueño hasta dos copias de cada una de esas cartas y Destiérralas.\nMientras este Aliado esté en juego, los demás Aliados de Raza Oni y Sombra que controles ganan 1 a la Fuerza y son Imbloqueables.",
+    "habilidad": "Única (Sólo puedes tener una copia de este Aliado en tu Mazo Castillo). Exhumar (Puedes jugar esta carta desde tu Cementerio pagando su coste. Si es un Talismán, Destiérralo).\nCuando entra en juego, puedes elegir hasta tres cartas de un Cementerio y Desterrarlas. Luego, busca en el Castillo de su dueño hasta dos copias de cada una de esas cartas y Destiérralas.\nMientras esté en juego, los demás Aliados Oni y Sombra que controles ganan 1 a la Fuerza y son Imbloqueables.",
     "ilustrador": "Wolf",
     "imagen": "/cards/am-010.webp",
     "thumb": "/cards/thumb/am-010.webp",
     "legalidad": "libre",
     "keywords": [
       "Única",
-      "Imbloqueable",
-      "Exhumar",
-      "que controles"
+      "Exhumar"
     ]
   },
   {
@@ -368,9 +357,7 @@
     "imagen": "/cards/am-017.webp",
     "thumb": "/cards/thumb/am-017.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Purificar"
-    ]
+    "keywords": []
   },
   {
     "id": "am-018",
@@ -408,9 +395,7 @@
     "imagen": "/cards/am-019.webp",
     "thumb": "/cards/thumb/am-019.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-020",
@@ -424,14 +409,13 @@
     "coste": 3,
     "fuerza": 3,
     "frecuencia": "Mega Real",
-    "habilidad": "Ilusión (Cuando este Aliado sea Destruido, regrésalo al juego bajo el control de su dueño como un Aliado sin habilidad).\nCuando este Aliado entra en juego, Roba una carta por cada Aliado sin habilidad que controles.\nEn tu Fase de Vigilia, una vez por turno, puedes Descartar un Talismán para Barajar todos los demás Aliados en juego que no sean de Raza Faerie ni Eterno.",
+    "habilidad": "Ilusión (Cuando este Aliado sea Destruido, regrésalo al juego bajo el control de su dueño como un Aliado sin habilidad).\nCuando este Aliado entra en juego, Roba una carta por cada Aliado sin habilidad que controles.\nEn tu Fase de Vigilia, una vez por turno, puedes Descartar un Talismán para Barajar todos los demás Aliados en juego que no sean de Raza Faerie y/o Eterno.",
     "ilustrador": "Alejandro Catalán",
     "imagen": "/cards/am-020.webp",
     "thumb": "/cards/thumb/am-020.webp",
     "legalidad": "libre",
     "keywords": [
-      "Ilusión",
-      "que controles"
+      "Ilusión"
     ]
   },
   {
@@ -545,7 +529,7 @@
     "coste": 1,
     "fuerza": null,
     "frecuencia": "Mega Real",
-    "habilidad": "Cuando juegues este Talismán, Destiérralo.\nBusca un Talismán en tu Mazo Castillo y ponlo en tu mano.",
+    "habilidad": "Cuando juegues este Talismán, Destiérralo.\nBusca un Talismán en tu Castillo y ponlo en tu mano.",
     "ilustrador": "Francisco Ruiz",
     "imagen": "/cards/am-026.webp",
     "thumb": "/cards/thumb/am-026.webp",
@@ -626,9 +610,7 @@
     "imagen": "/cards/am-030.webp",
     "thumb": "/cards/thumb/am-030.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Espectral"
-    ]
+    "keywords": []
   },
   {
     "id": "am-031",
@@ -647,9 +629,7 @@
     "imagen": "/cards/am-031.webp",
     "thumb": "/cards/thumb/am-031.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Exhumar"
-    ]
+    "keywords": []
   },
   {
     "id": "am-032",
@@ -706,9 +686,7 @@
     "imagen": "/cards/am-034.webp",
     "thumb": "/cards/thumb/am-034.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-035",
@@ -785,8 +763,7 @@
     "thumb": "/cards/thumb/am-038.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indesterrable",
-      "que controles"
+      "Indesterrable"
     ]
   },
   {
@@ -864,14 +841,14 @@
     "coste": 2,
     "fuerza": 3,
     "frecuencia": "Real",
-    "habilidad": "Espectral (Esta carta se convierte en un Talismán mientras esté en un Cementerio).\nCuando este Aliado entra en juego, Destierra un Aliado oponente en juego de coste igual o menor a la cantidad de Talismanes en tu Cementerio.\nSi esta carta está en tu Cementerio y todos los Aliados que controlas son de Raza Oni y/o Sombra, puedes Desterrarla para Destruir un Aliado oponente de coste 2 o menos.",
+    "habilidad": "Única. Espectral (Esta carta se convierte en un Talismán mientras esté en un Cementerio).\nCuando este Aliado entra en juego, Destierra un Aliado oponente en juego de coste igual o menor a la cantidad de Talismanes en tu Cementerio.\nSi esta carta está en tu Cementerio y todos los Aliados que controlas son de Raza Oni y/o Sombra, puedes Desterrarla para Destruir un Aliado oponente de coste 2 o menos.",
     "ilustrador": "Sara Contreras",
     "imagen": "/cards/am-042.webp",
     "thumb": "/cards/thumb/am-042.webp",
     "legalidad": "libre",
     "keywords": [
-      "Espectral",
-      "Destruir"
+      "Única",
+      "Espectral"
     ]
   },
   {
@@ -973,10 +950,7 @@
     "imagen": "/cards/am-047.webp",
     "thumb": "/cards/thumb/am-047.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-048",
@@ -995,10 +969,7 @@
     "imagen": "/cards/am-048.webp",
     "thumb": "/cards/thumb/am-048.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-049",
@@ -1050,13 +1021,13 @@
     "coste": 2,
     "fuerza": null,
     "frecuencia": "Real",
-    "habilidad": "Los Aliados que controlas ganan 1 a la Fuerza hasta la Fase Final por cada otro Aliado que controles con los que compartan Raza.",
+    "habilidad": "Única.\nLos Aliados que controlas ganan 1 a la Fuerza hasta la Fase Final por cada otro Aliado que controles con los que compartan Raza.",
     "ilustrador": "Francisco Ruiz",
     "imagen": "/cards/am-051.webp",
     "thumb": "/cards/thumb/am-051.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles"
+      "Única"
     ]
   },
   {
@@ -1095,9 +1066,7 @@
     "imagen": "/cards/am-053.webp",
     "thumb": "/cards/thumb/am-053.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-054",
@@ -1111,12 +1080,14 @@
     "coste": 0,
     "fuerza": null,
     "frecuencia": "Real",
-    "habilidad": "Para jugar este Talismán, Descarta una carta de tu mano.\nGenera un Oro para jugar Talismanes.",
+    "habilidad": "Única.\nPara jugar este Talismán, Descarta una carta de tu mano.\nGenera un Oro para jugar Talismanes.",
     "ilustrador": "Loreto Díaz",
     "imagen": "/cards/am-054.webp",
     "thumb": "/cards/thumb/am-054.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Única"
+    ]
   },
   {
     "id": "am-055",
@@ -1135,9 +1106,7 @@
     "imagen": "/cards/am-055.webp",
     "thumb": "/cards/thumb/am-055.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-056",
@@ -1227,12 +1196,14 @@
     "coste": 1,
     "fuerza": null,
     "frecuencia": "Real",
-    "habilidad": "Busca hasta dos cartas en un Mazo Castillo y ponlas en el Cementerio de su dueño.",
+    "habilidad": "Única.\nBusca hasta dos cartas en un Mazo Castillo y ponlas en el Cementerio de su dueño.",
     "ilustrador": "Magaña",
     "imagen": "/cards/am-060.webp",
     "thumb": "/cards/thumb/am-060.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Única"
+    ]
   },
   {
     "id": "am-061",
@@ -1251,10 +1222,7 @@
     "imagen": "/cards/am-061.webp",
     "thumb": "/cards/thumb/am-061.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-062",
@@ -1268,12 +1236,14 @@
     "coste": 0,
     "fuerza": null,
     "frecuencia": "Real",
-    "habilidad": "Sólo puedes jugar este Talismán en tu turno.\nAnula una carta oponente.",
+    "habilidad": "Única.\nSólo puedes jugar este Talismán en tu turno.\nAnula una carta oponente.",
     "ilustrador": "Thor Odenson",
     "imagen": "/cards/am-062.webp",
     "thumb": "/cards/thumb/am-062.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Única"
+    ]
   },
   {
     "id": "am-063",
@@ -1292,9 +1262,7 @@
     "imagen": "/cards/am-063.webp",
     "thumb": "/cards/thumb/am-063.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-064",
@@ -1314,8 +1282,7 @@
     "thumb": "/cards/thumb/am-064.webp",
     "legalidad": "libre",
     "keywords": [
-      "Exhumar",
-      "que controles"
+      "Exhumar"
     ]
   },
   {
@@ -1354,9 +1321,7 @@
     "imagen": "/cards/am-066.webp",
     "thumb": "/cards/thumb/am-066.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Ilusión"
-    ]
+    "keywords": []
   },
   {
     "id": "am-067",
@@ -1375,9 +1340,7 @@
     "imagen": "/cards/am-067.webp",
     "thumb": "/cards/thumb/am-067.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Indesterrable"
-    ]
+    "keywords": []
   },
   {
     "id": "am-068",
@@ -1396,9 +1359,7 @@
     "imagen": "/cards/am-068.webp",
     "thumb": "/cards/thumb/am-068.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-069",
@@ -1533,9 +1494,7 @@
     "imagen": "/cards/am-075.webp",
     "thumb": "/cards/thumb/am-075.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Purificar"
-    ]
+    "keywords": []
   },
   {
     "id": "am-076",
@@ -1554,9 +1513,7 @@
     "imagen": "/cards/am-076.webp",
     "thumb": "/cards/thumb/am-076.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-077",
@@ -1575,9 +1532,7 @@
     "imagen": "/cards/am-077.webp",
     "thumb": "/cards/thumb/am-077.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-078",
@@ -1596,9 +1551,7 @@
     "imagen": "/cards/am-078.webp",
     "thumb": "/cards/thumb/am-078.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar"
-    ]
+    "keywords": []
   },
   {
     "id": "am-079",
@@ -1719,8 +1672,7 @@
     "thumb": "/cards/thumb/am-084.webp",
     "legalidad": "libre",
     "keywords": [
-      "Espectral",
-      "Destruir"
+      "Espectral"
     ]
   },
   {
@@ -1804,8 +1756,7 @@
     "thumb": "/cards/thumb/am-088.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -1825,9 +1776,7 @@
     "imagen": "/cards/am-089.webp",
     "thumb": "/cards/thumb/am-089.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-090",
@@ -1884,9 +1833,7 @@
     "imagen": "/cards/am-092.webp",
     "thumb": "/cards/thumb/am-092.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-093",
@@ -1905,9 +1852,7 @@
     "imagen": "/cards/am-093.webp",
     "thumb": "/cards/thumb/am-093.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-094",
@@ -1926,9 +1871,7 @@
     "imagen": "/cards/am-094.webp",
     "thumb": "/cards/thumb/am-094.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-095",
@@ -1985,9 +1928,7 @@
     "imagen": "/cards/am-097.webp",
     "thumb": "/cards/thumb/am-097.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-098",
@@ -2025,9 +1966,7 @@
     "imagen": "/cards/am-099.webp",
     "thumb": "/cards/thumb/am-099.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-100",
@@ -2065,11 +2004,7 @@
     "imagen": "/cards/am-101.webp",
     "thumb": "/cards/thumb/am-101.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Indestructible",
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-102",
@@ -2166,9 +2101,7 @@
     "imagen": "/cards/am-106.webp",
     "thumb": "/cards/thumb/am-106.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar"
-    ]
+    "keywords": []
   },
   {
     "id": "am-107",
@@ -2187,9 +2120,7 @@
     "imagen": "/cards/am-107.webp",
     "thumb": "/cards/thumb/am-107.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Imbloqueable"
-    ]
+    "keywords": []
   },
   {
     "id": "am-108",
@@ -2246,10 +2177,7 @@
     "imagen": "/cards/am-110.webp",
     "thumb": "/cards/thumb/am-110.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Ilusión",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-111",
@@ -2268,9 +2196,7 @@
     "imagen": "/cards/am-111.webp",
     "thumb": "/cards/thumb/am-111.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Exhumar"
-    ]
+    "keywords": []
   },
   {
     "id": "am-112",
@@ -2308,9 +2234,7 @@
     "imagen": "/cards/am-113.webp",
     "thumb": "/cards/thumb/am-113.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Purificar"
-    ]
+    "keywords": []
   },
   {
     "id": "am-114",
@@ -2348,9 +2272,7 @@
     "imagen": "/cards/am-115.webp",
     "thumb": "/cards/thumb/am-115.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-116",
@@ -2449,10 +2371,7 @@
     "imagen": "/cards/am-120.webp",
     "thumb": "/cards/thumb/am-120.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Imbloqueable",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-121",
@@ -2471,10 +2390,7 @@
     "imagen": "/cards/am-121.webp",
     "thumb": "/cards/thumb/am-121.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Furia",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-122",
@@ -2657,10 +2573,7 @@
     "imagen": "/cards/am-130.webp",
     "thumb": "/cards/thumb/am-130.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-131",
@@ -2833,9 +2746,7 @@
     "imagen": "/cards/am-139.webp",
     "thumb": "/cards/thumb/am-139.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-140",
@@ -2932,9 +2843,7 @@
     "imagen": "/cards/am-144.webp",
     "thumb": "/cards/thumb/am-144.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Purificar"
-    ]
+    "keywords": []
   },
   {
     "id": "am-145",
@@ -3029,10 +2938,7 @@
     "imagen": "/cards/am-149.webp",
     "thumb": "/cards/thumb/am-149.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-150",
@@ -3051,9 +2957,7 @@
     "imagen": "/cards/am-150.webp",
     "thumb": "/cards/thumb/am-150.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-151",
@@ -3072,9 +2976,7 @@
     "imagen": "/cards/am-151.webp",
     "thumb": "/cards/thumb/am-151.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-152",
@@ -3093,9 +2995,7 @@
     "imagen": "/cards/am-152.webp",
     "thumb": "/cards/thumb/am-152.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-153",
@@ -3114,9 +3014,7 @@
     "imagen": "/cards/am-153.webp",
     "thumb": "/cards/thumb/am-153.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-154",
@@ -3135,10 +3033,7 @@
     "imagen": "/cards/am-154.webp",
     "thumb": "/cards/thumb/am-154.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-155",
@@ -3157,9 +3052,7 @@
     "imagen": "/cards/am-155.webp",
     "thumb": "/cards/thumb/am-155.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Exhumar"
-    ]
+    "keywords": []
   },
   {
     "id": "am-156",
@@ -3422,14 +3315,13 @@
     "coste": 1,
     "fuerza": 1,
     "frecuencia": "Promocional",
-    "habilidad": "Exhumar (Puedes jugar esta carta desde tu Cementerio pagando su coste. Si es un Talismán, Destiérralo).\nPuedes Destruir este Aliado para Cancelar una habilidad activada o disparada.",
+    "habilidad": "Exhumar (Puedes jugar esta carta desde tu Cementerio pagando su coste. Si es un Talismán, Destiérralo).\nPuedes Desterrar este Aliado para Cancelar una habilidad Activada o Disparada.",
     "ilustrador": "Loreto Díaz",
     "imagen": "/cards/am-169.webp",
     "thumb": "/cards/thumb/am-169.webp",
     "legalidad": "libre",
     "keywords": [
-      "Exhumar",
-      "Destruir"
+      "Exhumar"
     ]
   },
   {
@@ -3450,8 +3342,8 @@
     "thumb": "/cards/thumb/am-170.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Espectral"
+      "Espectral",
+      "Furia"
     ]
   },
   {
@@ -3487,15 +3379,12 @@
     "coste": 2,
     "fuerza": 2,
     "frecuencia": "Promocional",
-    "habilidad": "Mientras este Aliado esté en juego, los Aliados de Raza Dragón y Guerrero que controles ganan 1 a la Fuerza y tienen Furia.",
+    "habilidad": "Mientras este Aliado esté en juego, los Aliados de Raza Dragón y Guerrero que controles ganan 1 a la Fuerza y Furia.",
     "ilustrador": "Marcos Villarroel",
     "imagen": "/cards/am-172.webp",
     "thumb": "/cards/thumb/am-172.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Furia",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-173",
@@ -3514,10 +3403,7 @@
     "imagen": "/cards/am-173.webp",
     "thumb": "/cards/thumb/am-173.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "am-182",
@@ -3555,10 +3441,7 @@
     "imagen": "/cards/am-174.webp",
     "thumb": "/cards/thumb/am-174.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "am-183",
@@ -3577,11 +3460,7 @@
     "imagen": "/cards/am-183.webp",
     "thumb": "/cards/thumb/am-183.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "am-184",
@@ -3643,9 +3522,7 @@
     "thumb": "/cards/thumb/am-186.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Alimentar",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -3698,7 +3575,7 @@
     "coste": null,
     "fuerza": null,
     "frecuencia": "Promocional",
-    "habilidad": "Única (Sólo puedes tener una copia de esta carta en tu Mazo Castillo).\nEste Oro entra en juego con un contador de Tesoro.\nPuedes quitar un contador de Tesoro de esta carta para generar un Oro.",
+    "habilidad": "Única (Sólo puedes tener una copia de esta carta en tu Mazo Castillo).\nEste Oro entra en juego desde tu mano con un contador de Tesoro.\nSi no es tu primer turno, puedes quitar un contador de tesoro de esta carta para Generar un Oro.",
     "ilustrador": "Matías Cabezas",
     "imagen": "/cards/am-189.webp",
     "thumb": "/cards/thumb/am-189.webp",

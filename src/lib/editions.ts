@@ -1,8 +1,12 @@
 /**
  * Las diez ediciones del formato Escuelas Elementales.
  *
- * `slug` es el mismo que usa la API de MyL y el que guardamos en el campo
- * `edicion` de cada carta. Ojo: Escuelas Elementales lleva guion BAJO.
+ * `slug` es el que guardamos en el campo `edicion` de cada carta y el que va
+ * en la URL de su pagina. Coincide con el de la API salvo en Escuelas
+ * Elementales, que la API llama `escuelas_elementales` con guion BAJO: ese
+ * valor vive en `API_SLUGS` de scripts/fetch_edition.py y no sale de ahi, para
+ * que ni el dato ni la URL lleven un guion bajo que desentona y que se pierde
+ * cuando el enlace va subrayado.
  *
  * `cargada` marca si su JSON ya existe en `data-src/`.
  *
@@ -36,7 +40,7 @@ export const EDITIONS: Edition[] = [
   { slug: "axis-mundi", titulo: "Axis Mundi", cargada: true },
   { slug: "hijos-del-sol", titulo: "Hijos del Sol", cargada: true },
   { slug: "legado-gotico", titulo: "Legado Gótico", cargada: true },
-  { slug: "escuelas_elementales", titulo: "Escuelas Elementales", cargada: false },
+  { slug: "escuelas-elementales", titulo: "Escuelas Elementales", cargada: true },
 
   // De fuera del formato: solo aportan las cartas sueltas que se agregaron por
   // balance. Estan aqui para que su nombre se lea bien en el filtro.

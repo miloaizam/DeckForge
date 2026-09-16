@@ -51,7 +51,7 @@
     "coste": null,
     "fuerza": null,
     "frecuencia": "Legendaria",
-    "habilidad": "Errante (Sólo puedes controlar una copia de esta carta).\nSi este Oro está en tu Reserva, puedes Barajarlo para cancelar una habilidad activada o disparada objetivo. Esa habilidad no puede volver a activarse o dispararse este turno.",
+    "habilidad": "Errante (Sólo puedes controlar una copia de esta carta).\nSi este Oro está en tu Reserva de Oros, puedes Barajarlo para cancelar una habilidad activada o disparada objetivo. Esa habilidad no puede volver a activarse o dispararse este turno.",
     "ilustrador": "Sara Contreras",
     "imagen": "/cards/hs-003.webp",
     "thumb": "/cards/thumb/hs-003.webp",
@@ -100,9 +100,7 @@
     "legalidad": "libre",
     "keywords": [
       "Única",
-      "Retador",
-      "que controles",
-      "Destruir"
+      "Retador"
     ]
   },
   {
@@ -124,8 +122,8 @@
     "legalidad": "libre",
     "keywords": [
       "Única",
-      "Indesterrable",
-      "Luz"
+      "Luz",
+      "Indesterrable"
     ]
   },
   {
@@ -147,8 +145,7 @@
     "legalidad": "libre",
     "keywords": [
       "Única",
-      "Imbloqueable",
-      "que controles"
+      "Imbloqueable"
     ]
   },
   {
@@ -170,9 +167,7 @@
     "legalidad": "libre",
     "keywords": [
       "Única",
-      "Alimentar",
-      "Exhumar",
-      "que controles"
+      "Exhumar"
     ]
   },
   {
@@ -216,8 +211,7 @@
     "legalidad": "libre",
     "keywords": [
       "Única",
-      "Oscuridad",
-      "Traición"
+      "Oscuridad"
     ]
   },
   {
@@ -238,8 +232,7 @@
     "thumb": "/cards/thumb/hs-011.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única",
-      "que controles"
+      "Única"
     ]
   },
   {
@@ -321,9 +314,7 @@
     "imagen": "/cards/hs-015.webp",
     "thumb": "/cards/thumb/hs-015.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-016",
@@ -342,10 +333,7 @@
     "imagen": "/cards/hs-016.webp",
     "thumb": "/cards/thumb/hs-016.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Furia",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-017",
@@ -448,8 +436,8 @@
     "thumb": "/cards/thumb/hs-021.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Retador"
+      "Retador",
+      "Furia"
     ]
   },
   {
@@ -485,12 +473,14 @@
     "coste": 2,
     "fuerza": 3,
     "frecuencia": "Mega Real",
-    "habilidad": "En tu Fase de Vigilia, una vez por turno, si todos los Aliados que controlas son de Raza Ancestral, puedes jugar una carta de coste 3 o menos de tu mano, que no sea Aliado, sin pagar su coste.\nCuando este Aliado sea Destruido, puedes Desterrarlo para buscar una carta en tu Mazo Castillo de coste 3 o menos, que no sea Aliado y jugarla sin pagar su coste.",
+    "habilidad": "Única.\nEn tu Fase de Vigilia, una vez por turno, si todos los Aliados que controlas son de Raza Ancestral, puedes jugar una carta de coste 3 o menos de tu mano, que no sea Aliado, sin pagar su coste.\nCuando este Aliado sea Destruido, puedes Desterrarlo para buscar una carta en tu Mazo Castillo de coste 3 o menos, que no sea Aliado y jugarla sin pagar su coste.",
     "ilustrador": "Feig",
     "imagen": "/cards/hs-023.webp",
     "thumb": "/cards/thumb/hs-023.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Única"
+    ]
   },
   {
     "id": "hs-024",
@@ -511,9 +501,7 @@
     "legalidad": "libre",
     "keywords": [
       "Furia",
-      "Alimentar",
-      "Exhumar",
-      "que controles"
+      "Exhumar"
     ]
   },
   {
@@ -534,9 +522,8 @@
     "thumb": "/cards/thumb/hs-025.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indesterrable",
-      "que controles",
-      "Guardián"
+      "Guardián",
+      "Indesterrable"
     ]
   },
   {
@@ -591,15 +578,12 @@
     "coste": 3,
     "fuerza": 3,
     "frecuencia": "Mega Real",
-    "habilidad": "En tu Fase de Vigilia, una vez por turno, puedes buscar un Oro en tu Mazo Castillo y ponerlo en tu Zona de Oro Pagado.\nUna vez por turno, puedes Destruir el Oro objetivo que controles para Robar una carta.",
+    "habilidad": "En tu Fase de Vigilia, una vez por turno, puedes buscar un Oro en tu Mazo Castillo y ponerlo en tu Zona de Oro Pagado.\nUna vez por turno, puedes Destruir un Oro que controles para Robar una carta.",
     "ilustrador": "Trejoe",
     "imagen": "/cards/hs-028.webp",
     "thumb": "/cards/thumb/hs-028.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-029",
@@ -618,9 +602,7 @@
     "imagen": "/cards/hs-029.webp",
     "thumb": "/cards/thumb/hs-029.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Indestructible"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-030",
@@ -715,9 +697,7 @@
     "imagen": "/cards/hs-034.webp",
     "thumb": "/cards/thumb/hs-034.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-035",
@@ -777,8 +757,7 @@
     "thumb": "/cards/thumb/hs-037.webp",
     "legalidad": "libre",
     "keywords": [
-      "Errante",
-      "que controles"
+      "Errante"
     ]
   },
   {
@@ -860,9 +839,8 @@
     "thumb": "/cards/thumb/hs-041.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
       "Retador",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -902,7 +880,6 @@
     "thumb": "/cards/thumb/hs-043.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Luz"
     ]
   },
@@ -918,15 +895,13 @@
     "coste": 2,
     "fuerza": 2,
     "frecuencia": "Real",
-    "habilidad": "Única. (Sólo puedes tener una copia de esta carta en tu Mazo Castillo).\nUna vez por turno, puedes Destruir un Tótem que controles para Anular una carta del mismo coste.",
+    "habilidad": "Única (Sólo puedes tener una copia de esta carta en tu Mazo Castillo).\nUna vez por turno, puedes Destruir un Tótem que controles para Anular una carta del mismo coste.",
     "ilustrador": "Nicolás Espinoza",
     "imagen": "/cards/hs-044.webp",
     "thumb": "/cards/thumb/hs-044.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única",
-      "que controles",
-      "Destruir"
+      "Única"
     ]
   },
   {
@@ -941,15 +916,12 @@
     "coste": 2,
     "fuerza": 3,
     "frecuencia": "Real",
-    "habilidad": "Cuando este Aliado entra en juego, puedes jugar una carta de coste 2 o menos de tu mano, que no sea Aliado, sin pagar su coste.\nUna vez por turno, puedes Destruir otro Aliado de Raza Ancestral que controles para buscar una carta en tu Mazo Castillo de coste 2 o menos, que no sea Aliado y ponerla en tu mano.",
+    "habilidad": "Cuando este Aliado entra en juego, puedes jugar una carta de coste 2 o menos de tu mano, que no sea Aliado, sin pagar su coste.\nUna vez por turno, puedes Destruir otro Aliado de Raza Ancestral que controles para buscar una carta en tu Mazo Castillo de coste 2 o menos que, no sea Aliado y ponerla en tu mano.",
     "ilustrador": "Wolf",
     "imagen": "/cards/hs-045.webp",
     "thumb": "/cards/thumb/hs-045.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-046",
@@ -969,9 +941,7 @@
     "thumb": "/cards/thumb/hs-046.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible",
-      "que controles",
-      "Destruir"
+      "Indestructible"
     ]
   },
   {
@@ -991,10 +961,7 @@
     "imagen": "/cards/hs-047.webp",
     "thumb": "/cards/thumb/hs-047.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-048",
@@ -1008,15 +975,12 @@
     "coste": 1,
     "fuerza": 1,
     "frecuencia": "Real",
-    "habilidad": "Cuando un Oro con habilidad entre en juego bajo el control de tu oponente, Alimenta este Aliado.\nUna vez por turno, si todos los Aliados que controlas son de Raza Bestia, puedes quitar todo el Alimento de un Aliado que controles para cancelar una habilidad activada objetivo.",
+    "habilidad": "Cuando un Oro con habilidad entre en juego bajo el control de un Oponente, Alimenta este Aliado. Puedes utilizar esta habilidad más de una vez por turno.\nSi sólo controlas Bestias, puedes quitar todos los contadores de Alimento de un Aliado que controles para cancelar una habilidad.",
     "ilustrador": "Lucius Blacklung",
     "imagen": "/cards/hs-048.webp",
     "thumb": "/cards/thumb/hs-048.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-049",
@@ -1078,7 +1042,6 @@
     "thumb": "/cards/thumb/hs-051.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Oscuridad",
       "Traición"
     ]
@@ -1101,9 +1064,7 @@
     "thumb": "/cards/thumb/hs-052.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles",
-      "Traición"
+      "Furia"
     ]
   },
   {
@@ -1162,8 +1123,7 @@
     "thumb": "/cards/thumb/hs-055.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -1223,10 +1183,7 @@
     "imagen": "/cards/hs-058.webp",
     "thumb": "/cards/thumb/hs-058.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-059",
@@ -1304,9 +1261,7 @@
     "imagen": "/cards/hs-062.webp",
     "thumb": "/cards/thumb/hs-062.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-063",
@@ -1325,9 +1280,7 @@
     "imagen": "/cards/hs-063.webp",
     "thumb": "/cards/thumb/hs-063.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-064",
@@ -1346,9 +1299,7 @@
     "imagen": "/cards/hs-064.webp",
     "thumb": "/cards/thumb/hs-064.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-065",
@@ -1386,9 +1337,7 @@
     "imagen": "/cards/hs-066.webp",
     "thumb": "/cards/thumb/hs-066.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-067",
@@ -1407,10 +1356,7 @@
     "imagen": "/cards/hs-067.webp",
     "thumb": "/cards/thumb/hs-067.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Imbloqueable",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-068",
@@ -1467,9 +1413,7 @@
     "imagen": "/cards/hs-070.webp",
     "thumb": "/cards/thumb/hs-070.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-071",
@@ -1488,9 +1432,7 @@
     "imagen": "/cards/hs-071.webp",
     "thumb": "/cards/thumb/hs-071.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Retador"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-072",
@@ -1509,9 +1451,7 @@
     "imagen": "/cards/hs-072.webp",
     "thumb": "/cards/thumb/hs-072.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-073",
@@ -1630,9 +1570,7 @@
     "thumb": "/cards/thumb/hs-078.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Retador",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -1652,9 +1590,7 @@
     "imagen": "/cards/hs-079.webp",
     "thumb": "/cards/thumb/hs-079.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-080",
@@ -1694,9 +1630,7 @@
     "imagen": "/cards/hs-081.webp",
     "thumb": "/cards/thumb/hs-081.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-082",
@@ -1710,7 +1644,7 @@
     "coste": 1,
     "fuerza": 1,
     "frecuencia": "Cortesano",
-    "habilidad": "Puedes Descartar este Aliado de tu mano para Robar una carta.\nCuando un Tótem entre en juego bajo tu control, si este Aliado está en tu Cementerio, puedes ponerlo en tu mano.",
+    "habilidad": "Puedes Desterrar este Aliado de tu mano para Robar una carta.\nCuando un Tótem entre en juego bajo tu control, si este Aliado está en tu Cementerio, puedes ponerlo en tu mano.",
     "ilustrador": "Hanyo",
     "imagen": "/cards/hs-082.webp",
     "thumb": "/cards/thumb/hs-082.webp",
@@ -1734,9 +1668,7 @@
     "imagen": "/cards/hs-083.webp",
     "thumb": "/cards/thumb/hs-083.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-084",
@@ -1815,10 +1747,7 @@
     "thumb": "/cards/thumb/hs-087.webp",
     "legalidad": "libre",
     "keywords": [
-      "Imbloqueable",
-      "Furia",
-      "Alimentar",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -1838,10 +1767,7 @@
     "imagen": "/cards/hs-088.webp",
     "thumb": "/cards/thumb/hs-088.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-089",
@@ -1860,10 +1786,7 @@
     "imagen": "/cards/hs-089.webp",
     "thumb": "/cards/thumb/hs-089.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-090",
@@ -1883,7 +1806,6 @@
     "thumb": "/cards/thumb/hs-090.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Guardián"
     ]
   },
@@ -1925,9 +1847,7 @@
     "imagen": "/cards/hs-092.webp",
     "thumb": "/cards/thumb/hs-092.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-093",
@@ -1941,14 +1861,14 @@
     "coste": 1,
     "fuerza": 4,
     "frecuencia": "Cortesano",
-    "habilidad": "Oscuridad.\nTraición - Botar dos cartas (Tu oponente puede pagar el coste de Traición de este Aliado para ganar su control).\nFuria (Este Aliado no necesita pasar por una Fase de Agrupación para ser declarado atacante).",
+    "habilidad": "Oscuridad. Furia (Este Aliado no necesita pasar por una Fase de Agrupación para ser declarado atacante). Traición - Botar dos cartas.",
     "ilustrador": "Marco González",
     "imagen": "/cards/hs-093.webp",
     "thumb": "/cards/thumb/hs-093.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
       "Oscuridad",
+      "Furia",
       "Traición"
     ]
   },
@@ -1991,7 +1911,6 @@
     "thumb": "/cards/thumb/hs-095.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Traición"
     ]
   },
@@ -2050,9 +1969,7 @@
     "imagen": "/cards/hs-098.webp",
     "thumb": "/cards/thumb/hs-098.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-099",
@@ -2093,9 +2010,7 @@
     "thumb": "/cards/thumb/hs-100.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles",
-      "Destruir"
+      "Furia"
     ]
   },
   {
@@ -2328,9 +2243,7 @@
     "imagen": "/cards/hs-112.webp",
     "thumb": "/cards/thumb/hs-112.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Indestructible"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-113",
@@ -2558,9 +2471,7 @@
     "imagen": "/cards/hs-124.webp",
     "thumb": "/cards/thumb/hs-124.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-125",
@@ -2658,9 +2569,7 @@
     "thumb": "/cards/thumb/hs-129.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Retador",
-      "que controles"
+      "Retador"
     ]
   },
   {
@@ -2701,10 +2610,7 @@
     "imagen": "/cards/hs-131.webp",
     "thumb": "/cards/thumb/hs-131.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-132",
@@ -2723,9 +2629,7 @@
     "imagen": "/cards/hs-132.webp",
     "thumb": "/cards/thumb/hs-132.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Retador"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-133",
@@ -2782,9 +2686,7 @@
     "imagen": "/cards/hs-135.webp",
     "thumb": "/cards/thumb/hs-135.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-136",
@@ -2803,9 +2705,7 @@
     "imagen": "/cards/hs-136.webp",
     "thumb": "/cards/thumb/hs-136.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-137",
@@ -2900,9 +2800,7 @@
     "imagen": "/cards/hs-141.webp",
     "thumb": "/cards/thumb/hs-141.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-142",
@@ -2940,9 +2838,7 @@
     "imagen": "/cards/hs-143.webp",
     "thumb": "/cards/thumb/hs-143.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-144",
@@ -2962,8 +2858,7 @@
     "thumb": "/cards/thumb/hs-144.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Alimentar"
+      "Furia"
     ]
   },
   {
@@ -2983,10 +2878,7 @@
     "imagen": "/cards/hs-145.webp",
     "thumb": "/cards/thumb/hs-145.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-146",
@@ -3006,7 +2898,6 @@
     "thumb": "/cards/thumb/hs-146.webp",
     "legalidad": "libre",
     "keywords": [
-      "Alimentar",
       "Exhumar"
     ]
   },
@@ -3028,8 +2919,7 @@
     "thumb": "/cards/thumb/hs-147.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Alimentar"
+      "Furia"
     ]
   },
   {
@@ -3050,7 +2940,6 @@
     "thumb": "/cards/thumb/hs-148.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Guardián"
     ]
   },
@@ -3152,7 +3041,6 @@
     "thumb": "/cards/thumb/hs-153.webp",
     "legalidad": "libre",
     "keywords": [
-      "Destruir",
       "Traición"
     ]
   },
@@ -3196,7 +3084,6 @@
     "thumb": "/cards/thumb/hs-155.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Traición"
     ]
   },
@@ -3255,10 +3142,7 @@
     "imagen": "/cards/hs-158.webp",
     "thumb": "/cards/thumb/hs-158.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Purificar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-159",
@@ -3277,9 +3161,7 @@
     "imagen": "/cards/hs-159.webp",
     "thumb": "/cards/thumb/hs-159.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-160",
@@ -3298,9 +3180,7 @@
     "imagen": "/cards/hs-160.webp",
     "thumb": "/cards/thumb/hs-160.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-161",
@@ -3338,9 +3218,7 @@
     "imagen": "/cards/hs-162.webp",
     "thumb": "/cards/thumb/hs-162.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-163",
@@ -3416,9 +3294,7 @@
     "imagen": "/cards/hs-166.webp",
     "thumb": "/cards/thumb/hs-166.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-167",
@@ -3572,9 +3448,7 @@
     "imagen": "/cards/hs-174.webp",
     "thumb": "/cards/thumb/hs-174.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-175",
@@ -3612,9 +3486,7 @@
     "imagen": "/cards/hs-176.webp",
     "thumb": "/cards/thumb/hs-176.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-177",
@@ -3690,10 +3562,7 @@
     "imagen": "/cards/hs-180.webp",
     "thumb": "/cards/thumb/hs-180.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Retador",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-181",
@@ -3712,9 +3581,7 @@
     "imagen": "/cards/hs-181.webp",
     "thumb": "/cards/thumb/hs-181.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-182",
@@ -3847,9 +3714,7 @@
     "imagen": "/cards/hs-188.webp",
     "thumb": "/cards/thumb/hs-188.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-189",
@@ -3868,9 +3733,7 @@
     "imagen": "/cards/hs-189.webp",
     "thumb": "/cards/thumb/hs-189.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Indestructible"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-190",
@@ -3927,10 +3790,7 @@
     "imagen": "/cards/hs-192.webp",
     "thumb": "/cards/thumb/hs-192.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Purificar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-193",
@@ -3949,10 +3809,7 @@
     "imagen": "/cards/hs-193.webp",
     "thumb": "/cards/thumb/hs-193.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-194",
@@ -3971,9 +3828,7 @@
     "imagen": "/cards/hs-194.webp",
     "thumb": "/cards/thumb/hs-194.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-195",
@@ -4063,7 +3918,7 @@
     "coste": 1,
     "fuerza": null,
     "frecuencia": "Vasallo",
-    "habilidad": "Anula un Talismán objetivo oponente de coste 2 o más.",
+    "habilidad": "Anula un Talismán oponente de coste 2 o más.",
     "ilustrador": "Kaek",
     "imagen": "/cards/hs-199.webp",
     "thumb": "/cards/thumb/hs-199.webp",
@@ -4087,9 +3942,7 @@
     "imagen": "/cards/hs-200.webp",
     "thumb": "/cards/thumb/hs-200.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-201",
@@ -4103,7 +3956,7 @@
     "coste": 1,
     "fuerza": null,
     "frecuencia": "Vasallo",
-    "habilidad": "Anula un Aliado objetivo de coste 2. Baraja ese Aliado en el Mazo Castillo de su dueño en vez de ponerlo en el Cementerio.",
+    "habilidad": "Anula un Aliado de coste 2.\nBaraja ese Aliado en el Mazo Castillo de su dueño en vez de ponerlo en el Cementerio.",
     "ilustrador": "Kaek",
     "imagen": "/cards/hs-201.webp",
     "thumb": "/cards/thumb/hs-201.webp",
@@ -4179,15 +4032,12 @@
     "coste": 1,
     "fuerza": null,
     "frecuencia": "Vasallo",
-    "habilidad": "Una vez por turno, puedes Destruir un Aliado objetivo que controles para que tu oponente Bote tantas cartas como Fuerza tenga el Aliado portador.",
+    "habilidad": "Una vez por turno, puedes Destruir un Aliado que controles para que tu oponente Bote tantas cartas como Fuerza tenga el Aliado portador.",
     "ilustrador": "Nicolás Espinoza",
     "imagen": "/cards/hs-205.webp",
     "thumb": "/cards/thumb/hs-205.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-206",
@@ -4282,10 +4132,7 @@
     "imagen": "/cards/hs-210.webp",
     "thumb": "/cards/thumb/hs-210.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-211",
@@ -4304,9 +4151,7 @@
     "imagen": "/cards/hs-211.webp",
     "thumb": "/cards/thumb/hs-211.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Retador"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-212",
@@ -4325,9 +4170,7 @@
     "imagen": "/cards/hs-212.webp",
     "thumb": "/cards/thumb/hs-212.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-213",
@@ -4346,9 +4189,7 @@
     "imagen": "/cards/hs-213.webp",
     "thumb": "/cards/thumb/hs-213.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Imbloqueable"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-214",
@@ -4386,9 +4227,7 @@
     "imagen": "/cards/hs-215.webp",
     "thumb": "/cards/thumb/hs-215.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Furia"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-216",
@@ -4407,9 +4246,7 @@
     "imagen": "/cards/hs-216.webp",
     "thumb": "/cards/thumb/hs-216.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-217",
@@ -4428,9 +4265,7 @@
     "imagen": "/cards/hs-217.webp",
     "thumb": "/cards/thumb/hs-217.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-218",
@@ -4468,9 +4303,7 @@
     "imagen": "/cards/hs-219.webp",
     "thumb": "/cards/thumb/hs-219.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-220",
@@ -4850,9 +4683,7 @@
     "imagen": "/cards/hs-239.webp",
     "thumb": "/cards/thumb/hs-239.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-240",
@@ -4871,10 +4702,7 @@
     "imagen": "/cards/hs-240.webp",
     "thumb": "/cards/thumb/hs-240.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Honor",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-241",
@@ -4893,10 +4721,7 @@
     "imagen": "/cards/hs-241.webp",
     "thumb": "/cards/thumb/hs-241.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Honor",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-242",
@@ -4916,8 +4741,7 @@
     "thumb": "/cards/thumb/hs-242.webp",
     "legalidad": "libre",
     "keywords": [
-      "Errante",
-      "que controles"
+      "Errante"
     ]
   },
   {
@@ -4938,8 +4762,7 @@
     "thumb": "/cards/thumb/hs-243.webp",
     "legalidad": "libre",
     "keywords": [
-      "Mercenario",
-      "que controles"
+      "Mercenario"
     ]
   },
   {
@@ -4954,12 +4777,13 @@
     "coste": 1,
     "fuerza": 2,
     "frecuencia": "Promocional",
-    "habilidad": "Espectral.\nUna vez por turno, si todos los Aliados que controlas son de Raza Oni y/o Sombra, puedes Robar una carta.\nAl comienzo de cada Fase de Vigilia, si esta carta está en tu Cementerio, puedes Desterrar otra carta de tu Cementerio para que una carta objetivo y todas sus demás copias en juego pierdan su habilidad hasta la Fase Final.",
+    "habilidad": "Errante. Espectral.\nUna vez por turno, si todos los Aliados que controlas son de Raza Oni y/o Sombra, puedes Robar una carta.\nAl comienzo de cada Fase de Vigilia, si esta carta está en tu Cementerio, puedes Desterrar otra carta de tu Cementerio para que una carta objetivo y todas sus demás copias en juego pierdan su habilidad hasta la Fase Final.",
     "ilustrador": "Cristián Huerta",
     "imagen": "/cards/hs-244.webp",
     "thumb": "/cards/thumb/hs-244.webp",
     "legalidad": "libre",
     "keywords": [
+      "Errante",
       "Espectral"
     ]
   },
@@ -5002,8 +4826,7 @@
     "thumb": "/cards/thumb/hs-246.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -5044,9 +4867,7 @@
     "imagen": "/cards/hs-248.webp",
     "thumb": "/cards/thumb/hs-248.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Indestructible"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-249",
@@ -5065,9 +4886,7 @@
     "imagen": "/cards/hs-249.webp",
     "thumb": "/cards/thumb/hs-249.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-250",
@@ -5091,7 +4910,7 @@
   {
     "id": "hs-251",
     "codigo": "HS-251",
-    "nombre": "Alas de Murcielago",
+    "nombre": "Alas de Murciélago",
     "edicion": "hijos-del-sol",
     "tipo": "Talismán",
     "raza": null,
@@ -5105,7 +4924,8 @@
     "imagen": "/cards/hs-251.webp",
     "thumb": "/cards/thumb/hs-251.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [],
+    "identidad": "alas-de-murcielago"
   },
   {
     "id": "hs-252",
@@ -5119,12 +4939,14 @@
     "coste": 1,
     "fuerza": null,
     "frecuencia": "Promocional",
-    "habilidad": "Este Talismán no puede ser Anulado.\nCuando juegues este Talismán, Destiérralo.\nDestruye el Aliado oponente objetivo. Luego, tu oponente Descarta una carta al azar.",
+    "habilidad": "Única.\nEste Talismán no puede ser Anulado.\nCuando juegues este Talismán, Destiérralo.\nDestruye el Aliado oponente objetivo. Luego, tu oponente Descarta una carta al azar.",
     "ilustrador": "CristianAC",
     "imagen": "/cards/hs-252.webp",
     "thumb": "/cards/thumb/hs-252.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Única"
+    ]
   },
   {
     "id": "hs-253",
@@ -5163,9 +4985,7 @@
     "thumb": "/cards/thumb/hs-254.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Alimentar",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -5185,9 +5005,7 @@
     "imagen": "/cards/hs-255.webp",
     "thumb": "/cards/thumb/hs-255.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "hs-256",
@@ -5207,8 +5025,7 @@
     "thumb": "/cards/thumb/hs-256.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única",
-      "Destruir"
+      "Única"
     ]
   },
   {
@@ -5242,7 +5059,7 @@
     "coste": 1,
     "fuerza": null,
     "frecuencia": "Promocional",
-    "habilidad": "Única.\nCuando juegues este Talismán, Destiérralo.\nBusca en tu Mazo Castillo una carta de coste 2 o menos y ponla en tu mano.",
+    "habilidad": "Única. Cuando juegues este Talismán Destiérralo. Busca en tu Mazo Castillo una carta de coste 2 o menos y ponla en tu mano.",
     "ilustrador": "CristianAC",
     "imagen": "/cards/hs-258.webp",
     "thumb": "/cards/thumb/hs-258.webp",
@@ -5263,12 +5080,14 @@
     "coste": 1,
     "fuerza": 1,
     "frecuencia": "Promocional",
-    "habilidad": "Cuando este Aliado entra en juego, pon un contador de Tiempo sobre él por cada carta en tu mano.\nUna vez por turno, puedes quitar cualquier cantidad de contadores de Tiempo de este Aliado para mirar esa misma cantidad de cartas de la parte superior de tu Mazo Castillo. Luego, Pon una carta de ahí en tu mano y Baraja el resto.",
+    "habilidad": "Errante.\nCuando entra en juego, pon un contador de Tiempo sobre él por cada carta en tu mano.\nUna vez por turno, si todos los Aliados que controlas son Sacerdote, puedes quitar cualquier cantidad de contadores de Tiempo de este Aliado para mirar esa misma cantidad de cartas de la parte superior de tu Mazo Castillo. Luego, pon una carta de ahí en tu mano y Baraja el resto.",
     "ilustrador": "CristianAC",
     "imagen": "/cards/hs-259.webp",
     "thumb": "/cards/thumb/hs-259.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Errante"
+    ]
   },
   {
     "id": "hs-260",
@@ -5288,9 +5107,7 @@
     "thumb": "/cards/thumb/hs-260.webp",
     "legalidad": "libre",
     "keywords": [
-      "Exhumar",
-      "que controles",
-      "Destruir"
+      "Exhumar"
     ]
   },
   {

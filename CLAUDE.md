@@ -210,6 +210,28 @@ out/           build estático (git-ignorado)
     suya y dejarla igual. Ojo de no arrastrar a los Oros promocionales de
     verdad, que sí traen habilidad: DO-256 (Carmina Burana) se queda
     `Promocional`.
+  - **El campo `keywords` marca la MENCIÓN, no la posesión**, y eso vale para
+    todas las ediciones. Se vio primero en el atributo de Steampunk y resultó
+    ser general: Kaidan (SN-139) llegaba `Indestructible` por convertir tus
+    Oros en Aliados Indestructibles, Petasos por dárselo al portador, Trajano
+    por nombrarlo. Eran **201 etiquetas falsas** en las nueve ediciones. Por eso
+    `fetch_edition.py` ya **no lee esos flags**: deriva el campo de lo que la
+    carta declara, con `keywords_propias()`. Al cargar una edición nueva no hay
+    nada que revisar aquí, pero sí hay que buscar a mano las que tienen la
+    keyword **por una condición de su propio texto** ("Mientras este Aliado
+    porte un Arma es Imbloqueable"), que el script no puede deducir: son 13 en
+    todo el catálogo y se agregan a `data-src/` con su línea en
+    `keywords.test.ts`.
+  - **Y ojo con dónde declara la carta.** El primer analizador miraba solo el
+    comienzo del texto y perdió tres cosas: `Guardián` en DO-176 (Pulcinela),
+    que antepone una condición de juego, e `Inmunidad` en LG-003, LG-233
+    (Caín) y LG-005 (Serpiente Negra), que la encadenan en la misma línea que
+    `Errante` y `Oscuridad` y no cierran en punto sino en guion. Ahora es un
+    analizador por líneas que consume declaraciones mientras haya.
+  - **El punto que se cuela antes del recordatorio.** AI-099, LG-173 y HS-044
+    traían `Alimenta este Aliado. (Este Aliado gana 1 a la Fuerza…)` con un
+    punto de más, que deja el paréntesis fuera de su frase. La carta lo imprime
+    dentro. Corregido en `data-src/` como cualquier otra errata de puntuación.
 - **Cómo se revisó Dominio** (250 cartas, 26 corregidas), por si sirve de
   receta. La [lista del fandom](https://myl.fandom.com/es/wiki/Lista_de_cartas_de_Dominio)
   se baja por `api.php?action=parse` y sirve para cotejar nombre, tipo, raza,
@@ -565,8 +587,82 @@ out/           build estático (git-ignorado)
     `LG-146`, donde el pie dice `CRISTIÁN HUERTA` y la API pone "JP Aguirre".
   - Ninguna carta escondida: el listado va de 001 a 258 sin huecos,
     `/static/cards/17/259.png` da 404 y no hay imágenes duplicadas.
-- Ojo con los slugs de la API: `escuelas_elementales` va con **guion bajo**,
-  el resto con guion (`legado-gotico`, `aguila-imperial`…).
+- **Cómo se revisó Escuelas Elementales** (315 cartas). Es la que da nombre al
+  formato y la última en salir (2021; la API la fecha en 1990, que es relleno).
+  Y es **recopilatoria como ninguna**: de sus 315, **309 ya estaban en el
+  catálogo** con otra impresión y solo **6 son cartas nuevas**. Eso da una
+  palanca que ninguna otra edición tuvo —cotejar sus datos contra 309
+  impresiones ya verificadas a mano— y de paso destapó fallos viejos nuestros.
+  - **No cambia el modelo.** Da nombre al formato pero no imprime símbolo de
+    escuela: las escuelas siguen siendo parejas de razas dentro del texto ("de
+    Raza Dragón y/o Guerrero"). `ESCUELA_POR_RAZA` sigue valiendo. Eso sí,
+    **Pa Kua (EE-314) es la primera carta del catálogo que nombra la *Escuela
+    Elemental* explícitamente**, en cursiva y como término de reglas.
+  - **Los números vienen impecables**: `edid` == código impreso (`ESC-040-300`)
+    en las 300 del set base, **Legendarias incluidas** —no hay el desfase de
+    Águila Imperial ni Axis Mundi, verificado en el arte de ESC-001—; cero
+    intercambios `cost`/`damage`, cero razas mal, cero tipos mal. El `codigo`
+    del repo se queda en **`EE-<edid>`**, de dos letras como el resto, aunque
+    la carta imprima tres.
+  - **Los 15 promos sí van desfasados** (`edid − 2` desde el 303) y **tres
+    códigos se repiten en el propio arte**: `ESC-307`, `308` y `309` salen dos
+    veces cada uno. Los `edid` 301 y 302 no llevan código ESC sino `2021-065`,
+    el mismo en las dos: son las dos versiones de *Dominio, La Novela*, una de
+    ellas con la banda "Edición Coleccionista".
+  - **`keywords` llega `null` en las 315.** No aporta nada: el campo se deriva
+    del texto, que es lo que se hace desde el arreglo de Kaidan.
+  - **El separador de línea viene con espacio a los DOS lados** (`" \n "`) en
+    193 cartas. `clean_text()` hacía `rstrip()` por línea y solo limpiaba uno;
+    ahora hace `strip()`.
+  - **Una imagen solo existe como `.jpg`**: la 050 (Akiko Yamamoto) da 404 en
+    `.png`. Era la única de 315 y sin eso se quedaba sin arte. `download()`
+    reintenta ahora con `.jpg` y guarda PNG.
+  - **El `ilustrador` llega de relleno `Mitos y Leyendas` en las 315**, como en
+    Águila Imperial, y aquí **no se puede copiar de la impresión previa**:
+    Tezcatlipoca es de **Peña** aquí y de **Feig** en Hijos del Sol, porque
+    parte de las reimpresiones llevan ilustración nueva. Se leyeron las 315 del
+    arte. Ojo con dónde mirar: **el ilustrador no va al pie sino en vertical
+    junto al nombre**, y en las 8 Legendarias en horizontal bajo él. Recortando
+    esa banda y girándola se leen doce por plancha. Salieron **51
+    ilustradores**, cuatro nuevos para el catálogo (Lucius, Luis Salas, Nitrox y
+    Tati Lange); `Marco Gonzáles` con S sale una sola vez frente a cinco con Z
+    y se unificó, como ya se hizo con Francisco Ruiz.
+  - **Dos perfiles que la API rechaza con 400, no con el 502 de siempre**:
+    `belial,_el_bestial` y `henri_d'aramitz`. El slug lleva coma y apóstrofo y
+    la API no los acepta ni escapados. Sus nombres se leyeron del arte.
+  - **Los nombres llegan en minúscula y cinco rotos**: `guila y serpiente`,
+    `telaraa`, `ferydun i`, `belial el bestial` y `trempulcahue escuelas
+    elementales`, con el nombre de la edición pegado como ya pasó en HS-035. El
+    `profile` arregla la capitalización; el resto, el arte. Ojo: **el nombre va
+    en VERSALES en la carta**, así que de ahí no se sacan ni tildes ni
+    mayúsculas internas —para eso manda el catálogo ya verificado—. La
+    excepción fue `Alas de Murciélago`, que EE sí imprime con tilde: ahí el
+    equivocado era **nuestro** HS-251.
+  - **Una sola frecuencia mal, EE-148 (Hwarang)**: la API dice Real, el fandom
+    dice Milenaria y el escudo del arte es púrpura. El resto viene en tramos
+    contiguos correctos, con un bloque Cortesano raro en 34-38 que el escudo
+    rojo confirma. El escudo va a la derecha del cuadro de habilidad y codifica
+    la frecuencia igual que en ContraAtaque; las Legendarias usan otra
+    plantilla y no lo llevan.
+  - **El texto se come tildes en 88 cartas** ("esta" por "está", "mas" por
+    "más", "demas", "Talismánes"). Como 309 son reimpresiones, se repusieron
+    palabra a palabra contra el catálogo ya verificado, sin tocar el arte. Otras
+    18 son erratas ortográficas impresas y se corrigieron como siempre.
+  - **La edición declara las keywords A SECAS**, sin el recordatorio entre
+    paréntesis: son 78 cartas donde esa es la única diferencia con su impresión
+    previa. No es una errata, es su estilo de impresión.
+  - **Y aquí está lo gordo: no reimprime, REBALANCEA.** 66 cartas traen texto
+    distinto del que ya teníamos verificado. Tezcatlipoca gana `Única`;
+    Dimachaerus, Azi Dahaka, Yaoguai, Nostradamus y Akiko Yamamoto ganan
+    `Errante` y una condición de escuela; Astra cambia "Destruir" por
+    "Desterrar"; Carmina Burana cambia cuándo se puede usar. La edición además
+    abrevia: escribe "tu Castillo" por "tu Mazo Castillo" y "Cuando entra en
+    juego" por "Cuando este Aliado entra en juego". Las 66 se leyeron del arte
+    una a una.
+- Ojo con los slugs de la API: `escuelas_elementales` va con **guion bajo** y
+  el resto con guion (`legado-gotico`, `aguila-imperial`…). Ese guion bajo vive
+  solo en `API_SLUGS` de `fetch_edition.py`: nuestro slug es
+  `escuelas-elementales`, y es el que va en el campo `edicion` y en la URL.
 
 ---
 
@@ -692,6 +788,18 @@ ocho facetas: edición (solo en `/catalogo`, porque en la página de una edició
 no tendría nada que elegir), habilidad, tipo, raza, escuela, frecuencia, coste
 y fuerza.
 
+**Los selectores con muchas opciones abren con buscador** (`Select.tsx`, a
+partir de ocho opciones: habilidad, raza, edición, frecuencia y los rangos de
+coste y fuerza). Con cinco opciones a la vista —tipo, escuela elemental— el
+campo estorba más de lo que ayuda, así que ahí no sale. Al aparecer el campo,
+el control pasa de listbox a **combobox**: el foco va al buscador, las flechas
+siguen recorriendo la lista y la opción activa se anuncia con
+`aria-activedescendant`. Dos detalles que no son obvios: la búsqueda compara
+contra el texto que se **ve** (`format`, o sea el título de la edición y no su
+slug) y **sin tildes**, para que "samurai" encuentre Samurái; y mientras se
+busca desaparece la opción vacía "Todos", que entre resultados no pinta nada
+—para limpiar está la X del propio selector—.
+
 **El atributo no tiene faceta propia, a propósito.** Luz y Oscuridad son
 keywords impresas como cualquier otra, así que se filtran desde *habilidad*,
 que sale del campo `keywords`. Hubo un `Select` de atributo —vacío mientras no
@@ -700,14 +808,72 @@ dijera lo mismo que otro solo parte la búsqueda en dos sitios. El campo
 `atributo` de la carta **sigue existiendo** y es el que usan las reglas de
 mazo; lo que se fue es el filtro.
 
-`src/lib/ability.ts` separa las keywords declaradas al inicio del texto de
-habilidad ("Única. Furia. …") del resto de la prosa: el modal las muestra en
-una fila propia y resalta aparte las que caen dentro del párrafo. El filtro de
-habilidad **no** usa ese texto sino el campo `keywords` de la carta, que la API
-entrega ya etiquetado y también marca los casos condicionales ("Mientras porte
-un Arma es Imbloqueable"). Ojo: ese campo trae además etiquetas internas de
-búsqueda de la API (`Destruir`, `que controles`) que no son keywords impresas;
-se filtran contra `KEYWORDS_IMPRESAS`.
+`src/lib/ability.ts` separa lo que la carta **declara** del resto del texto: el
+modal pone las keywords arriba, en una fila propia, y debajo solo el efecto.
+Es un analizador por líneas que va consumiendo declaraciones mientras haya, no
+un regex anclado al comienzo, porque una carta puede encadenarlas ("Errante.
+Oscuridad. Inmunidad - Cartas Luz.") y puede anteponer una condición de juego
+antes de declarar ("Puedes jugar este Aliado en Guerra de Talismanes. /
+Guardián. / Cuando…"). Las que caen dentro de la prosa se resaltan donde están.
+El filtro de habilidad **no** usa ese texto sino el campo `keywords` de la
+carta.
+
+**Lo que hace cada keyword no se explica.** La carta imprime el recordatorio de
+reglas entre paréntesis —"Guardián (Este Aliado no puede ser declarado
+atacante)"— y es el mismo trozo repetido carta a carta: son conocimiento común
+del formato y ahogan el efecto, que es lo único que cambia de una a otra. Se
+quitan **365 de los 381 paréntesis** del catálogo. Con dos excepciones, que son
+de la carta y no del formato: el **coste de `Traición`** (`Traición - Botar dos
+cartas`) y **a qué se es inmune** (`Inmunidad (Cartas Luz)`; el guion impreso
+se cambia por paréntesis porque ahí no hay coste que pagar, sino una salvedad).
+
+El recordatorio se reconoce por **su frase**, no por ir pegado a la palabra:
+"Esos Aliados ganan Furia hasta la Fase Final (No necesitan pasar por una Fase
+de Agrupación…)" mete texto en medio. El ancla es que no se cruce un punto, y
+eso es justo lo que deja en pie los **16 paréntesis que son reglas de verdad**
+—"(El nuevo objetivo debe ser válido)", "(Si tienes cero cartas pierdes el
+juego)", "(Ese Aliado entra en juego bajo tu control)"—. `ability.test.ts`
+comprueba las dos cosas contra el catálogo real: que no quede ningún
+recordatorio en el cuerpo y que ninguna keyword con coste lo pierda al subir.
+
+`MECANICAS` es la lista aparte de términos que **no** son keywords filtrables
+pero llevan el mismo recordatorio: `Alimentar`, `Purificar` y `Honor`, los tres
+que salieron de `KEYWORDS_IMPRESAS`, más `Alimento` por el contador. Tampoco
+hay que explicarlos.
+
+**Ese campo NO se toma de la API: se deriva de lo que la carta declara.** Los
+flags de la API marcan la **mención**, no la posesión — el mismo fallo que ya se
+había visto en el atributo de Steampunk, que resultó valer para todas las
+keywords—. Kaidan (SN-139) llegaba etiquetado `Indestructible` porque convierte
+tus Oros en *Aliados Indestructibles*, y el Talismán no es indestructible; la
+Arma Petasos llegaba `Imbloqueable` porque se lo da al portador; Trajano, porque
+menciona a los Aliados Indestructibles que controles. Eran **201 etiquetas
+falsas** repartidas por las nueve ediciones. `keywords_propias()` en
+`scripts/schema.py` y `keywordsPropias()` en `src/lib/ability.ts` —espejo, y
+comprobado carta por carta en las 1833— leen el comienzo de **cualquier** línea,
+no solo la primera: una carta puede anteponer una condición de juego y declarar
+después, y así fue como **DO-176 (Pulcinela) se escapó de la revisión a mano de
+`Guardián`**, que miraba la primera línea.
+
+Se quedan fuera, a propósito, las auras: "los Aliados de Raza Héroe que
+controles son Indestructibles" **reparte** la keyword, aunque alcance a la
+propia carta, y a esas cartas el jugador llega por el filtro de raza. La línea
+es que el texto **se nombre a sí mismo**. Las **13** que sí la tienen sin
+declararla —"Mientras este Aliado porte un Arma es Imbloqueable"— no hay forma
+de leerlas sin entender la frase: van a mano en `data-src/` y la lista vive en
+`keywords.test.ts`, que corre contra el catálogo real y falla si vuelve a
+colarse una mención.
+
+**Tres etiquetas de la API salieron de `KEYWORDS_IMPRESAS`** porque no las
+declara **ninguna** de las 1833 cartas: `Alimentar` y `Purificar` son verbos de
+acción ("Alimenta un Aliado", "Purifica dos cartas del Cementerio"), no
+propiedades, y `Honor` ni siquiera es keyword sino un contador ("pon un contador
+de Honor") —que además salía resaltado en violeta dentro de esa frase—. Como
+faceta respondían a otra pregunta, qué **hace** la carta y no qué **es**, y un
+filtro donde unas opciones significan una cosa y otras la contraria no se puede
+leer. Quedan donde ya estaban `Destruir` y `que controles`. Si algún día se
+quieren de vuelta, que sea como faceta aparte de *mecánica*, no mezcladas con
+las keywords.
 
 **Cada edición declara la keyword a su manera, y eso rompió el resaltado.**
 Bushido y Sol Naciente la imprimen a secas ("Única. Furia."), pero Dominio y
@@ -727,28 +893,30 @@ ediciones—, aunque esté impresa en negrita como cualquier otra. Se agregó a 
 lista para que se resalte; como las facetas del filtro salen de lo que las
 cartas declaran (`catalog.ts`), agregarla no inventa una faceta vacía, pero
 no se podía filtrar por ella, porque el campo `keywords` no la traía. **Se
-arregló al cargar Legado Gótico**: se agregó a mano en `data-src` a las **24
-cartas que la DECLARAN**, repartidas por cinco ediciones. Las que solo la
+arregló al cargar Legado Gótico**: se agregó a mano en `data-src` a las **25
+cartas que la DECLARAN**, repartidas por cinco ediciones (eran 24 hasta que el
+barrido de menciones destapó a Pulcinela). Las que solo la
 mencionan ("por cada Aliado Guardián que controles") quedan fuera a propósito:
 hablan de otras cartas, no de sí mismas. Es el mismo arreglo que se hizo con la
 Furia que le faltaba a Haures y con `Traición`.
 
-**`Traición` es la única keyword que se imprime con un coste pegado**
-("Traición - Descartar una carta"), y llega con Hijos del Sol. No sube a la
-fila de keywords a propósito: el coste es texto de reglas y allí se perdería.
-Se queda en el cuerpo con la palabra resaltada, igual que la imprime la carta.
-Por eso `ability.ts` tiene ahora dos anclas —el punto para la declaración de
-siempre, el guion para esta— y `ABRE_CON_KEYWORD_CON_COSTE`, que el test usa
-para no confundirla con una declaración que la UI se esté comiendo.
+**`Traición` fue la primera keyword que se imprime con algo pegado tras un
+guion** ("Traición - Descartar una carta"), y llega con Hijos del Sol;
+`Inmunidad - Cartas Luz` es la misma forma y sale en catorce cartas de Legado
+Gótico. Por eso `ability.ts` tiene dos anclas: el punto para la declaración de
+siempre y el guion para estas. **Sí suben a la fila, con su parámetro**: se
+intentó dejarlas en el cuerpo para no perder el coste, y el resultado era peor
+—la keyword quedaba enterrada en el párrafo y la fila mentía por omisión—.
 
 Tema claro/oscuro conmutable desde la navbar (ver DESIGN.md). Cuidado al
 importar constantes desde un módulo `"use client"` hacia un Server Component:
 Next entrega una referencia de cliente, no el valor. Por eso `THEME_KEY` vive
 en `src/lib/theme.ts` y no en el componente.
 
-Cargadas: **1833 cartas** — Bushido (246), Sol Naciente (141), Dominio (256),
-ContraAtaque (150), Águila Imperial (261), Steampunk (71), Axis Mundi (189),
-Hijos del Sol (261) y Legado Gótico (258).
+Cargadas: **las diez ediciones, 2148 cartas** — Bushido (246), Sol Naciente
+(141), Dominio (256), ContraAtaque (150), Águila Imperial (261), Steampunk (71),
+Axis Mundi (189), Hijos del Sol (261), Legado Gótico (258) y Escuelas
+Elementales (315).
 
 Steampunk es la primera edición que imprime Luz y Oscuridad, así que el filtro
 de **habilidad** las ofrece desde ahora.
@@ -819,6 +987,33 @@ entradas a 50 y no a 3: describe lo que se puede **representar**, no lo que es
 legal — si recortara a 3, un mazo importado con 4 copias se volvería legal en
 silencio al leerlo.
 
+**Cuando dos impresiones dicen cosas distintas, manda la última.** Es la que se
+juega: una reimpresión con otro texto errata a la anterior. Escuelas Elementales
+(2021) es la última de las diez, así que su texto es el vigente y **se propagó
+hacia atrás a las 66 impresiones viejas** que decían otra cosa. Lo que NO se
+propaga es el estilo de declaración: que Escuelas Elementales escriba `Única.` a
+secas donde Dominio escribe `Única (Sólo puedes tener…)` no es una errata, es
+cómo imprime cada edición, y cada carta conserva el recordatorio que la suya
+lleva impreso.
+
+Efecto secundario que conviene tener presente: **28 cartas ganaron `Única` o
+`Errante` al heredar el texto vigente**, así que un mazo guardado con tres
+Tezcatlipoca de Hijos del Sol dejó de ser legal. Es correcto —hoy la carta es
+Única— pero no es obvio mirando solo el catálogo viejo.
+
+Y ojo con la regla al revés: **no es "la edición más nueva" sino "el ARTE de la
+más nueva"**. La API miente igual en todas. Leonardo lo demuestra: Dominio
+(DO-010) traía el texto bien y Águila Imperial, que es más nueva, lo traía mal
+(`Única Guardián Cuando…`, sin los puntos). Aplicar "manda la última" leyendo la
+API habría propagado el error.
+
+**`Shuri` no es una carta reimpresa: son dos Tótems distintos que se llaman
+igual.** BU-218 da Fuerza a los Dragones de tu Línea de Ataque y DO-213 te
+devuelve un Oro del Cementerio; distinto arte, distinto ilustrador y distinto
+coste. Compartían `identidad` y el constructor los contaba juntos. DO-213 lleva
+ahora `identidad: "shuri-dominio"` escrita a mano en `data-src/`. Si aparece
+otro homónimo, el mismo apaño.
+
 **Las copias se cuentan por `identidad`, no por `id`**: dos Kirin normales más
 dos Kirin Milenaria son cuatro Kirin. Y se suman principal y side.
 
@@ -843,5 +1038,7 @@ contra fixtures, porque los bordes que duelen salen de los datos.
 `scripts/ts-imports.mjs` son quince líneas que le enseñan a Node a resolver los
 imports sin extensión que espera el bundler de Next.
 
-**Todavía no hay** Escuelas Elementales —la última que falta—, ni la banlist,
-ni las erratas.
+**Todavía no hay** banlist ni página de erratas. Esta última tiene ahora
+material de sobra: al cargar Escuelas Elementales quedaron **66 cartas cuyo
+texto cambió entre impresiones**, y el catálogo muestra el vigente sin decir en
+ninguna parte que la impresión vieja decía otra cosa.

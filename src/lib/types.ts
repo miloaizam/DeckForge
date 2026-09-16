@@ -95,10 +95,19 @@ export const ATRIBUTOS = ["Luz", "Oscuridad"] as const;
 
 /**
  * Keywords que el juego imprime como declaracion en la carta ("Única.",
- * "Furia."). Se resaltan en el texto de habilidad.
+ * "Furia."). Se resaltan en el texto de habilidad y son las opciones del
+ * filtro de habilidad.
  *
  * Excluye a proposito "Destruir" y "que controles": son etiquetas internas de
  * busqueda de la API, no keywords impresas, y resaltarlas ensuciaria la prosa.
+ *
+ * Y excluye, por lo mismo, tres que la API si etiqueta pero que NINGUNA de las
+ * 1833 cartas declara: "Alimentar" y "Purificar" son verbos de accion ("Alimenta
+ * un Aliado", "Purifica dos cartas del Cementerio"), no propiedades que una
+ * carta pueda tener, y "Honor" ni siquiera es una keyword sino un contador
+ * ("pon un contador de Honor"). Como faceta del filtro respondian a otra
+ * pregunta —que HACE la carta, no que ES— y ademas "Honor" salia resaltado
+ * dentro de "contador de Honor", que es prosa y no una regla.
  */
 export const KEYWORDS_IMPRESAS = [
   "Única",
@@ -110,12 +119,9 @@ export const KEYWORDS_IMPRESAS = [
   "Furia",
   "Guardián",
   "Inmunidad",
-  "Alimentar",
-  "Purificar",
   "Retador",
   "Ilusión",
   "Espectral",
-  "Honor",
   "Errante",
   "Exhumar",
   "Mercenario",

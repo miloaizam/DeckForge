@@ -53,7 +53,7 @@
     "coste": 3,
     "fuerza": 4,
     "frecuencia": "Legendaria",
-    "habilidad": "Única\nGuardián\nCuando este Aliado entra en juego, Baraja todos los Aliados en juego que no sean Guardián.\nCuando este Aliado sea Destruido, puedes buscar un Aliado Guardián en tu Mazo Castillo y jugarlo sin pagar su coste.",
+    "habilidad": "Única. Guardián.\nCuando este Aliado entra en juego, Baraja todos los Aliados en juego que no sean Guardián.\nCuando este Aliado sea Destruido, puedes buscar un Aliado Guardián en tu Mazo Castillo y jugarlo sin pagar su coste.",
     "ilustrador": "Feig",
     "imagen": "/cards/ai-003.webp",
     "thumb": "/cards/thumb/ai-003.webp",
@@ -82,8 +82,7 @@
     "legalidad": "libre",
     "keywords": [
       "Furia",
-      "Exhumar",
-      "que controles"
+      "Exhumar"
     ]
   },
   {
@@ -98,12 +97,14 @@
     "coste": 2,
     "fuerza": 3,
     "frecuencia": "Legendaria",
-    "habilidad": "En tu Fase de Vigilia, una vez por turno, si controlas cuatro o más Oros, puedes Barajar hasta dos cartas de tu Cementerio. Luego, Roba dos cartas.",
+    "habilidad": "Única.\nEn tu Fase de Vigilia, una vez por turno, si controlas cuatro o más Oros, puedes Barajar hasta dos cartas de tu Cementerio y Robar dos cartas.",
     "ilustrador": "Mauricio Herrera",
     "imagen": "/cards/ai-005.webp",
     "thumb": "/cards/thumb/ai-005.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Única"
+    ]
   },
   {
     "id": "ai-006",
@@ -117,7 +118,7 @@
     "coste": 3,
     "fuerza": null,
     "frecuencia": "Legendaria",
-    "habilidad": "Única\nCuando juegues este Talismán, Destiérralo.\nPuedes Desterrar dos cartas de tu mano en vez de pagar el coste de este Talismán.\nBusca dos cartas en tu Mazo Castillo y ponlas en tu mano.",
+    "habilidad": "Única.\nCuando juegues este Talismán Destiérralo.\nBusca dos cartas en tu Mazo Castillo y ponlas en tu mano. Puedes Desterrar dos cartas de tu mano en vez de pagar el coste de este Talismán.",
     "ilustrador": "Javier Bahamonde",
     "imagen": "/cards/ai-006.webp",
     "thumb": "/cards/thumb/ai-006.webp",
@@ -138,7 +139,7 @@
     "coste": 3,
     "fuerza": null,
     "frecuencia": "Legendaria",
-    "habilidad": "Única\nCuando juegues este Talismán, Destiérralo.\nPuedes Descartar dos cartas de tu mano en vez de pagar el coste de este Talismán.\nAnula una carta oponente.",
+    "habilidad": "Única.\nCuando juegues este Talismán, Destiérralo.\nPuedes Descartar dos cartas de tu mano en vez de pagar el coste de este Talismán.\nAnula una carta oponente.",
     "ilustrador": "Brolken & Sol Devia",
     "imagen": "/cards/ai-007.webp",
     "thumb": "/cards/thumb/ai-007.webp",
@@ -178,7 +179,7 @@
     "coste": null,
     "fuerza": null,
     "frecuencia": "Legendaria",
-    "habilidad": "En Guerra de Talismanes, si este Oro está en tu Reserva de Oros, puedes Desterrarlo para Cancelar el ataque oponente.",
+    "habilidad": "En Guerra de Talismanes, puedes Desterrar este Oro de tu Reserva de Oros para Cancelar el ataque oponente.",
     "ilustrador": "Peyeyo",
     "imagen": "/cards/ai-009.webp",
     "thumb": "/cards/thumb/ai-009.webp",
@@ -203,9 +204,7 @@
     "thumb": "/cards/thumb/ai-010.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única",
-      "que controles",
-      "Destruir"
+      "Única"
     ]
   },
   {
@@ -226,8 +225,7 @@
     "thumb": "/cards/thumb/ai-011.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única",
-      "Destruir"
+      "Única"
     ]
   },
   {
@@ -314,9 +312,7 @@
     "legalidad": "libre",
     "keywords": [
       "Única",
-      "Furia",
-      "Alimentar",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -337,8 +333,7 @@
     "thumb": "/cards/thumb/ai-016.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única",
-      "Purificar"
+      "Única"
     ]
   },
   {
@@ -472,9 +467,7 @@
     "imagen": "/cards/ai-023.webp",
     "thumb": "/cards/thumb/ai-023.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Purificar"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-024",
@@ -512,9 +505,7 @@
     "imagen": "/cards/ai-025.webp",
     "thumb": "/cards/thumb/ai-025.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-026",
@@ -635,8 +626,7 @@
     "thumb": "/cards/thumb/ai-031.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Alimentar"
+      "Furia"
     ]
   },
   {
@@ -696,9 +686,7 @@
     "imagen": "/cards/ai-034.webp",
     "thumb": "/cards/thumb/ai-034.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-035",
@@ -717,9 +705,7 @@
     "imagen": "/cards/ai-035.webp",
     "thumb": "/cards/thumb/ai-035.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Furia"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-036",
@@ -814,9 +800,7 @@
     "imagen": "/cards/ai-040.webp",
     "thumb": "/cards/thumb/ai-040.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-041",
@@ -835,9 +819,7 @@
     "imagen": "/cards/ai-041.webp",
     "thumb": "/cards/thumb/ai-041.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-042",
@@ -875,9 +857,7 @@
     "imagen": "/cards/ai-043.webp",
     "thumb": "/cards/thumb/ai-043.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-044",
@@ -917,9 +897,7 @@
     "imagen": "/cards/ai-045.webp",
     "thumb": "/cards/thumb/ai-045.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-046",
@@ -995,10 +973,7 @@
     "imagen": "/cards/ai-049.webp",
     "thumb": "/cards/thumb/ai-049.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Indestructible",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-050",
@@ -1037,8 +1012,7 @@
     "thumb": "/cards/thumb/ai-051.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -1180,10 +1154,7 @@
     "imagen": "/cards/ai-058.webp",
     "thumb": "/cards/thumb/ai-058.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-059",
@@ -1221,9 +1192,7 @@
     "imagen": "/cards/ai-060.webp",
     "thumb": "/cards/thumb/ai-060.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Purificar"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-061",
@@ -1242,9 +1211,7 @@
     "imagen": "/cards/ai-061.webp",
     "thumb": "/cards/thumb/ai-061.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-062",
@@ -1343,9 +1310,7 @@
     "imagen": "/cards/ai-066.webp",
     "thumb": "/cards/thumb/ai-066.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-067",
@@ -1421,10 +1386,7 @@
     "imagen": "/cards/ai-070.webp",
     "thumb": "/cards/thumb/ai-070.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-071",
@@ -1443,9 +1405,7 @@
     "imagen": "/cards/ai-071.webp",
     "thumb": "/cards/thumb/ai-071.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-072",
@@ -1464,9 +1424,7 @@
     "imagen": "/cards/ai-072.webp",
     "thumb": "/cards/thumb/ai-072.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Purificar"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-073",
@@ -1485,9 +1443,7 @@
     "imagen": "/cards/ai-073.webp",
     "thumb": "/cards/thumb/ai-073.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Purificar"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-074",
@@ -1507,8 +1463,7 @@
     "thumb": "/cards/thumb/ai-074.webp",
     "legalidad": "libre",
     "keywords": [
-      "Exhumar",
-      "Destruir"
+      "Exhumar"
     ]
   },
   {
@@ -1547,9 +1502,7 @@
     "imagen": "/cards/ai-076.webp",
     "thumb": "/cards/thumb/ai-076.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-077",
@@ -1587,10 +1540,7 @@
     "imagen": "/cards/ai-078.webp",
     "thumb": "/cards/thumb/ai-078.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-079",
@@ -1628,9 +1578,7 @@
     "imagen": "/cards/ai-080.webp",
     "thumb": "/cards/thumb/ai-080.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Purificar"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-081",
@@ -1727,10 +1675,7 @@
     "imagen": "/cards/ai-085.webp",
     "thumb": "/cards/thumb/ai-085.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Indestructible",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-086",
@@ -1873,9 +1818,7 @@
     "imagen": "/cards/ai-092.webp",
     "thumb": "/cards/thumb/ai-092.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Furia"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-093",
@@ -1916,8 +1859,8 @@
     "thumb": "/cards/thumb/ai-094.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Exhumar"
+      "Exhumar",
+      "Furia"
     ]
   },
   {
@@ -1958,9 +1901,7 @@
     "imagen": "/cards/ai-096.webp",
     "thumb": "/cards/thumb/ai-096.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-097",
@@ -1999,9 +1940,7 @@
     "thumb": "/cards/thumb/ai-098.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Alimentar",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -2016,14 +1955,13 @@
     "coste": 2,
     "fuerza": 3,
     "frecuencia": "Cortesano",
-    "habilidad": "Imbloqueable (Este Aliado no puede ser bloqueado).\nCuando este Aliado entra en juego, puedes Desterrar una carta de tu Cementerio. Luego, Alimenta este Aliado. (Este Aliado gana 1 a la Fuerza mientras permanezca en juego).",
+    "habilidad": "Imbloqueable (Este Aliado no puede ser bloqueado).\nCuando este Aliado entra en juego, puedes Desterrar una carta de tu Cementerio. Luego, Alimenta este Aliado (Este Aliado gana 1 a la Fuerza mientras permanezca en juego).",
     "ilustrador": "Lucius Blacklung",
     "imagen": "/cards/ai-099.webp",
     "thumb": "/cards/thumb/ai-099.webp",
     "legalidad": "libre",
     "keywords": [
-      "Imbloqueable",
-      "Alimentar"
+      "Imbloqueable"
     ]
   },
   {
@@ -2076,7 +2014,7 @@
     "coste": 2,
     "fuerza": 2,
     "frecuencia": "Cortesano",
-    "habilidad": "En tu Fase de Vigilia, una vez por turno, puedes Desterrar una carta de tu Cementerio para Robar una carta.\nMientras este Aliado esté en juego, cuando una carta sea Desterrada de un Cementerio, tu oponente Bota una carta.",
+    "habilidad": "En tu Fase de Vigilia, una vez por turno, puedes Desterrar una carta de tu Cementerio para Robar una carta.\nMientras este Aliado esté en juego, cuando una carta sea Desterrada de tu Cementerio, tu oponente Bota una carta.",
     "ilustrador": "Seba Gutiérrez",
     "imagen": "/cards/ai-102.webp",
     "thumb": "/cards/thumb/ai-102.webp",
@@ -2119,9 +2057,7 @@
     "imagen": "/cards/ai-104.webp",
     "thumb": "/cards/thumb/ai-104.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-105",
@@ -2140,9 +2076,7 @@
     "imagen": "/cards/ai-105.webp",
     "thumb": "/cards/thumb/ai-105.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-106",
@@ -2194,7 +2128,7 @@
     "coste": 2,
     "fuerza": null,
     "frecuencia": "Cortesano",
-    "habilidad": "Este Talismán no puede ser Anulado.\nExhumar (Puedes jugar esta carta desde tu Cementerio pagando su coste. Si es un Talismán, Destiérralo).\nTu oponente Bota una carta por cada Oro en su Zona de Oro Pagado.",
+    "habilidad": "Exhumar (Puedes jugar esta carta desde tu Cementerio pagando su coste. Si es un Talismán, Destiérralo).\nEste Talismán no puede ser Anulado.\nTu oponente Bota una carta por cada Oro en su Zona de Oro Pagado.",
     "ilustrador": "Wolf",
     "imagen": "/cards/ai-108.webp",
     "thumb": "/cards/thumb/ai-108.webp",
@@ -2220,9 +2154,7 @@
     "imagen": "/cards/ai-109.webp",
     "thumb": "/cards/thumb/ai-109.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Indestructible"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-110",
@@ -2260,9 +2192,7 @@
     "imagen": "/cards/ai-111.webp",
     "thumb": "/cards/thumb/ai-111.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-112",
@@ -2281,9 +2211,7 @@
     "imagen": "/cards/ai-112.webp",
     "thumb": "/cards/thumb/ai-112.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-113",
@@ -2302,9 +2230,7 @@
     "imagen": "/cards/ai-113.webp",
     "thumb": "/cards/thumb/ai-113.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Exhumar"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-114",
@@ -2418,9 +2344,7 @@
     "imagen": "/cards/ai-119.webp",
     "thumb": "/cards/thumb/ai-119.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-120",
@@ -2553,9 +2477,7 @@
     "imagen": "/cards/ai-126.webp",
     "thumb": "/cards/thumb/ai-126.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-127",
@@ -2593,9 +2515,7 @@
     "imagen": "/cards/ai-128.webp",
     "thumb": "/cards/thumb/ai-128.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-129",
@@ -2614,10 +2534,7 @@
     "imagen": "/cards/ai-129.webp",
     "thumb": "/cards/thumb/ai-129.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-130",
@@ -2655,9 +2572,7 @@
     "imagen": "/cards/ai-131.webp",
     "thumb": "/cards/thumb/ai-131.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-132",
@@ -2677,8 +2592,7 @@
     "thumb": "/cards/thumb/ai-132.webp",
     "legalidad": "libre",
     "keywords": [
-      "Imbloqueable",
-      "que controles"
+      "Imbloqueable"
     ]
   },
   {
@@ -2774,10 +2688,7 @@
     "imagen": "/cards/ai-137.webp",
     "thumb": "/cards/thumb/ai-137.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Furia",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-138",
@@ -2796,9 +2707,7 @@
     "imagen": "/cards/ai-138.webp",
     "thumb": "/cards/thumb/ai-138.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-139",
@@ -2992,9 +2901,7 @@
     "imagen": "/cards/ai-148.webp",
     "thumb": "/cards/thumb/ai-148.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-149",
@@ -3173,10 +3080,7 @@
     "imagen": "/cards/ai-157.webp",
     "thumb": "/cards/thumb/ai-157.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-158",
@@ -3196,8 +3100,7 @@
     "thumb": "/cards/thumb/ai-158.webp",
     "legalidad": "libre",
     "keywords": [
-      "Exhumar",
-      "que controles"
+      "Exhumar"
     ]
   },
   {
@@ -3231,12 +3134,13 @@
     "coste": 1,
     "fuerza": 2,
     "frecuencia": "Vasallo",
-    "habilidad": "Exhumar (Puedes jugar esta carta desde tu Cementerio pagando su coste. Si es un Talismán, Destiérralo).\nCuando este Aliado entra en juego, puedes buscar hasta dos Oros en el Mazo Castillo oponente y Desterrarlos.",
+    "habilidad": "Única. Exhumar (Puedes jugar esta carta desde tu Cementerio pagando su coste. Si es un Talismán, Destiérralo).\nCuando este Aliado entra en juego, puedes buscar hasta dos Oros en el Mazo Castillo oponente y Desterrarlos.",
     "ilustrador": "Argus del Norte",
     "imagen": "/cards/ai-160.webp",
     "thumb": "/cards/thumb/ai-160.webp",
     "legalidad": "libre",
     "keywords": [
+      "Única",
       "Exhumar"
     ]
   },
@@ -3257,10 +3161,7 @@
     "imagen": "/cards/ai-161.webp",
     "thumb": "/cards/thumb/ai-161.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-162",
@@ -3280,8 +3181,7 @@
     "thumb": "/cards/thumb/ai-162.webp",
     "legalidad": "libre",
     "keywords": [
-      "Imbloqueable",
-      "Exhumar"
+      "Imbloqueable"
     ]
   },
   {
@@ -3301,9 +3201,7 @@
     "imagen": "/cards/ai-163.webp",
     "thumb": "/cards/thumb/ai-163.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-164",
@@ -3322,9 +3220,7 @@
     "imagen": "/cards/ai-164.webp",
     "thumb": "/cards/thumb/ai-164.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Imbloqueable"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-165",
@@ -3343,10 +3239,7 @@
     "imagen": "/cards/ai-165.webp",
     "thumb": "/cards/thumb/ai-165.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-166",
@@ -3366,8 +3259,7 @@
     "thumb": "/cards/thumb/ai-166.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Alimentar"
+      "Furia"
     ]
   },
   {
@@ -3444,9 +3336,7 @@
     "imagen": "/cards/ai-170.webp",
     "thumb": "/cards/thumb/ai-170.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-171",
@@ -3484,9 +3374,7 @@
     "imagen": "/cards/ai-172.webp",
     "thumb": "/cards/thumb/ai-172.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-173",
@@ -3676,9 +3564,7 @@
     "imagen": "/cards/ai-182.webp",
     "thumb": "/cards/thumb/ai-182.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-183",
@@ -3697,10 +3583,7 @@
     "imagen": "/cards/ai-183.webp",
     "thumb": "/cards/thumb/ai-183.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Imbloqueable",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-184",
@@ -3738,10 +3621,7 @@
     "imagen": "/cards/ai-185.webp",
     "thumb": "/cards/thumb/ai-185.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Imbloqueable",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-186",
@@ -3760,9 +3640,7 @@
     "imagen": "/cards/ai-186.webp",
     "thumb": "/cards/thumb/ai-186.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-187",
@@ -3859,9 +3737,7 @@
     "imagen": "/cards/ai-191.webp",
     "thumb": "/cards/thumb/ai-191.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Exhumar"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-192",
@@ -3880,9 +3756,7 @@
     "imagen": "/cards/ai-192.webp",
     "thumb": "/cards/thumb/ai-192.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Exhumar"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-193",
@@ -3896,14 +3770,13 @@
     "coste": 2,
     "fuerza": null,
     "frecuencia": "Vasallo",
-    "habilidad": "Puedes Destruir un Aliado que controles en vez de pagar el coste de este Talismán.\nBusca un Talismán de coste 3 o más en tu Mazo Castillo y ponlo en tu mano.",
+    "habilidad": "Única.\nPuedes Destruir un Aliado que controles en vez de pagar el coste de este Talismán.\nBusca un Talismán de coste 3 o más en tu Mazo Castillo y ponlo en tu mano.",
     "ilustrador": "Snoop",
     "imagen": "/cards/ai-193.webp",
     "thumb": "/cards/thumb/ai-193.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
-      "Destruir"
+      "Única"
     ]
   },
   {
@@ -3961,10 +3834,7 @@
     "imagen": "/cards/ai-196.webp",
     "thumb": "/cards/thumb/ai-196.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-197",
@@ -4002,10 +3872,7 @@
     "imagen": "/cards/ai-198.webp",
     "thumb": "/cards/thumb/ai-198.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-199",
@@ -4081,9 +3948,7 @@
     "imagen": "/cards/ai-202.webp",
     "thumb": "/cards/thumb/ai-202.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-203",
@@ -4102,9 +3967,7 @@
     "imagen": "/cards/ai-203.webp",
     "thumb": "/cards/thumb/ai-203.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-204",
@@ -4142,9 +4005,7 @@
     "imagen": "/cards/ai-205.webp",
     "thumb": "/cards/thumb/ai-205.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Imbloqueable"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-206",
@@ -4220,9 +4081,7 @@
     "imagen": "/cards/ai-209.webp",
     "thumb": "/cards/thumb/ai-209.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-210",
@@ -4357,10 +4216,7 @@
     "imagen": "/cards/ai-216.webp",
     "thumb": "/cards/thumb/ai-216.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-217",
@@ -4398,9 +4254,7 @@
     "imagen": "/cards/ai-218.webp",
     "thumb": "/cards/thumb/ai-218.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-219",
@@ -4433,12 +4287,14 @@
     "coste": null,
     "fuerza": null,
     "frecuencia": "Oro",
-    "habilidad": "Cuando este Oro entra en juego, puedes buscar un Aliado de Raza Sombra en tu Mazo Castillo y ponerlo en tu Cementerio.",
+    "habilidad": "Única.\nCuando este Oro entra en juego, puedes buscar un Aliado de Raza Sombra en tu Mazo Castillo y ponerlo en tu Cementerio.",
     "ilustrador": "Carlos Semper",
     "imagen": "/cards/ai-220.webp",
     "thumb": "/cards/thumb/ai-220.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Única"
+    ]
   },
   {
     "id": "ai-221",
@@ -4780,9 +4636,7 @@
     "imagen": "/cards/ai-238.webp",
     "thumb": "/cards/thumb/ai-238.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-239",
@@ -4882,8 +4736,7 @@
     "thumb": "/cards/thumb/ai-243.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Alimentar"
+      "Furia"
     ]
   },
   {
@@ -4903,9 +4756,7 @@
     "imagen": "/cards/ai-244.webp",
     "thumb": "/cards/thumb/ai-244.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-245",
@@ -4919,7 +4770,7 @@
     "coste": 1,
     "fuerza": null,
     "frecuencia": "Promocional",
-    "habilidad": "Cuando juegues este Talismán, Destiérralo.\nCancela una habilidad activada. Luego, Roba una carta.",
+    "habilidad": "Cuando juegues este Talismán Destiérralo.\nCancela una habilidad activada. Luego, Roba una carta.",
     "ilustrador": "Loreto Díaz",
     "imagen": "/cards/ai-245.webp",
     "thumb": "/cards/thumb/ai-245.webp",
@@ -4981,9 +4832,7 @@
     "imagen": "/cards/ai-248.webp",
     "thumb": "/cards/thumb/ai-248.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Indestructible"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-249",
@@ -5037,12 +4886,13 @@
     "coste": 1,
     "fuerza": 1,
     "frecuencia": "Promocional",
-    "habilidad": "Indestructible (Este Aliado no puede ser Destruido).\nEn tu Fase de Vigilia, una vez por turno, puedes Robar una carta.",
+    "habilidad": "Errante. Indestructible (Este Aliado no puede ser Destruido).\nEn tu Fase de Vigilia, una vez por turno, si todos los Aliados que controlas son Guerrero, puedes Robar una carta.",
     "ilustrador": "Peyeyo",
     "imagen": "/cards/ai-251.webp",
     "thumb": "/cards/thumb/ai-251.webp",
     "legalidad": "libre",
     "keywords": [
+      "Errante",
       "Indestructible"
     ]
   },
@@ -5063,9 +4913,7 @@
     "imagen": "/cards/ai-252.webp",
     "thumb": "/cards/thumb/ai-252.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Purificar"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-253",
@@ -5084,9 +4932,7 @@
     "imagen": "/cards/ai-253.webp",
     "thumb": "/cards/thumb/ai-253.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-254",
@@ -5100,7 +4946,7 @@
     "coste": 3,
     "fuerza": null,
     "frecuencia": "Promocional",
-    "habilidad": "Única\nCuando juegues este Talismán, Destiérralo.\nPuedes Descartar dos cartas de tu mano en vez de pagar el coste de este Talismán.\nAnula una carta oponente.",
+    "habilidad": "Única.\nCuando juegues este Talismán, Destiérralo.\nPuedes Descartar dos cartas de tu mano en vez de pagar el coste de este Talismán.\nAnula una carta oponente.",
     "ilustrador": "Brolken & Sol Devia",
     "imagen": "/cards/ai-254.webp",
     "thumb": "/cards/thumb/ai-254.webp",
@@ -5121,7 +4967,7 @@
     "coste": 1,
     "fuerza": null,
     "frecuencia": "Promocional",
-    "habilidad": "Sólo puedes jugar este Talismán desde tu mano.\nCuando juegues este Talismán, Destiérralo.\nElige hasta dos cartas de tu Cementerio y Barájalas en tu Mazo Castillo. Luego, Roba dos cartas.",
+    "habilidad": "Sólo puedes jugar este Talismán desde tu mano.\nCuando juegues este Talismán. Destiérralo.\nElige hasta dos cartas de tu Cementerio y Barájalas en tu Mazo Castillo. Luego, Roba dos cartas.",
     "ilustrador": "Kaek",
     "imagen": "/cards/ai-255.webp",
     "thumb": "/cards/thumb/ai-255.webp",
@@ -5145,9 +4991,7 @@
     "imagen": "/cards/ai-256.webp",
     "thumb": "/cards/thumb/ai-256.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-257",
@@ -5166,9 +5010,7 @@
     "imagen": "/cards/ai-257.webp",
     "thumb": "/cards/thumb/ai-257.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-258",
@@ -5182,13 +5024,13 @@
     "coste": 3,
     "fuerza": null,
     "frecuencia": "Promocional",
-    "habilidad": "Reduce el coste de este Talismán en un Oro por cada Aliado de Raza Caballero que controles.\nElige un Aliado de Raza Caballero de tu Cementerio y juégalo sin pagar su coste.",
+    "habilidad": "Única.\nReduce el coste de este Talismán en un Oro por cada Aliado de Raza Caballero que controles.\nElige un Aliado de Raza Caballero de tu Cementerio y juégalo sin pagar su coste.",
     "ilustrador": "JP Aguirre",
     "imagen": "/cards/ai-258.webp",
     "thumb": "/cards/thumb/ai-258.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles"
+      "Única"
     ]
   },
   {
@@ -5208,9 +5050,7 @@
     "imagen": "/cards/ai-259.webp",
     "thumb": "/cards/thumb/ai-259.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "ai-260",

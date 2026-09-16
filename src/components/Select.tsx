@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { Check, ChevronDown, X } from "lucide-react";
+import { Check, ChevronDown, Search, X } from "lucide-react";
 
+import { TEXT_FIELD } from "@/lib/ui";
 import { cn } from "@/lib/utils";
 
 interface SelectProps {
@@ -20,6 +21,23 @@ interface SelectProps {
 }
 
 /**
+ * A partir de cuantas opciones el desplegable trae buscador.
+ *
+ * Con cinco opciones a la vista (Tipo, Escuela elemental) un campo de texto
+ * es un trasto: se leen todas de una mirada y buscar cuesta mas que elegir.
+ * Con trece razas o veinte keywords ya no, y ahi el campo se gana el sitio.
+ */
+const MIN_OPCIONES_PARA_BUSCAR = 8;
+
+/** Minusculas y sin tildes: "samurai" tiene que encontrar "Samurái". */
+function normalizar(texto: string): string {
+  return texto
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+}
+
+/**
  * Selector de una opcion, con la estetica de la marca.
  *
  * El <select> nativo no se puede estilizar: el navegador dibuja la lista con
@@ -27,6 +45,11 @@ interface SelectProps {
  * listbox segun el patron ARIA, asi que conserva lo que el nativo daba gratis:
  * anuncio del rol, navegacion con flechas, Inicio/Fin, Enter, Escape y foco
  * visible.
+ *
+ * Cuando hay opciones de sobra el desplegable abre con un buscador y pasa a
+ * ser un combobox: el foco va al campo, las flechas siguen recorriendo la
+ * lista y la opcion activa se anuncia con `aria-activedescendant`. La lista
+ * filtra por el texto que se ve (`format`) y sin tildes.
  */
 export function Select({
   label,
@@ -38,21 +61,32 @@ export function Select({
 }: SelectProps) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
+  const [query, setQuery] = useState("");
   const rootRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const id = useId();
 
-  // La opcion vacia va primera y equivale a "sin filtrar".
-  const items = ["", ...options];
+  const buscable = options.length >= MIN_OPCIONES_PARA_BUSCAR;
+  const consulta = normalizar(query.trim());
+
+  // La opcion vacia va primera y equivale a "sin filtrar", pero solo mientras
+  // no se este buscando: entre los resultados de una busqueda no pinta nada.
+  const items = consulta
+    ? options.filter((o) => normalizar(format(o)).includes(consulta))
+    : ["", ...options];
   const selectedIndex = Math.max(0, items.indexOf(value));
 
   const close = (devolverFoco = true) => {
     setOpen(false);
+    setQuery("");
     if (devolverFoco) buttonRef.current?.focus();
   };
 
   const pick = (index: number) => {
+    // Sin coincidencias no hay nada que elegir: Enter no tiene que romper.
+    if (index < 0 || index >= items.length) return;
     onChange(items[index]);
     close();
   };
@@ -64,6 +98,7 @@ export function Select({
       close(false);
       return;
     }
+    setQuery("");
     setActive(selectedIndex);
     setOpen(true);
   };
@@ -73,15 +108,17 @@ export function Select({
     const onPointerDown = (e: PointerEvent) => {
       if (rootRef.current && !rootRef.current.contains(e.target as Node)) {
         setOpen(false);
+        setQuery("");
       }
     };
     document.addEventListener("pointerdown", onPointerDown);
     return () => document.removeEventListener("pointerdown", onPointerDown);
   }, [open]);
 
-  // Al abrir, el foco pasa a la lista para que las flechas la recorran.
+  // Al abrir, el foco pasa al buscador si lo hay y a la lista si no, para que
+  // las flechas la recorran en los dos casos.
   useEffect(() => {
-    if (open) listRef.current?.focus();
+    if (open) (inputRef.current ?? listRef.current)?.focus();
   }, [open]);
 
   // Mantiene visible la opcion activa cuando se navega con el teclado.
@@ -110,8 +147,13 @@ export function Select({
         e.preventDefault();
         setActive(items.length - 1);
         break;
-      case "Enter":
       case " ":
+        // Con buscador la barra es un espacio que se escribe, no un atajo.
+        if (buscable) break;
+        e.preventDefault();
+        pick(active);
+        break;
+      case "Enter":
         e.preventDefault();
         pick(active);
         break;
@@ -129,6 +171,9 @@ export function Select({
   if (options.length === 0) return null;
 
   const activo = value !== "";
+  const listId = `${id}-list`;
+  // Sin coincidencias no hay opcion activa que anunciar.
+  const activeId = items.length > 0 ? `${id}-opt-${active}` : undefined;
 
   return (
     <div ref={rootRef} className="relative flex min-w-0 flex-col gap-1.5">
@@ -166,7 +211,7 @@ export function Select({
             type="button"
             onClick={() => {
               onChange("");
-              setOpen(false);
+              close(false);
             }}
             aria-label={`Quitar el filtro ${label}`}
             className="text-accent hover:bg-brand-600 focus-visible:outline-brand-500 absolute top-1/2 right-1.5 flex size-8 -translate-y-1/2 items-center justify-center rounded-full transition-colors hover:text-white"
@@ -186,41 +231,82 @@ export function Select({
       </div>
 
       {open && (
-        <ul
-          ref={listRef}
-          role="listbox"
-          tabIndex={-1}
-          aria-labelledby={`${id}-label`}
-          aria-activedescendant={`${id}-opt-${active}`}
-          onKeyDown={onKeyDown}
-          className="border-line bg-panel shadow-panel rounded-card absolute top-full right-0 left-0 z-20 mt-1.5 max-h-72 scrollbar-none overflow-y-auto border py-1.5 outline-none"
-        >
-          {items.map((item, i) => {
-            const seleccionada = item === value;
-            return (
-              <li
-                key={item || "__todos"}
-                id={`${id}-opt-${i}`}
-                data-index={i}
-                role="option"
-                aria-selected={seleccionada}
-                onClick={() => pick(i)}
-                onMouseEnter={() => setActive(i)}
-                className={cn(
-                  "flex cursor-pointer items-center justify-between gap-2 px-3 py-2.5 text-sm transition-colors",
-                  i === active && "bg-surface",
-                  seleccionada ? "text-accent" : "text-ink",
-                  !item && "text-muted",
-                )}
-              >
-                <span className="truncate">{item ? format(item) : placeholder}</span>
-                {seleccionada && (
-                  <Check size={14} aria-hidden="true" className="shrink-0" />
-                )}
+        <div className="border-line bg-panel shadow-panel rounded-card absolute top-full right-0 left-0 z-20 mt-1.5 border py-1.5">
+          {/* El buscador va fuera de la lista y no scrollea con ella: la lista
+              se recorre y el campo se queda donde se escribe. */}
+          {buscable && (
+            <div className="relative px-1.5 pb-1.5">
+              <Search
+                size={15}
+                aria-hidden="true"
+                className="text-muted pointer-events-none absolute top-1/2 left-4 -translate-y-1/2"
+              />
+              <input
+                ref={inputRef}
+                type="text"
+                role="combobox"
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  // La lista cambia entera: el recorrido vuelve a empezar.
+                  setActive(0);
+                }}
+                onKeyDown={onKeyDown}
+                placeholder="Buscar…"
+                aria-label={`Buscar en ${label}`}
+                aria-expanded
+                aria-controls={listId}
+                aria-activedescendant={activeId}
+                aria-autocomplete="list"
+                autoComplete="off"
+                className={cn(TEXT_FIELD, "bg-surface h-9 pr-3 pl-8")}
+              />
+            </div>
+          )}
+
+          <ul
+            ref={listRef}
+            id={listId}
+            role="listbox"
+            tabIndex={-1}
+            aria-labelledby={`${id}-label`}
+            aria-activedescendant={buscable ? undefined : activeId}
+            onKeyDown={buscable ? undefined : onKeyDown}
+            className="max-h-72 scrollbar-none overflow-y-auto outline-none"
+          >
+            {items.map((item, i) => {
+              const seleccionada = item === value;
+              return (
+                <li
+                  key={item || "__todos"}
+                  id={`${id}-opt-${i}`}
+                  data-index={i}
+                  role="option"
+                  aria-selected={seleccionada}
+                  onClick={() => pick(i)}
+                  onMouseEnter={() => setActive(i)}
+                  className={cn(
+                    "flex cursor-pointer items-center justify-between gap-2 px-3 py-2.5 text-sm transition-colors",
+                    i === active && "bg-surface",
+                    seleccionada ? "text-accent" : "text-ink",
+                    !item && "text-muted",
+                  )}
+                >
+                  <span className="truncate">{item ? format(item) : placeholder}</span>
+                  {seleccionada && (
+                    <Check size={14} aria-hidden="true" className="shrink-0" />
+                  )}
+                </li>
+              );
+            })}
+
+            {items.length === 0 && (
+              <li role="presentation" className="text-muted px-3 py-2.5 text-sm">
+                Sin coincidencias
               </li>
-            );
-          })}
-        </ul>
+            )}
+          </ul>
+        </div>
       )}
     </div>
   );

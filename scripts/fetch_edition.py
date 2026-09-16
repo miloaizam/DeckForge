@@ -19,17 +19,20 @@ asi que esas correcciones hay que conservarlas.
 
 import argparse
 import hashlib
+import io
 import json
 import re
 import sys
 import time
 import urllib.error
 import urllib.request
+
+from PIL import Image
 from pathlib import Path
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from schema import keywords_declaradas  # noqa: E402
+from schema import keywords_propias  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_SRC = ROOT / "data-src"
@@ -43,7 +46,6 @@ PROFILE_REINTENTOS = 3
 # Prefijo de codigo por edicion. Solo "BU" esta confirmado (wiki oficial);
 # el resto es una abreviatura nuestra. El codigo no se muestra en la interfaz,
 # solo sirve de id estable y de campo buscable.
-# Ojo: el slug de Escuelas Elementales lleva guion BAJO en la API.
 EDITION_CODES = {
     "bushido": "BU",
     "sol-naciente": "SN",
@@ -54,7 +56,7 @@ EDITION_CODES = {
     "axis-mundi": "AM",
     "hijos-del-sol": "HS",
     "legado-gotico": "LG",
-    "escuelas_elementales": "EE",
+    "escuelas-elementales": "EE",
     # Ediciones de FUERA del formato. Estan aqui porque el formato incorpora
     # unas pocas de sus cartas por balance, y `scripts/fetch_card.py` las baja
     # de a una a data-src/extras.json. Verificadas contra la API.
@@ -65,6 +67,12 @@ EDITION_CODES = {
     "cruzadas": "CR",
     "furia": "FU",
 }
+
+# El slug de la API cuando NO coincide con el nuestro. Escuelas Elementales es
+# la unica: la API la llama con guion BAJO y el resto de las ediciones con
+# guion normal. El guion bajo se queda aqui, en la llamada, y no llega ni al
+# campo `edicion` de la carta ni a la URL de su pagina.
+API_SLUGS = {"escuelas-elementales": "escuelas_elementales"}
 
 # Las escuelas del formato son parejas de razas, no un campo de la carta.
 ESCUELA_POR_RAZA = {
@@ -88,17 +96,40 @@ def get_json(url: str) -> dict[str, Any]:
 
 
 def download(url: str, dest: Path) -> bool:
+    """Baja el arte de una carta. Guarda siempre como PNG, venga como venga.
+
+    El directorio de la API no es homogeneo: en Escuelas Elementales la carta
+    050 (Akiko Yamamoto) solo existe como .jpg y su .png da 404. Era la unica
+    de 315, y sin este reintento se quedaba sin imagen. Pillow normaliza el
+    formato al escribir, asi que `convert_images.py` no se entera.
+    """
     if dest.exists():
         return False
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    try:
-        with urllib.request.urlopen(req, timeout=60) as r:
-            data = r.read()
-    except urllib.error.HTTPError as e:
-        print(f"  [WARN] imagen {url} -> HTTP {e.code}")
+    candidatas = [url]
+    if url.endswith(".png"):
+        candidatas.append(url[:-4] + ".jpg")
+
+    data = None
+    for i, u in enumerate(candidatas):
+        req = urllib.request.Request(u, headers={"User-Agent": USER_AGENT})
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                data = r.read()
+            if i:
+                print(f"  [info] {dest.name} no estaba en .png; bajado de {u}")
+            break
+        except urllib.error.HTTPError as e:
+            if i == len(candidatas) - 1:
+                print(f"  [WARN] imagen {url} -> HTTP {e.code}")
+                return False
+    if data is None:
         return False
+
     dest.parent.mkdir(parents=True, exist_ok=True)
-    dest.write_bytes(data)
+    if data[:3] == b"\xff\xd8\xff":  # JPEG: se reescribe como PNG
+        Image.open(io.BytesIO(data)).convert("RGB").save(dest, "PNG")
+    else:
+        dest.write_bytes(data)
     return True
 
 
@@ -118,9 +149,11 @@ def clean_text(value: str | None) -> str:
         .replace("\r\n", "\n")
         .strip()
     )
-    # La API mete espacios dobles y espacios al final de linea. Ninguno esta en
-    # el arte y los dos ensucian la comparacion con la carta.
-    return "\n".join(re.sub(r" {2,}", " ", linea).rstrip() for linea in texto.split("\n"))
+    # La API mete espacios dobles y espacios sueltos a los lados del salto de
+    # linea. Ninguno esta en el arte y todos ensucian la comparacion con la
+    # carta. En Escuelas Elementales el separador llega como " \n " —espacio a
+    # los DOS lados— en 193 de sus 315 cartas, asi que no basta con rstrip().
+    return "\n".join(re.sub(r" {2,}", " ", linea).strip() for linea in texto.split("\n"))
 
 
 def clean_name(value: str | None) -> str | None:
@@ -155,7 +188,6 @@ def build_card(
     races: dict[str, str],
     types: dict[str, str],
     rarities: dict[str, str],
-    keywords: list[dict[str, Any]],
     profile: dict[str, Any] | None,
 ) -> dict[str, Any]:
     edid = raw["edid"]
@@ -163,21 +195,25 @@ def build_card(
 
     habilidad = clean_text(raw.get("ability"))
 
-    mask = to_int(raw.get("keywords")) or 0
-    kw_titles = [k["title"] for k in keywords if mask & int(k["flag"])]
-
-    # Luz y Oscuridad NO salen de los flags 16 y 32: esos marcan la MENCION, no
-    # el atributo. Rayo (SPK-015) trae el flag de Oscuridad porque su texto dice
-    # "Destruye una carta Oscuridad", y Van Helsing trae los dos aunque solo es
-    # Luz. Lo que manda es la declaracion al inicio del texto, que es lo que la
-    # carta imprime como propiedad suya. Verificado en las 71 de Steampunk
-    # contra el medallon del arte (sol = Luz, luna = Oscuridad, manometro =
-    # ninguno): coincide carta por carta.
-    declaradas = keywords_declaradas(habilidad)
-    atributo = next((a for a in ATRIBUTOS if a in declaradas), None)
-    kw_titles = [k for k in kw_titles if k not in ATRIBUTOS]
-    if atributo:
-        kw_titles.append(atributo)
+    # El campo `keywords` de la API NO sirve: sus flags marcan la MENCION, no la
+    # posesion. Rayo (SPK-015) trae el flag de Oscuridad porque su texto dice
+    # "Destruye una carta Oscuridad", Van Helsing trae los dos aunque solo es
+    # Luz, y Kaidan (SN-139) trae Indestructible porque convierte tus Oros en
+    # Aliados Indestructibles. Se vio primero en el atributo, en Steampunk, y
+    # vale igual para todas: son 201 etiquetas falsas en las nueve ediciones.
+    #
+    # Lo que manda es lo que la carta DECLARA, que es lo que imprime como
+    # propiedad suya. Verificado en las 71 de Steampunk contra el medallon del
+    # arte (sol = Luz, luna = Oscuridad, manometro = ninguno) y en las 230 de
+    # Legado Gotico contra la columna de atributo del fandom: coincide carta
+    # por carta, mientras que los flags fallaban en 29.
+    #
+    # Quedan fuera las que la carta tiene por una condicion de su propio texto
+    # ("Mientras este Aliado porte un Arma es Imbloqueable"): son 13 en todo el
+    # catalogo, no hay forma de leerlas sin entender la frase, y se agregan a
+    # mano en data-src. `keywords.test.ts` lleva la lista.
+    kw_titles = keywords_propias(habilidad)
+    atributo = next((a for a in ATRIBUTOS if a in kw_titles), None)
 
     raza = races.get(raw["race"]) if raw.get("race") else None
     # "Sin Raza" es ruido: para nosotros es simplemente ausencia de raza.
@@ -221,6 +257,7 @@ def main() -> int:
     args = ap.parse_args()
 
     slug = args.edition
+    api_slug = API_SLUGS.get(slug, slug)
     code = EDITION_CODES.get(slug)
     if not code:
         print(f"[ERROR] No conozco el prefijo de codigo de '{slug}'.")
@@ -234,14 +271,13 @@ def main() -> int:
         return 1
 
     print(f"Bajando listado de '{slug}'...")
-    payload = get_json(f"{API}/cards/edition/{slug}")
+    payload = get_json(f"{API}/cards/edition/{api_slug}")
     edition = payload["edition"]
     cards_raw = payload["cards"]
 
     races = {r["id"]: r["name"] for r in payload["races"]}
     types = {t["id"]: t["name"] for t in payload["types"]}
     rarities = {r["id"]: r["name"] for r in payload["rarities"]}
-    keywords = payload["keywords"]
 
     if args.limit:
         cards_raw = cards_raw[: args.limit]
@@ -256,6 +292,7 @@ def main() -> int:
     # si. (Alli la URL sin el cero a la izquierda, /16/17.png, si traia la
     # correcta.)
     huellas: dict[str, str] = {}
+    repetidas: list[tuple[str, str]] = []
     for i, raw in enumerate(cards_raw, 1):
         profile = None
         if not args.no_profiles:
@@ -267,7 +304,7 @@ def main() -> int:
             # entrega asi y es el `profile` quien los capitaliza.
             for intento in range(PROFILE_REINTENTOS):
                 try:
-                    p = get_json(f"{API}/cards/profile/{slug}/{raw['slug']}")
+                    p = get_json(f"{API}/cards/profile/{api_slug}/{raw['slug']}")
                     if p.get("status") == "OK":
                         profile = p
                         break
@@ -288,7 +325,6 @@ def main() -> int:
             races=races,
             types=types,
             rarities=rarities,
-            keywords=keywords,
             profile=profile,
         )
         src_url = card.pop("_source_image")
@@ -301,6 +337,7 @@ def main() -> int:
             if destino.exists():
                 huella = hashlib.sha256(destino.read_bytes()).hexdigest()
                 if huella in huellas:
+                    repetidas.append((card["id"], huellas[huella]))
                     print(f"  [WARN] {card['id']} tiene el MISMO arte que {huellas[huella]}")
                 else:
                     huellas[huella] = card["id"]
@@ -313,9 +350,13 @@ def main() -> int:
         json.dumps(cards, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
 
-    repetidas = len(cards) - len(huellas) if huellas else 0
-    if repetidas > 0:
-        print(f"\n[WARN] {repetidas} carta(s) bajaron un arte que ya tenia otra.")
+    # Los pares de verdad, no una resta: una imagen que no llego a bajar no
+    # deja huella, y restar la contaba como duplicado. En Escuelas Elementales
+    # el 404 de EE-050 disparaba el aviso sin que hubiera ni un par repetido.
+    if repetidas:
+        print(f"\n[WARN] {len(repetidas)} carta(s) bajaron un arte que ya tenia otra:")
+        for cual, otra in repetidas:
+            print(f"       {cual} == {otra}")
         print("       La API sirve a veces la imagen equivocada. Busca el PNG bueno")
         print("       (prueba la URL sin el cero a la izquierda) antes de seguir.")
 

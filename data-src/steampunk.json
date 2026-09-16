@@ -38,9 +38,8 @@
     "thumb": "/cards/thumb/sp-002.webp",
     "legalidad": "libre",
     "keywords": [
-      "Imbloqueable",
-      "que controles",
-      "Luz"
+      "Luz",
+      "Imbloqueable"
     ]
   },
   {
@@ -61,7 +60,6 @@
     "thumb": "/cards/thumb/sp-003.webp",
     "legalidad": "libre",
     "keywords": [
-      "Destruir",
       "Luz"
     ]
   },
@@ -83,9 +81,8 @@
     "thumb": "/cards/thumb/sp-004.webp",
     "legalidad": "libre",
     "keywords": [
-      "Imbloqueable",
-      "que controles",
-      "Luz"
+      "Luz",
+      "Imbloqueable"
     ]
   },
   {
@@ -167,7 +164,6 @@
     "thumb": "/cards/thumb/sp-008.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Luz"
     ]
   },
@@ -189,7 +185,6 @@
     "thumb": "/cards/thumb/sp-009.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Luz"
     ]
   },
@@ -211,8 +206,6 @@
     "thumb": "/cards/thumb/sp-010.webp",
     "legalidad": "libre",
     "keywords": [
-      "Imbloqueable",
-      "que controles",
       "Luz"
     ]
   },
@@ -234,8 +227,7 @@
     "thumb": "/cards/thumb/sp-011.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible",
-      "que controles"
+      "Indestructible"
     ]
   },
   {
@@ -277,8 +269,8 @@
     "thumb": "/cards/thumb/sp-013.webp",
     "legalidad": "libre",
     "keywords": [
-      "Imbloqueable",
-      "Luz"
+      "Luz",
+      "Imbloqueable"
     ]
   },
   {
@@ -337,8 +329,6 @@
     "thumb": "/cards/thumb/sp-016.webp",
     "legalidad": "libre",
     "keywords": [
-      "Imbloqueable",
-      "que controles",
       "Luz"
     ]
   },
@@ -440,7 +430,6 @@
     "thumb": "/cards/thumb/sp-021.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Luz"
     ]
   },
@@ -660,9 +649,8 @@
     "thumb": "/cards/thumb/sp-032.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles",
-      "Oscuridad"
+      "Oscuridad",
+      "Furia"
     ]
   },
   {
@@ -683,9 +671,8 @@
     "thumb": "/cards/thumb/sp-033.webp",
     "legalidad": "libre",
     "keywords": [
-      "Imbloqueable",
-      "Destruir",
-      "Oscuridad"
+      "Oscuridad",
+      "Imbloqueable"
     ]
   },
   {
@@ -706,7 +693,6 @@
     "thumb": "/cards/thumb/sp-034.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Oscuridad"
     ]
   },
@@ -728,7 +714,6 @@
     "thumb": "/cards/thumb/sp-035.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Oscuridad"
     ]
   },
@@ -750,7 +735,6 @@
     "thumb": "/cards/thumb/sp-036.webp",
     "legalidad": "libre",
     "keywords": [
-      "Destruir",
       "Oscuridad"
     ]
   },
@@ -772,8 +756,8 @@
     "thumb": "/cards/thumb/sp-037.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Oscuridad"
+      "Oscuridad",
+      "Furia"
     ]
   },
   {
@@ -794,7 +778,6 @@
     "thumb": "/cards/thumb/sp-038.webp",
     "legalidad": "libre",
     "keywords": [
-      "Destruir",
       "Oscuridad"
     ]
   },
@@ -816,8 +799,8 @@
     "thumb": "/cards/thumb/sp-039.webp",
     "legalidad": "libre",
     "keywords": [
-      "Exhumar",
-      "Oscuridad"
+      "Oscuridad",
+      "Exhumar"
     ]
   },
   {
@@ -1120,7 +1103,6 @@
     "thumb": "/cards/thumb/sp-054.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Oscuridad"
     ]
   },
@@ -1296,8 +1278,8 @@
     "thumb": "/cards/thumb/sp-063.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Exhumar"
+      "Exhumar",
+      "Furia"
     ]
   },
   {
@@ -1395,9 +1377,7 @@
     "imagen": "/cards/sp-068.webp",
     "thumb": "/cards/thumb/sp-068.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Exhumar"
-    ]
+    "keywords": []
   },
   {
     "id": "sp-069",
@@ -1435,9 +1415,7 @@
     "imagen": "/cards/sp-070.webp",
     "thumb": "/cards/thumb/sp-070.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "sp-071",

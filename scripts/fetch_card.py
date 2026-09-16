@@ -92,7 +92,6 @@ def main() -> int:
         races={r["id"]: r["name"] for r in payload["races"]},
         types={t["id"]: t["name"] for t in payload["types"]},
         rarities={r["id"]: r["name"] for r in payload["rarities"]},
-        keywords=payload["keywords"],
         profile=profile,
     )
     src_url = card.pop("_source_image")

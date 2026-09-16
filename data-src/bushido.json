@@ -111,9 +111,7 @@
     "imagen": "/cards/bu-243.webp",
     "thumb": "/cards/thumb/bu-243.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-244",
@@ -132,9 +130,7 @@
     "imagen": "/cards/bu-244.webp",
     "thumb": "/cards/thumb/bu-244.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-245",
@@ -193,8 +189,7 @@
     "legalidad": "libre",
     "keywords": [
       "Única",
-      "Furia",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -238,8 +233,7 @@
     "legalidad": "libre",
     "keywords": [
       "Única",
-      "Furia",
-      "Destruir"
+      "Furia"
     ]
   },
   {
@@ -440,9 +434,7 @@
     "imagen": "/cards/bu-013.webp",
     "thumb": "/cards/thumb/bu-013.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-014",
@@ -539,9 +531,7 @@
     "imagen": "/cards/bu-018.webp",
     "thumb": "/cards/thumb/bu-018.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-019",
@@ -640,9 +630,7 @@
     "imagen": "/cards/bu-023.webp",
     "thumb": "/cards/thumb/bu-023.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-024",
@@ -675,14 +663,12 @@
     "coste": 2,
     "fuerza": 3,
     "frecuencia": "Milenaria",
-    "habilidad": "Cuando este Aliado entra en juego, si no hay Aliados en tu Cementerio, puedes Destruir un Aliado oponente que no sea de Raza Oni",
+    "habilidad": "Cuando este Aliado entra en juego, si no hay Aliados en tu Cementerio, puedes Destruir un Aliado oponente que no sea de Raza Oni.",
     "ilustrador": "Draco",
     "imagen": "/cards/bu-025.webp",
     "thumb": "/cards/thumb/bu-025.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-026",
@@ -734,7 +720,7 @@
     "coste": 0,
     "fuerza": 2,
     "frecuencia": "Milenaria",
-    "habilidad": "Furia.\nEn la Fase Final, puedes pagar 1 Oro para Subir este Aliado a la mano de su sueño.\nEn la Fase Final, Destierra este Aliado.",
+    "habilidad": "Furia.\nEn la Fase Final, puedes pagar 1 Oro para Subir este Aliado a la mano de su dueño.\nEn la Fase Final, Destierra este Aliado.",
     "ilustrador": "Feig",
     "imagen": "/cards/bu-028.webp",
     "thumb": "/cards/thumb/bu-028.webp",
@@ -850,7 +836,7 @@
     "coste": 3,
     "fuerza": 3,
     "frecuencia": "Milenaria",
-    "habilidad": "Mientras este Aliado esté en juego, reduce en un Oro el coste de tus Aliados de Raza Dragón",
+    "habilidad": "Mientras este Aliado esté en juego, reduce en un Oro el coste de tus Aliados de Raza Dragón.",
     "ilustrador": "CristianAC",
     "imagen": "/cards/bu-034.webp",
     "thumb": "/cards/thumb/bu-034.webp",
@@ -888,7 +874,7 @@
     "coste": 2,
     "fuerza": 1,
     "frecuencia": "Milenaria",
-    "habilidad": "Imbloqueable. En tu Fase de Vigilia, una vez por turno, puedes elegir un Talismán de tu Cementerio y ponerlo en la parte inferior de tu Mazo Castillo",
+    "habilidad": "Imbloqueable. En tu Fase de Vigilia, una vez por turno, puedes elegir un Talismán de tu Cementerio y ponerlo en la parte inferior de tu Mazo Castillo.",
     "ilustrador": "Francisco Ruiz",
     "imagen": "/cards/bu-036.webp",
     "thumb": "/cards/thumb/bu-036.webp",
@@ -953,8 +939,7 @@
     "thumb": "/cards/thumb/bu-039.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -1058,9 +1043,7 @@
     "imagen": "/cards/bu-044.webp",
     "thumb": "/cards/thumb/bu-044.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-045",
@@ -1074,7 +1057,7 @@
     "coste": 1,
     "fuerza": 2,
     "frecuencia": "Real",
-    "habilidad": "Cuando este Aliado entra en juego, puedes elegir un Aliado de Raza Faerie o un Talismán de tu Cementerio y ponerlo en parte superior de tu Mazo Castillo. Una vez por turno, elige un Aliado en juego para que pierda 1 de Fuerza hasta la Fase Final.",
+    "habilidad": "Cuando este Aliado entra en juego, puedes elegir un Aliado de Raza Faerie o un Talismán de tu Cementerio y ponerlo en la parte superior de tu Mazo Castillo. Una vez por turno, elige un Aliado en juego para que pierda 1 de Fuerza hasta la Fase Final.",
     "ilustrador": "Draco",
     "imagen": "/cards/bu-045.webp",
     "thumb": "/cards/thumb/bu-045.webp",
@@ -1192,14 +1175,12 @@
     "coste": 2,
     "fuerza": 3,
     "frecuencia": "Real",
-    "habilidad": "Cuando este Aliado entra en juego, si no hay Aliados en tu Cementerio, puedes Destruir un Aliado oponente que no sea Raza Oni.",
+    "habilidad": "Cuando este Aliado entra en juego, si no hay Aliados en tu Cementerio, puedes Destruir un Aliado oponente que no sea de Raza Oni.",
     "ilustrador": "Draco",
     "imagen": "/cards/bu-051.webp",
     "thumb": "/cards/thumb/bu-051.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-052",
@@ -1417,8 +1398,8 @@
     "thumb": "/cards/thumb/bu-062.webp",
     "legalidad": "libre",
     "keywords": [
-      "Imbloqueable",
-      "Furia"
+      "Furia",
+      "Imbloqueable"
     ]
   },
   {
@@ -1457,9 +1438,7 @@
     "imagen": "/cards/bu-064.webp",
     "thumb": "/cards/thumb/bu-064.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Furia"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-065",
@@ -1530,7 +1509,7 @@
     "coste": 0,
     "fuerza": 2,
     "frecuencia": "Real",
-    "habilidad": "Furia.\nEn la Fase Final, puedes pagar un Oro para subir este Aliado a la mano de su dueño.\nEn la Fase Final, Destierra este Aliado.",
+    "habilidad": "Furia.\nEn la Fase Final, puedes pagar un Oro para Subir este Aliado a la mano de su dueño.\nEn la Fase Final, Destierra este Aliado.",
     "ilustrador": "Feig",
     "imagen": "/cards/bu-068.webp",
     "thumb": "/cards/thumb/bu-068.webp",
@@ -1655,9 +1634,7 @@
     "imagen": "/cards/bu-074.webp",
     "thumb": "/cards/thumb/bu-074.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-075",
@@ -1809,10 +1786,7 @@
     "imagen": "/cards/bu-082.webp",
     "thumb": "/cards/thumb/bu-082.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Imbloqueable",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-083",
@@ -1850,9 +1824,7 @@
     "imagen": "/cards/bu-084.webp",
     "thumb": "/cards/thumb/bu-084.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-085",
@@ -1871,9 +1843,7 @@
     "imagen": "/cards/bu-085.webp",
     "thumb": "/cards/thumb/bu-085.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-086",
@@ -1892,9 +1862,7 @@
     "imagen": "/cards/bu-086.webp",
     "thumb": "/cards/thumb/bu-086.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-087",
@@ -1970,9 +1938,7 @@
     "imagen": "/cards/bu-090.webp",
     "thumb": "/cards/thumb/bu-090.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-091",
@@ -2124,10 +2090,7 @@
     "imagen": "/cards/bu-098.webp",
     "thumb": "/cards/thumb/bu-098.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Imbloqueable",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-099",
@@ -2187,8 +2150,7 @@
     "thumb": "/cards/thumb/bu-101.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible",
-      "que controles"
+      "Indestructible"
     ]
   },
   {
@@ -2227,10 +2189,7 @@
     "imagen": "/cards/bu-103.webp",
     "thumb": "/cards/thumb/bu-103.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-104",
@@ -2249,10 +2208,7 @@
     "imagen": "/cards/bu-104.webp",
     "thumb": "/cards/thumb/bu-104.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Imbloqueable",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-105",
@@ -2271,9 +2227,7 @@
     "imagen": "/cards/bu-105.webp",
     "thumb": "/cards/thumb/bu-105.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-106",
@@ -2372,10 +2326,7 @@
     "imagen": "/cards/bu-110.webp",
     "thumb": "/cards/thumb/bu-110.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-111",
@@ -2489,9 +2440,7 @@
     "imagen": "/cards/bu-116.webp",
     "thumb": "/cards/thumb/bu-116.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-117",
@@ -2510,9 +2459,7 @@
     "imagen": "/cards/bu-117.webp",
     "thumb": "/cards/thumb/bu-117.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-118",
@@ -2571,10 +2518,7 @@
     "imagen": "/cards/bu-120.webp",
     "thumb": "/cards/thumb/bu-120.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Imbloqueable",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-121",
@@ -2612,9 +2556,7 @@
     "imagen": "/cards/bu-122.webp",
     "thumb": "/cards/thumb/bu-122.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-123",
@@ -2634,8 +2576,8 @@
     "thumb": "/cards/thumb/bu-123.webp",
     "legalidad": "libre",
     "keywords": [
-      "Imbloqueable",
-      "Furia"
+      "Furia",
+      "Imbloqueable"
     ]
   },
   {
@@ -2714,9 +2656,7 @@
     "imagen": "/cards/bu-127.webp",
     "thumb": "/cards/thumb/bu-127.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-128",
@@ -2962,7 +2902,7 @@
     "coste": 1,
     "fuerza": null,
     "frecuencia": "Cortesano",
-    "habilidad": "Anula un Aliado oponente jugando sin pagar su coste.",
+    "habilidad": "Anula un Aliado oponente jugado sin pagar su coste.",
     "ilustrador": "Marcos Villarroel",
     "imagen": "/cards/bu-140.webp",
     "thumb": "/cards/thumb/bu-140.webp",
@@ -2986,9 +2926,7 @@
     "imagen": "/cards/bu-141.webp",
     "thumb": "/cards/thumb/bu-141.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-142",
@@ -3007,9 +2945,7 @@
     "imagen": "/cards/bu-142.webp",
     "thumb": "/cards/thumb/bu-142.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-143",
@@ -3028,9 +2964,7 @@
     "imagen": "/cards/bu-143.webp",
     "thumb": "/cards/thumb/bu-143.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-144",
@@ -3353,9 +3287,7 @@
     "imagen": "/cards/bu-160.webp",
     "thumb": "/cards/thumb/bu-160.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-161",
@@ -3437,9 +3369,7 @@
     "imagen": "/cards/bu-164.webp",
     "thumb": "/cards/thumb/bu-164.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-165",
@@ -3458,9 +3388,7 @@
     "imagen": "/cards/bu-165.webp",
     "thumb": "/cards/thumb/bu-165.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-166",
@@ -3578,9 +3506,7 @@
     "imagen": "/cards/bu-171.webp",
     "thumb": "/cards/thumb/bu-171.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-172",
@@ -3599,9 +3525,7 @@
     "imagen": "/cards/bu-172.webp",
     "thumb": "/cards/thumb/bu-172.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-173",
@@ -3734,9 +3658,7 @@
     "imagen": "/cards/bu-179.webp",
     "thumb": "/cards/thumb/bu-179.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-180",
@@ -3756,8 +3678,7 @@
     "thumb": "/cards/thumb/bu-180.webp",
     "legalidad": "libre",
     "keywords": [
-      "Imbloqueable",
-      "que controles"
+      "Imbloqueable"
     ]
   },
   {
@@ -3896,8 +3817,7 @@
     "thumb": "/cards/thumb/bu-187.webp",
     "legalidad": "libre",
     "keywords": [
-      "Imbloqueable",
-      "que controles"
+      "Imbloqueable"
     ]
   },
   {
@@ -3912,7 +3832,7 @@
     "coste": 2,
     "fuerza": 2,
     "frecuencia": "Vasallo",
-    "habilidad": "En tu Fase de Vigilia una vez por turno, si todos los Aliados que controlas son de Raza Eterno, puedes Robar una carta.",
+    "habilidad": "En tu Fase de Vigilia, una vez por turno, si todos los Aliados que controlas son de Raza Eterno, puedes Robar una carta.",
     "ilustrador": "Feig",
     "imagen": "/cards/bu-188.webp",
     "thumb": "/cards/thumb/bu-188.webp",
@@ -4021,8 +3941,8 @@
     "thumb": "/cards/thumb/bu-193.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indesterrable",
-      "Indestructible"
+      "Indestructible",
+      "Indesterrable"
     ]
   },
   {
@@ -4099,9 +4019,7 @@
     "imagen": "/cards/bu-197.webp",
     "thumb": "/cards/thumb/bu-197.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Furia"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-198",
@@ -4196,9 +4114,7 @@
     "imagen": "/cards/bu-202.webp",
     "thumb": "/cards/thumb/bu-202.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Indestructible"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-203",
@@ -4293,9 +4209,7 @@
     "imagen": "/cards/bu-207.webp",
     "thumb": "/cards/thumb/bu-207.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-208",
@@ -4314,9 +4228,7 @@
     "imagen": "/cards/bu-208.webp",
     "thumb": "/cards/thumb/bu-208.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-209",
@@ -4525,9 +4437,7 @@
     "imagen": "/cards/bu-219.webp",
     "thumb": "/cards/thumb/bu-219.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-220",
@@ -4546,9 +4456,7 @@
     "imagen": "/cards/bu-220.webp",
     "thumb": "/cards/thumb/bu-220.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "bu-221",

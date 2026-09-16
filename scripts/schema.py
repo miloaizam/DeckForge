@@ -136,12 +136,9 @@ KEYWORDS_IMPRESAS = [
     "Furia",
     "Guardián",
     "Inmunidad",
-    "Alimentar",
-    "Purificar",
     "Retador",
     "Ilusión",
     "Espectral",
-    "Honor",
     "Errante",
     "Exhumar",
     "Mercenario",
@@ -151,7 +148,14 @@ KEYWORDS_IMPRESAS = [
 _ALTERNATIVA = "|".join(re.escape(k) for k in KEYWORDS_IMPRESAS)
 # El recordatorio de reglas entre parentesis que algunas ediciones pegan tras
 # la keyword, y el punto (o el fin de linea) que cierra la declaracion.
-_FIN_DECLARACION = r"(?:\s*\([^)]*\))?(?:\.|(?=\n|$))"
+_FIN_DECLARACION = r"(?:\s*\([^)]*\))?(?:\.|$)"
+# Una declaracion suelta al comienzo de lo que queda de linea, y una con su
+# parametro tras el guion ("Traicion - Botar dos cartas", "Inmunidad - Cartas
+# Luz"). El parametro llega hasta el recordatorio o hasta el punto.
+_DECLARACION = re.compile(rf"^({_ALTERNATIVA}){_FIN_DECLARACION}\s*")
+_DECLARACION_CON_PARAMETRO = re.compile(
+    rf"^({_ALTERNATIVA})\s-\s[^.(\n]+?\s*{_FIN_DECLARACION}\s*"
+)
 _DECLARACION_INICIAL = re.compile(rf"^(?:(?:{_ALTERNATIVA}){_FIN_DECLARACION}\s*)+")
 _CADA_KEYWORD = re.compile(rf"({_ALTERNATIVA}){_FIN_DECLARACION}")
 
@@ -159,9 +163,39 @@ _CADA_KEYWORD = re.compile(rf"({_ALTERNATIVA}){_FIN_DECLARACION}")
 def keywords_declaradas(habilidad: str) -> list[str]:
     """Las keywords declaradas al INICIO del texto, en el orden impreso.
 
-    Espejo de `splitAbility()` en src/lib/ability.ts. Una keyword mencionada
-    dentro de la prosa ("Destruye una carta Oscuridad") no cuenta: solo cuenta
-    la declaracion, que es lo que la carta imprime como propiedad suya.
+    Solo mira el bloque de apertura. Para lo que la carta declara mire donde
+    mire —que es lo que va al campo `keywords`— usa `keywords_propias()`.
     """
     m = _DECLARACION_INICIAL.match(habilidad or "")
     return [x.group(1) for x in _CADA_KEYWORD.finditer(m.group(0))] if m else []
+
+
+def keywords_propias(habilidad: str) -> list[str]:
+    """Las keywords que la carta se declara a SI MISMA, mire donde mire.
+
+    Espejo de `splitAbility()` en src/lib/ability.ts, y la fuente del campo
+    `keywords`, que es lo que filtra el catalogo.
+
+    Va linea por linea consumiendo declaraciones mientras haya, porque una
+    carta puede encadenarlas ("Errante. Oscuridad. Inmunidad - Cartas Luz.") y
+    puede anteponer una condicion de juego antes de declarar ("Puedes jugar
+    este Aliado en Guerra de Talismanes.\nGuardian (...).\nCuando este Aliado
+    entra en juego..."). Asi se escapo DO-176 (Pulcinela) de la revision a mano
+    de Guardian, que miraba solo la primera linea, y asi se perdio la Inmunidad
+    de Cain y Serpiente Negra, que la declaran en la misma linea que Errante.
+
+    Lo que NO cuenta es mencionar la keyword o repartirla: "los Oros que
+    controlas se Convierten en Aliados de Fuerza 2 Indestructibles" no hace
+    Indestructible al Talisman que lo dice.
+    """
+    propias: list[str] = []
+    for linea in (habilidad or "").split("\n"):
+        resto = linea
+        while True:
+            m = _DECLARACION.match(resto) or _DECLARACION_CON_PARAMETRO.match(resto)
+            if not m:
+                break
+            propias.append(m.group(1))
+            resto = resto[m.end() :]
+    # Sin duplicados y en el orden impreso.
+    return list(dict.fromkeys(propias))

@@ -17,9 +17,7 @@
     "thumb": "/cards/thumb/ca-007.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única",
-      "Imbloqueable",
-      "que controles"
+      "Única"
     ]
   },
   {
@@ -61,8 +59,7 @@
     "thumb": "/cards/thumb/ca-045.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única",
-      "que controles"
+      "Única"
     ]
   },
   {
@@ -104,9 +101,7 @@
     "thumb": "/cards/thumb/ca-010.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única",
-      "Imbloqueable",
-      "que controles"
+      "Única"
     ]
   },
   {
@@ -127,8 +122,7 @@
     "thumb": "/cards/thumb/ca-002.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única",
-      "que controles"
+      "Única"
     ]
   },
   {
@@ -193,9 +187,7 @@
     "legalidad": "libre",
     "keywords": [
       "Única",
-      "Imbloqueable",
-      "que controles",
-      "Destruir"
+      "Imbloqueable"
     ]
   },
   {
@@ -237,8 +229,7 @@
     "thumb": "/cards/thumb/ca-012.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única",
-      "que controles"
+      "Única"
     ]
   },
   {
@@ -259,8 +250,7 @@
     "thumb": "/cards/thumb/ca-006.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única",
-      "que controles"
+      "Única"
     ]
   },
   {
@@ -321,8 +311,7 @@
     "thumb": "/cards/thumb/ca-040.webp",
     "legalidad": "libre",
     "keywords": [
-      "Imbloqueable",
-      "Destruir"
+      "Imbloqueable"
     ]
   },
   {
@@ -384,9 +373,7 @@
     "imagen": "/cards/ca-013.webp",
     "thumb": "/cards/thumb/ca-013.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-014",
@@ -586,8 +573,8 @@
     "legalidad": "libre",
     "keywords": [
       "Única",
-      "Indestructible",
-      "Furia"
+      "Furia",
+      "Indestructible"
     ]
   },
   {
@@ -647,9 +634,7 @@
     "imagen": "/cards/ca-018.webp",
     "thumb": "/cards/thumb/ca-018.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-019",
@@ -687,9 +672,7 @@
     "imagen": "/cards/ca-063.webp",
     "thumb": "/cards/thumb/ca-063.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-033",
@@ -748,10 +731,7 @@
     "imagen": "/cards/ca-064.webp",
     "thumb": "/cards/thumb/ca-064.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Imbloqueable",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-041",
@@ -810,9 +790,7 @@
     "imagen": "/cards/ca-080.webp",
     "thumb": "/cards/thumb/ca-080.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-051",
@@ -832,9 +810,8 @@
     "thumb": "/cards/thumb/ca-051.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible",
-      "que controles",
-      "Guardián"
+      "Guardián",
+      "Indestructible"
     ]
   },
   {
@@ -1031,9 +1008,7 @@
     "imagen": "/cards/ca-097.webp",
     "thumb": "/cards/thumb/ca-097.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-031",
@@ -1053,8 +1028,7 @@
     "thumb": "/cards/thumb/ca-031.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -1134,8 +1108,7 @@
     "thumb": "/cards/thumb/ca-032.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -1175,9 +1148,8 @@
     "thumb": "/cards/thumb/ca-096.webp",
     "legalidad": "libre",
     "keywords": [
-      "Imbloqueable",
       "Furia",
-      "que controles"
+      "Imbloqueable"
     ]
   },
   {
@@ -1216,9 +1188,7 @@
     "imagen": "/cards/ca-074.webp",
     "thumb": "/cards/thumb/ca-074.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-075",
@@ -1237,9 +1207,7 @@
     "imagen": "/cards/ca-075.webp",
     "thumb": "/cards/thumb/ca-075.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-076",
@@ -1320,8 +1288,7 @@
     "thumb": "/cards/thumb/ca-049.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única",
-      "que controles"
+      "Única"
     ]
   },
   {
@@ -1450,14 +1417,12 @@
     "coste": 4,
     "fuerza": 2,
     "frecuencia": "Real",
-    "habilidad": "Mientras este Aliado esté en juego, los demás Aliados de Raza Sacerdote que controles ganan 1 a la Fuerza por cada carta en tu Zona de Destierro.",
+    "habilidad": "Mientras este Aliado esté en juego, tus demás Aliados de Raza Sacerdote ganan 1 a la Fuerza por cada carta en tu Zona de Destierro.",
     "ilustrador": "Javier Bahamonde",
     "imagen": "/cards/ca-035.webp",
     "thumb": "/cards/thumb/ca-035.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-036",
@@ -1533,10 +1498,7 @@
     "imagen": "/cards/ca-070.webp",
     "thumb": "/cards/thumb/ca-070.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Imbloqueable",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-044",
@@ -1576,9 +1538,7 @@
     "imagen": "/cards/ca-042.webp",
     "thumb": "/cards/thumb/ca-042.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-043",
@@ -1827,9 +1787,7 @@
     "imagen": "/cards/ca-089.webp",
     "thumb": "/cards/thumb/ca-089.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-090",
@@ -2000,10 +1958,7 @@
     "imagen": "/cards/ca-121.webp",
     "thumb": "/cards/thumb/ca-121.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Furia",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-094",
@@ -2022,9 +1977,7 @@
     "imagen": "/cards/ca-094.webp",
     "thumb": "/cards/thumb/ca-094.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-095",
@@ -2038,7 +1991,7 @@
     "coste": 2,
     "fuerza": null,
     "frecuencia": "Cortesano",
-    "habilidad": "En tu Fase de Vigilia, una vez por turno, puedes jugar un Tótem de tu Cementerio pagando su coste.",
+    "habilidad": "En tu Fase de Vigilia, una vez por turno, puedes jugar un Tótem desde tu Cementerio pagando su coste.",
     "ilustrador": "Matías Cabezas",
     "imagen": "/cards/ca-095.webp",
     "thumb": "/cards/thumb/ca-095.webp",
@@ -2083,9 +2036,7 @@
     "imagen": "/cards/ca-099.webp",
     "thumb": "/cards/thumb/ca-099.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-100",
@@ -2142,9 +2093,7 @@
     "imagen": "/cards/ca-108.webp",
     "thumb": "/cards/thumb/ca-108.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-102",
@@ -2281,9 +2230,7 @@
     "imagen": "/cards/ca-122.webp",
     "thumb": "/cards/thumb/ca-122.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-123",
@@ -2335,12 +2282,14 @@
     "coste": 2,
     "fuerza": null,
     "frecuencia": "Vasallo",
-    "habilidad": "En tu Fase de Vigilia, una vez por turno, puedes buscar en tu Mazo Castillo un Talismán de coste 3 o más y ponerlo en tu mano.",
+    "habilidad": "Única.\nEn tu Fase de Vigilia, una vez por turno, puedes buscar en tu Mazo Castillo un Talismán de coste 3 o más y ponerlo en tu mano.",
     "ilustrador": "Waldo Retamales",
     "imagen": "/cards/ca-126.webp",
     "thumb": "/cards/thumb/ca-126.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Única"
+    ]
   },
   {
     "id": "ca-127",
@@ -2359,9 +2308,7 @@
     "imagen": "/cards/ca-127.webp",
     "thumb": "/cards/thumb/ca-127.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-128",
@@ -2437,9 +2384,7 @@
     "imagen": "/cards/ca-106.webp",
     "thumb": "/cards/thumb/ca-106.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-083",
@@ -2458,9 +2403,7 @@
     "imagen": "/cards/ca-083.webp",
     "thumb": "/cards/thumb/ca-083.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-110",
@@ -2517,9 +2460,7 @@
     "imagen": "/cards/ca-115.webp",
     "thumb": "/cards/thumb/ca-115.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-116",
@@ -2538,9 +2479,7 @@
     "imagen": "/cards/ca-116.webp",
     "thumb": "/cards/thumb/ca-116.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-117",
@@ -2559,9 +2498,7 @@
     "imagen": "/cards/ca-117.webp",
     "thumb": "/cards/thumb/ca-117.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "ca-125",
@@ -2641,8 +2578,7 @@
     "thumb": "/cards/thumb/ca-147.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles"
+      "Furia"
     ]
   },
   {

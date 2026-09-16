@@ -17,10 +17,9 @@
     "thumb": "/cards/thumb/lg-231.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
       "Errante",
-      "Destruir",
-      "Luz"
+      "Luz",
+      "Furia"
     ]
   },
   {
@@ -41,9 +40,7 @@
     "thumb": "/cards/thumb/lg-232.webp",
     "legalidad": "libre",
     "keywords": [
-      "Honor",
       "Errante",
-      "que controles",
       "Luz"
     ]
   },
@@ -65,9 +62,9 @@
     "thumb": "/cards/thumb/lg-233.webp",
     "legalidad": "libre",
     "keywords": [
-      "Inmunidad",
       "Errante",
-      "Oscuridad"
+      "Oscuridad",
+      "Inmunidad"
     ]
   },
   {
@@ -109,9 +106,7 @@
     "imagen": "/cards/lg-235.webp",
     "thumb": "/cards/thumb/lg-235.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Purificar"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-236",
@@ -174,10 +169,9 @@
     "thumb": "/cards/thumb/lg-002.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
       "Errante",
-      "Destruir",
-      "Luz"
+      "Luz",
+      "Furia"
     ]
   },
   {
@@ -198,9 +192,9 @@
     "thumb": "/cards/thumb/lg-003.webp",
     "legalidad": "libre",
     "keywords": [
-      "Inmunidad",
       "Errante",
-      "Oscuridad"
+      "Oscuridad",
+      "Inmunidad"
     ]
   },
   {
@@ -221,10 +215,9 @@
     "thumb": "/cards/thumb/lg-004.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Alimentar",
       "Errante",
-      "Oscuridad"
+      "Oscuridad",
+      "Furia"
     ]
   },
   {
@@ -245,9 +238,8 @@
     "thumb": "/cards/thumb/lg-005.webp",
     "legalidad": "libre",
     "keywords": [
-      "Inmunidad",
       "Errante",
-      "que controles"
+      "Inmunidad"
     ]
   },
   {
@@ -268,10 +260,9 @@
     "thumb": "/cards/thumb/lg-006.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible",
-      "Furia",
+      "Errante",
       "Retador",
-      "Errante"
+      "Furia"
     ]
   },
   {
@@ -292,9 +283,9 @@
     "thumb": "/cards/thumb/lg-007.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indesterrable",
       "Errante",
-      "Oscuridad"
+      "Oscuridad",
+      "Indesterrable"
     ]
   },
   {
@@ -315,9 +306,7 @@
     "thumb": "/cards/thumb/lg-008.webp",
     "legalidad": "libre",
     "keywords": [
-      "Honor",
       "Errante",
-      "que controles",
       "Luz"
     ]
   },
@@ -333,7 +322,7 @@
     "coste": 1,
     "fuerza": null,
     "frecuencia": "Ultra Real",
-    "habilidad": "Única.\nEste Talismán no puede ser Anulado.\nHasta dos Aliados objetivo oponentes pierden su habilidad y tienen Fuerza 0 hasta la Fase Final.",
+    "habilidad": "Única.\nEste Talismán no puede ser Anulado.\nHasta dos Aliados objetivo oponentes pierdan su habilidad y tienen Fuerza 0 hasta la Fase Final.",
     "ilustrador": "Loreto Díaz",
     "imagen": "/cards/lg-009.webp",
     "thumb": "/cards/thumb/lg-009.webp",
@@ -401,9 +390,7 @@
     "imagen": "/cards/lg-012.webp",
     "thumb": "/cards/thumb/lg-012.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Purificar"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-013",
@@ -423,8 +410,7 @@
     "thumb": "/cards/thumb/lg-013.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible",
-      "que controles"
+      "Indestructible"
     ]
   },
   {
@@ -466,7 +452,6 @@
     "thumb": "/cards/thumb/lg-015.webp",
     "legalidad": "libre",
     "keywords": [
-      "Purificar",
       "Errante"
     ]
   },
@@ -488,7 +473,6 @@
     "thumb": "/cards/thumb/lg-016.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Luz"
     ]
   },
@@ -510,9 +494,8 @@
     "thumb": "/cards/thumb/lg-017.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indesterrable",
       "Ilusión",
-      "que controles"
+      "Indesterrable"
     ]
   },
   {
@@ -533,8 +516,8 @@
     "thumb": "/cards/thumb/lg-018.webp",
     "legalidad": "libre",
     "keywords": [
-      "Inmunidad",
-      "Oscuridad"
+      "Oscuridad",
+      "Inmunidad"
     ]
   },
   {
@@ -555,10 +538,8 @@
     "thumb": "/cards/thumb/lg-019.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Alimentar",
-      "que controles",
-      "Oscuridad"
+      "Oscuridad",
+      "Furia"
     ]
   },
   {
@@ -579,10 +560,8 @@
     "thumb": "/cards/thumb/lg-020.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Purificar",
-      "que controles",
-      "Luz"
+      "Luz",
+      "Furia"
     ]
   },
   {
@@ -603,8 +582,7 @@
     "thumb": "/cards/thumb/lg-021.webp",
     "legalidad": "libre",
     "keywords": [
-      "Inmunidad",
-      "Destruir"
+      "Inmunidad"
     ]
   },
   {
@@ -625,8 +603,8 @@
     "thumb": "/cards/thumb/lg-022.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indesterrable",
-      "Oscuridad"
+      "Oscuridad",
+      "Indesterrable"
     ]
   },
   {
@@ -641,15 +619,14 @@
     "coste": 1,
     "fuerza": 2,
     "frecuencia": "Mega Real",
-    "habilidad": "Luz.\nEn tu Fase de Vigilia, una vez por turno, puedes poner un contador de Honor sobre el Aliado Luz o de Raza Samurái objetivo que controles. Luego, Roba una carta.",
+    "habilidad": "Luz. Errante.\nEn tu Fase de Vigilia, una vez por turno, si todos los Aliados que controlas son Luz y/o Samurái, puedes poner un contador de Honor sobre el Aliado Samurái objetivo que controles. Luego, Roba una carta.",
     "ilustrador": "Sara Contreras",
     "imagen": "/cards/lg-023.webp",
     "thumb": "/cards/thumb/lg-023.webp",
     "legalidad": "libre",
     "keywords": [
-      "Honor",
-      "que controles",
-      "Luz"
+      "Luz",
+      "Errante"
     ]
   },
   {
@@ -689,8 +666,7 @@
     "thumb": "/cards/thumb/lg-025.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única",
-      "Purificar"
+      "Única"
     ]
   },
   {
@@ -710,9 +686,7 @@
     "imagen": "/cards/lg-026.webp",
     "thumb": "/cards/thumb/lg-026.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-027",
@@ -750,9 +724,7 @@
     "imagen": "/cards/lg-028.webp",
     "thumb": "/cards/thumb/lg-028.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Furia"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-029",
@@ -791,8 +763,7 @@
     "thumb": "/cards/thumb/lg-030.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible",
-      "que controles"
+      "Indestructible"
     ]
   },
   {
@@ -813,8 +784,7 @@
     "thumb": "/cards/thumb/lg-031.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible",
-      "que controles"
+      "Indestructible"
     ]
   },
   {
@@ -834,9 +804,7 @@
     "imagen": "/cards/lg-032.webp",
     "thumb": "/cards/thumb/lg-032.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-033",
@@ -855,9 +823,7 @@
     "imagen": "/cards/lg-033.webp",
     "thumb": "/cards/thumb/lg-033.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-034",
@@ -877,7 +843,6 @@
     "thumb": "/cards/thumb/lg-034.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Única"
     ]
   },
@@ -919,9 +884,7 @@
     "imagen": "/cards/lg-036.webp",
     "thumb": "/cards/thumb/lg-036.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-037",
@@ -940,9 +903,7 @@
     "imagen": "/cards/lg-037.webp",
     "thumb": "/cards/thumb/lg-037.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-038",
@@ -962,7 +923,6 @@
     "thumb": "/cards/thumb/lg-038.webp",
     "legalidad": "libre",
     "keywords": [
-      "Purificar",
       "Luz"
     ]
   },
@@ -984,9 +944,8 @@
     "thumb": "/cards/thumb/lg-039.webp",
     "legalidad": "libre",
     "keywords": [
-      "Espectral",
-      "Destruir",
-      "Oscuridad"
+      "Oscuridad",
+      "Espectral"
     ]
   },
   {
@@ -1007,8 +966,8 @@
     "thumb": "/cards/thumb/lg-040.webp",
     "legalidad": "libre",
     "keywords": [
-      "Espectral",
-      "Oscuridad"
+      "Oscuridad",
+      "Espectral"
     ]
   },
   {
@@ -1029,7 +988,6 @@
     "thumb": "/cards/thumb/lg-041.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Luz"
     ]
   },
@@ -1051,7 +1009,6 @@
     "thumb": "/cards/thumb/lg-042.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Luz"
     ]
   },
@@ -1073,8 +1030,8 @@
     "thumb": "/cards/thumb/lg-043.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indesterrable",
-      "Luz"
+      "Luz",
+      "Indesterrable"
     ]
   },
   {
@@ -1135,8 +1092,8 @@
     "thumb": "/cards/thumb/lg-046.webp",
     "legalidad": "libre",
     "keywords": [
-      "Inmunidad",
-      "Oscuridad"
+      "Oscuridad",
+      "Inmunidad"
     ]
   },
   {
@@ -1157,8 +1114,8 @@
     "thumb": "/cards/thumb/lg-047.webp",
     "legalidad": "libre",
     "keywords": [
-      "Inmunidad",
-      "Oscuridad"
+      "Oscuridad",
+      "Inmunidad"
     ]
   },
   {
@@ -1179,8 +1136,8 @@
     "thumb": "/cards/thumb/lg-048.webp",
     "legalidad": "libre",
     "keywords": [
-      "Inmunidad",
-      "Oscuridad"
+      "Oscuridad",
+      "Inmunidad"
     ]
   },
   {
@@ -1201,7 +1158,6 @@
     "thumb": "/cards/thumb/lg-049.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Oscuridad"
     ]
   },
@@ -1223,8 +1179,8 @@
     "thumb": "/cards/thumb/lg-050.webp",
     "legalidad": "libre",
     "keywords": [
-      "Inmunidad",
-      "Oscuridad"
+      "Oscuridad",
+      "Inmunidad"
     ]
   },
   {
@@ -1245,9 +1201,8 @@
     "thumb": "/cards/thumb/lg-051.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Alimentar",
-      "Oscuridad"
+      "Oscuridad",
+      "Furia"
     ]
   },
   {
@@ -1268,7 +1223,6 @@
     "thumb": "/cards/thumb/lg-052.webp",
     "legalidad": "libre",
     "keywords": [
-      "Alimentar",
       "Oscuridad"
     ]
   },
@@ -1290,7 +1244,6 @@
     "thumb": "/cards/thumb/lg-053.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Oscuridad"
     ]
   },
@@ -1312,8 +1265,6 @@
     "thumb": "/cards/thumb/lg-054.webp",
     "legalidad": "libre",
     "keywords": [
-      "Alimentar",
-      "que controles",
       "Oscuridad"
     ]
   },
@@ -1356,8 +1307,8 @@
     "thumb": "/cards/thumb/lg-056.webp",
     "legalidad": "libre",
     "keywords": [
-      "Ilusión",
-      "Luz"
+      "Luz",
+      "Ilusión"
     ]
   },
   {
@@ -1378,8 +1329,8 @@
     "thumb": "/cards/thumb/lg-057.webp",
     "legalidad": "libre",
     "keywords": [
-      "Ilusión",
-      "Luz"
+      "Luz",
+      "Ilusión"
     ]
   },
   {
@@ -1422,8 +1373,8 @@
     "thumb": "/cards/thumb/lg-059.webp",
     "legalidad": "libre",
     "keywords": [
-      "Retador",
-      "Oscuridad"
+      "Oscuridad",
+      "Retador"
     ]
   },
   {
@@ -1486,7 +1437,6 @@
     "thumb": "/cards/thumb/lg-062.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible",
       "Retador"
     ]
   },
@@ -1550,7 +1500,6 @@
     "thumb": "/cards/thumb/lg-065.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Luz"
     ]
   },
@@ -1572,7 +1521,6 @@
     "thumb": "/cards/thumb/lg-066.webp",
     "legalidad": "libre",
     "keywords": [
-      "Destruir",
       "Oscuridad"
     ]
   },
@@ -1594,9 +1542,8 @@
     "thumb": "/cards/thumb/lg-067.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indesterrable",
-      "que controles",
-      "Oscuridad"
+      "Oscuridad",
+      "Indesterrable"
     ]
   },
   {
@@ -1680,8 +1627,6 @@
     "thumb": "/cards/thumb/lg-071.webp",
     "legalidad": "libre",
     "keywords": [
-      "Honor",
-      "que controles",
       "Luz"
     ]
   },
@@ -1703,8 +1648,6 @@
     "thumb": "/cards/thumb/lg-072.webp",
     "legalidad": "libre",
     "keywords": [
-      "Honor",
-      "que controles",
       "Luz"
     ]
   },
@@ -1726,8 +1669,6 @@
     "thumb": "/cards/thumb/lg-073.webp",
     "legalidad": "libre",
     "keywords": [
-      "Honor",
-      "que controles",
       "Luz"
     ]
   },
@@ -1749,10 +1690,8 @@
     "thumb": "/cards/thumb/lg-074.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Honor",
-      "que controles",
-      "Luz"
+      "Luz",
+      "Furia"
     ]
   },
   {
@@ -1773,8 +1712,6 @@
     "thumb": "/cards/thumb/lg-075.webp",
     "legalidad": "libre",
     "keywords": [
-      "Honor",
-      "que controles",
       "Luz"
     ]
   },
@@ -1833,10 +1770,7 @@
     "imagen": "/cards/lg-078.webp",
     "thumb": "/cards/thumb/lg-078.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Honor",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-079",
@@ -1855,9 +1789,7 @@
     "imagen": "/cards/lg-079.webp",
     "thumb": "/cards/thumb/lg-079.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-080",
@@ -1876,9 +1808,7 @@
     "imagen": "/cards/lg-080.webp",
     "thumb": "/cards/thumb/lg-080.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Ilusión"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-081",
@@ -1897,10 +1827,7 @@
     "imagen": "/cards/lg-081.webp",
     "thumb": "/cards/thumb/lg-081.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-082",
@@ -1995,9 +1922,7 @@
     "imagen": "/cards/lg-086.webp",
     "thumb": "/cards/thumb/lg-086.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-087",
@@ -2016,10 +1941,7 @@
     "imagen": "/cards/lg-087.webp",
     "thumb": "/cards/thumb/lg-087.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Purificar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-088",
@@ -2076,9 +1998,7 @@
     "imagen": "/cards/lg-090.webp",
     "thumb": "/cards/thumb/lg-090.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-091",
@@ -2097,10 +2017,7 @@
     "imagen": "/cards/lg-091.webp",
     "thumb": "/cards/thumb/lg-091.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-092",
@@ -2120,8 +2037,7 @@
     "thumb": "/cards/thumb/lg-092.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible",
-      "que controles"
+      "Indestructible"
     ]
   },
   {
@@ -2142,8 +2058,7 @@
     "thumb": "/cards/thumb/lg-093.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible",
-      "que controles"
+      "Indestructible"
     ]
   },
   {
@@ -2164,8 +2079,7 @@
     "thumb": "/cards/thumb/lg-094.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible",
-      "que controles"
+      "Indestructible"
     ]
   },
   {
@@ -2186,8 +2100,7 @@
     "thumb": "/cards/thumb/lg-095.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible",
-      "que controles"
+      "Indestructible"
     ]
   },
   {
@@ -2208,7 +2121,6 @@
     "thumb": "/cards/thumb/lg-096.webp",
     "legalidad": "libre",
     "keywords": [
-      "Purificar",
       "Luz"
     ]
   },
@@ -2248,9 +2160,7 @@
     "imagen": "/cards/lg-098.webp",
     "thumb": "/cards/thumb/lg-098.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-099",
@@ -2374,9 +2284,7 @@
     "imagen": "/cards/lg-104.webp",
     "thumb": "/cards/thumb/lg-104.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-105",
@@ -2414,9 +2322,7 @@
     "imagen": "/cards/lg-106.webp",
     "thumb": "/cards/thumb/lg-106.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Purificar"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-107",
@@ -2499,8 +2405,8 @@
     "thumb": "/cards/thumb/lg-110.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Luz"
+      "Luz",
+      "Furia"
     ]
   },
   {
@@ -2521,8 +2427,7 @@
     "thumb": "/cards/thumb/lg-111.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -2627,9 +2532,6 @@
     "thumb": "/cards/thumb/lg-116.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible",
-      "Alimentar",
-      "que controles",
       "Oscuridad"
     ]
   },
@@ -2651,8 +2553,6 @@
     "thumb": "/cards/thumb/lg-117.webp",
     "legalidad": "libre",
     "keywords": [
-      "Imbloqueable",
-      "que controles",
       "Oscuridad"
     ]
   },
@@ -2674,10 +2574,8 @@
     "thumb": "/cards/thumb/lg-118.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Alimentar",
-      "que controles",
-      "Oscuridad"
+      "Oscuridad",
+      "Furia"
     ]
   },
   {
@@ -2698,8 +2596,6 @@
     "thumb": "/cards/thumb/lg-119.webp",
     "legalidad": "libre",
     "keywords": [
-      "Alimentar",
-      "que controles",
       "Oscuridad"
     ]
   },
@@ -2742,8 +2638,8 @@
     "thumb": "/cards/thumb/lg-121.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Retador"
+      "Retador",
+      "Furia"
     ]
   },
   {
@@ -2764,8 +2660,8 @@
     "thumb": "/cards/thumb/lg-122.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Retador"
+      "Retador",
+      "Furia"
     ]
   },
   {
@@ -2870,9 +2766,8 @@
     "thumb": "/cards/thumb/lg-127.webp",
     "legalidad": "libre",
     "keywords": [
-      "Espectral",
-      "que controles",
-      "Oscuridad"
+      "Oscuridad",
+      "Espectral"
     ]
   },
   {
@@ -2931,10 +2826,8 @@
     "thumb": "/cards/thumb/lg-130.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible",
-      "Ilusión",
-      "que controles",
-      "Luz"
+      "Luz",
+      "Ilusión"
     ]
   },
   {
@@ -2955,9 +2848,8 @@
     "thumb": "/cards/thumb/lg-131.webp",
     "legalidad": "libre",
     "keywords": [
-      "Ilusión",
-      "que controles",
-      "Luz"
+      "Luz",
+      "Ilusión"
     ]
   },
   {
@@ -2978,9 +2870,8 @@
     "thumb": "/cards/thumb/lg-132.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Honor",
-      "Luz"
+      "Luz",
+      "Furia"
     ]
   },
   {
@@ -3001,8 +2892,6 @@
     "thumb": "/cards/thumb/lg-133.webp",
     "legalidad": "libre",
     "keywords": [
-      "Honor",
-      "que controles",
       "Luz"
     ]
   },
@@ -3024,8 +2913,6 @@
     "thumb": "/cards/thumb/lg-134.webp",
     "legalidad": "libre",
     "keywords": [
-      "Honor",
-      "que controles",
       "Luz"
     ]
   },
@@ -3047,7 +2934,6 @@
     "thumb": "/cards/thumb/lg-135.webp",
     "legalidad": "libre",
     "keywords": [
-      "Honor",
       "Luz"
     ]
   },
@@ -3107,8 +2993,7 @@
     "thumb": "/cards/thumb/lg-138.webp",
     "legalidad": "libre",
     "keywords": [
-      "Exhumar",
-      "que controles"
+      "Exhumar"
     ]
   },
   {
@@ -3128,9 +3013,7 @@
     "imagen": "/cards/lg-139.webp",
     "thumb": "/cards/thumb/lg-139.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Furia"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-140",
@@ -3187,9 +3070,7 @@
     "imagen": "/cards/lg-142.webp",
     "thumb": "/cards/thumb/lg-142.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-143",
@@ -3246,11 +3127,7 @@
     "imagen": "/cards/lg-145.webp",
     "thumb": "/cards/thumb/lg-145.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Ilusión",
-      "Espectral",
-      "Exhumar"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-146",
@@ -3288,10 +3165,7 @@
     "imagen": "/cards/lg-147.webp",
     "thumb": "/cards/thumb/lg-147.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Alimentar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-148",
@@ -3310,9 +3184,7 @@
     "imagen": "/cards/lg-148.webp",
     "thumb": "/cards/thumb/lg-148.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Imbloqueable"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-149",
@@ -3331,9 +3203,7 @@
     "imagen": "/cards/lg-149.webp",
     "thumb": "/cards/thumb/lg-149.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Inmunidad"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-150",
@@ -3390,9 +3260,7 @@
     "imagen": "/cards/lg-152.webp",
     "thumb": "/cards/thumb/lg-152.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-153",
@@ -3509,7 +3377,6 @@
     "thumb": "/cards/thumb/lg-158.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Luz"
     ]
   },
@@ -3530,9 +3397,7 @@
     "imagen": "/cards/lg-159.webp",
     "thumb": "/cards/thumb/lg-159.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-160",
@@ -3551,9 +3416,7 @@
     "imagen": "/cards/lg-160.webp",
     "thumb": "/cards/thumb/lg-160.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-161",
@@ -3572,9 +3435,7 @@
     "imagen": "/cards/lg-161.webp",
     "thumb": "/cards/thumb/lg-161.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-162",
@@ -3594,7 +3455,6 @@
     "thumb": "/cards/thumb/lg-162.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Luz"
     ]
   },
@@ -3616,7 +3476,6 @@
     "thumb": "/cards/thumb/lg-163.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Luz"
     ]
   },
@@ -3638,7 +3497,6 @@
     "thumb": "/cards/thumb/lg-164.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Luz"
     ]
   },
@@ -3681,9 +3539,8 @@
     "thumb": "/cards/thumb/lg-166.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles",
-      "Luz"
+      "Luz",
+      "Furia"
     ]
   },
   {
@@ -3725,8 +3582,8 @@
     "thumb": "/cards/thumb/lg-168.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Oscuridad"
+      "Oscuridad",
+      "Furia"
     ]
   },
   {
@@ -3747,7 +3604,6 @@
     "thumb": "/cards/thumb/lg-169.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Oscuridad"
     ]
   },
@@ -3769,8 +3625,6 @@
     "thumb": "/cards/thumb/lg-170.webp",
     "legalidad": "libre",
     "keywords": [
-      "Inmunidad",
-      "que controles",
       "Oscuridad"
     ]
   },
@@ -3792,8 +3646,8 @@
     "thumb": "/cards/thumb/lg-171.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Oscuridad"
+      "Oscuridad",
+      "Furia"
     ]
   },
   {
@@ -3829,16 +3683,14 @@
     "coste": 2,
     "fuerza": 2,
     "frecuencia": "Vasallo",
-    "habilidad": "Oscuridad.\nFuria (Este Aliado no necesita pasar por una Fase de Agrupación para ser declarado atacante).\nCuando este Aliado entra en juego, pon un contador de Alimento en hasta dos Aliados objetivos de Raza Bestia que controles. (Esos Aliados ganan 1 a la Fuerza mientras tengan ese contador).",
+    "habilidad": "Oscuridad.\nFuria (Este Aliado no necesita pasar por una Fase de Agrupación para ser declarado atacante).\nCuando este Aliado entra en juego, pon un contador de Alimento en hasta dos Aliados objetivos de Raza Bestia que controles (Esos Aliados ganan 1 a la Fuerza mientras tengan ese contador).",
     "ilustrador": "Kaek",
     "imagen": "/cards/lg-173.webp",
     "thumb": "/cards/thumb/lg-173.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Alimentar",
-      "que controles",
-      "Oscuridad"
+      "Oscuridad",
+      "Furia"
     ]
   },
   {
@@ -3859,10 +3711,8 @@
     "thumb": "/cards/thumb/lg-174.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles",
-      "Destruir",
-      "Oscuridad"
+      "Oscuridad",
+      "Furia"
     ]
   },
   {
@@ -3883,8 +3733,6 @@
     "thumb": "/cards/thumb/lg-175.webp",
     "legalidad": "libre",
     "keywords": [
-      "Alimentar",
-      "que controles",
       "Oscuridad"
     ]
   },
@@ -3906,10 +3754,8 @@
     "thumb": "/cards/thumb/lg-176.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Alimentar",
-      "que controles",
-      "Oscuridad"
+      "Oscuridad",
+      "Furia"
     ]
   },
   {
@@ -3930,9 +3776,8 @@
     "thumb": "/cards/thumb/lg-177.webp",
     "legalidad": "libre",
     "keywords": [
-      "Alimentar",
-      "Mercenario",
-      "Oscuridad"
+      "Oscuridad",
+      "Mercenario"
     ]
   },
   {
@@ -3973,9 +3818,7 @@
     "imagen": "/cards/lg-179.webp",
     "thumb": "/cards/thumb/lg-179.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Retador"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-180",
@@ -3995,9 +3838,8 @@
     "thumb": "/cards/thumb/lg-180.webp",
     "legalidad": "libre",
     "keywords": [
-      "Retador",
-      "que controles",
-      "Oscuridad"
+      "Oscuridad",
+      "Retador"
     ]
   },
   {
@@ -4039,8 +3881,7 @@
     "thumb": "/cards/thumb/lg-182.webp",
     "legalidad": "libre",
     "keywords": [
-      "Ilusión",
-      "que controles"
+      "Ilusión"
     ]
   },
   {
@@ -4061,8 +3902,8 @@
     "thumb": "/cards/thumb/lg-183.webp",
     "legalidad": "libre",
     "keywords": [
-      "Espectral",
-      "Oscuridad"
+      "Oscuridad",
+      "Espectral"
     ]
   },
   {
@@ -4083,8 +3924,8 @@
     "thumb": "/cards/thumb/lg-184.webp",
     "legalidad": "libre",
     "keywords": [
-      "Espectral",
-      "Oscuridad"
+      "Oscuridad",
+      "Espectral"
     ]
   },
   {
@@ -4147,8 +3988,6 @@
     "thumb": "/cards/thumb/lg-187.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indesterrable",
-      "que controles",
       "Luz"
     ]
   },
@@ -4170,7 +4009,6 @@
     "thumb": "/cards/thumb/lg-188.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Oscuridad"
     ]
   },
@@ -4274,7 +4112,6 @@
     "thumb": "/cards/thumb/lg-193.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Luz"
     ]
   },
@@ -4296,8 +4133,6 @@
     "thumb": "/cards/thumb/lg-194.webp",
     "legalidad": "libre",
     "keywords": [
-      "Honor",
-      "que controles",
       "Luz"
     ]
   },
@@ -4319,7 +4154,6 @@
     "thumb": "/cards/thumb/lg-195.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Luz"
     ]
   },
@@ -4341,8 +4175,6 @@
     "thumb": "/cards/thumb/lg-196.webp",
     "legalidad": "libre",
     "keywords": [
-      "Honor",
-      "que controles",
       "Luz"
     ]
   },
@@ -4364,7 +4196,6 @@
     "thumb": "/cards/thumb/lg-197.webp",
     "legalidad": "libre",
     "keywords": [
-      "Honor",
       "Luz"
     ]
   },
@@ -4404,9 +4235,7 @@
     "imagen": "/cards/lg-199.webp",
     "thumb": "/cards/thumb/lg-199.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-200",
@@ -4425,9 +4254,7 @@
     "imagen": "/cards/lg-200.webp",
     "thumb": "/cards/thumb/lg-200.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-201",
@@ -4484,9 +4311,7 @@
     "imagen": "/cards/lg-203.webp",
     "thumb": "/cards/thumb/lg-203.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Purificar"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-204",
@@ -4543,9 +4368,7 @@
     "imagen": "/cards/lg-206.webp",
     "thumb": "/cards/thumb/lg-206.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Purificar"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-207",
@@ -4621,10 +4444,7 @@
     "imagen": "/cards/lg-210.webp",
     "thumb": "/cards/thumb/lg-210.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Purificar",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-211",
@@ -4643,9 +4463,7 @@
     "imagen": "/cards/lg-211.webp",
     "thumb": "/cards/thumb/lg-211.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-212",
@@ -4664,9 +4482,7 @@
     "imagen": "/cards/lg-212.webp",
     "thumb": "/cards/thumb/lg-212.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-213",
@@ -4685,9 +4501,7 @@
     "imagen": "/cards/lg-213.webp",
     "thumb": "/cards/thumb/lg-213.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-214",
@@ -4706,9 +4520,7 @@
     "imagen": "/cards/lg-214.webp",
     "thumb": "/cards/thumb/lg-214.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Honor"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-215",
@@ -5032,7 +4844,6 @@
     "thumb": "/cards/thumb/lg-237.webp",
     "legalidad": "libre",
     "keywords": [
-      "Ilusión",
       "Errante"
     ]
   },
@@ -5054,8 +4865,7 @@
     "thumb": "/cards/thumb/lg-238.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indesterrable",
-      "que controles"
+      "Indesterrable"
     ]
   },
   {
@@ -5116,8 +4926,7 @@
     "thumb": "/cards/thumb/lg-241.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Alimentar"
+      "Furia"
     ]
   },
   {
@@ -5153,12 +4962,13 @@
     "coste": 1,
     "fuerza": 1,
     "frecuencia": "Promocional",
-    "habilidad": "Indesterrable.\nEste Aliado no puede perder su habilidad.\nEn tu Fase de Vigilia, una vez por turno, puedes Generar un Oro para jugar Aliados de Raza Dragón de coste 4 o más. Luego, Roba una carta.",
+    "habilidad": "Errante. Indesterrable.\nEste Aliado no puede perder su habilidad.\nEn tu Fase de Vigilia, una vez por turno, si todos los Aliados que controlas son de Raza Dragón, puedes Generar un Oro para jugar Aliados Dragón de coste 4 o más. Luego, Roba una carta.",
     "ilustrador": "Wolf",
     "imagen": "/cards/lg-243.webp",
     "thumb": "/cards/thumb/lg-243.webp",
     "legalidad": "libre",
     "keywords": [
+      "Errante",
       "Indesterrable"
     ]
   },
@@ -5221,8 +5031,7 @@
     "thumb": "/cards/thumb/lg-246.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible",
-      "que controles"
+      "Indestructible"
     ]
   },
   {
@@ -5282,10 +5091,7 @@
     "imagen": "/cards/lg-249.webp",
     "thumb": "/cards/thumb/lg-249.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Honor",
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "lg-250",
@@ -5456,8 +5262,6 @@
     "imagen": "/cards/lg-258.webp",
     "thumb": "/cards/thumb/lg-258.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Purificar"
-    ]
+    "keywords": []
   }
 ]

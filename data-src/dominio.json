@@ -162,8 +162,7 @@
     "legalidad": "libre",
     "keywords": [
       "Única",
-      "Furia",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -184,8 +183,7 @@
     "thumb": "/cards/thumb/do-009.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única",
-      "que controles"
+      "Única"
     ]
   },
   {
@@ -272,9 +270,7 @@
     "thumb": "/cards/thumb/do-013.webp",
     "legalidad": "libre",
     "keywords": [
-      "Única",
-      "que controles",
-      "Destruir"
+      "Única"
     ]
   },
   {
@@ -331,13 +327,13 @@
     "coste": 3,
     "fuerza": null,
     "frecuencia": "Ultra Real",
-    "habilidad": "Reduce el coste de este Talismán en un Oro por cada Aliado de Raza Caballero que controles.\nElige un Aliado de Raza Caballero de tu Cementerio y juégalo sin pagar su coste.",
+    "habilidad": "Única.\nReduce el coste de este Talismán en un Oro por cada Aliado de Raza Caballero que controles.\nElige un Aliado de Raza Caballero de tu Cementerio y juégalo sin pagar su coste.",
     "ilustrador": "JP Aguirre",
     "imagen": "/cards/do-016.webp",
     "thumb": "/cards/thumb/do-016.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles"
+      "Única"
     ]
   },
   {
@@ -376,9 +372,7 @@
     "imagen": "/cards/do-018.webp",
     "thumb": "/cards/thumb/do-018.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-019",
@@ -397,9 +391,7 @@
     "imagen": "/cards/do-019.webp",
     "thumb": "/cards/thumb/do-019.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-020",
@@ -418,9 +410,7 @@
     "imagen": "/cards/do-020.webp",
     "thumb": "/cards/thumb/do-020.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-021",
@@ -460,10 +450,7 @@
     "imagen": "/cards/do-022.webp",
     "thumb": "/cards/thumb/do-022.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "do-023",
@@ -477,12 +464,14 @@
     "coste": 1,
     "fuerza": 2,
     "frecuencia": "Mega Real",
-    "habilidad": "En tu Fase de Vigilia, una vez por turno, puedes buscar un Aliado de Raza Bestia en tu Mazo Castillo y ponerlo en tu Cementerio. Luego, Roba una carta.\nSi este Aliado está en tu Cementerio, puedes Botar dos cartas de tu Mazo Castillo para ponerlo en tu mano.",
+    "habilidad": "Única.\nEn tu Fase de Vigilia, una vez por turno, puedes buscar un Aliado de Raza Bestia en tu Mazo Castillo y ponerlo en tu Cementerio. Luego, Roba una carta.\nSi este Aliado está en tu Cementerio, puedes Botar dos cartas de tu Mazo Castillo para ponerlo en tu mano.",
     "ilustrador": "Francisco Ruiz",
     "imagen": "/cards/do-023.webp",
     "thumb": "/cards/thumb/do-023.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Única"
+    ]
   },
   {
     "id": "do-024",
@@ -502,8 +491,7 @@
     "thumb": "/cards/thumb/do-024.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -584,10 +572,7 @@
     "imagen": "/cards/do-028.webp",
     "thumb": "/cards/thumb/do-028.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "do-029",
@@ -644,9 +629,7 @@
     "imagen": "/cards/do-031.webp",
     "thumb": "/cards/thumb/do-031.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-032",
@@ -660,13 +643,13 @@
     "coste": 7,
     "fuerza": null,
     "frecuencia": "Mega Real",
-    "habilidad": "Reduce el coste de esta Arma en un Oro por cada Aliado de Raza Guerrero que controles.\nCuando esta Arma entra en juego, tu oponente Bota 7 cartas.\nEl Aliado portador gana 7 a la Fuerza.",
+    "habilidad": "Única.\nReduce el coste de esta Arma en un Oro por cada Aliado de Raza Guerrero que controles.\nCuando esta Arma entra en juego, tu oponente Bota 7 cartas.\nEl Aliado portador gana 7 a la Fuerza.",
     "ilustrador": "Feig",
     "imagen": "/cards/do-032.webp",
     "thumb": "/cards/thumb/do-032.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles"
+      "Única"
     ]
   },
   {
@@ -743,9 +726,7 @@
     "imagen": "/cards/do-036.webp",
     "thumb": "/cards/thumb/do-036.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Imbloqueable"
-    ]
+    "keywords": []
   },
   {
     "id": "do-037",
@@ -759,7 +740,7 @@
     "coste": 1,
     "fuerza": null,
     "frecuencia": "Milenaria",
-    "habilidad": "Sólo puedes jugar este Talismán desde tu mano.\nCuando juegues este Talismán, Destiérralo.\nElige hasta dos cartas de tu Cementerio y Barájalas en tu Mazo Castillo. Luego, Roba dos cartas.",
+    "habilidad": "Sólo puedes jugar este Talismán desde tu mano.\nCuando juegues este Talismán. Destiérralo.\nElige hasta dos cartas de tu Cementerio y Barájalas en tu Mazo Castillo. Luego, Roba dos cartas.",
     "ilustrador": "Kaek",
     "imagen": "/cards/do-037.webp",
     "thumb": "/cards/thumb/do-037.webp",
@@ -805,7 +786,6 @@
     "thumb": "/cards/thumb/do-039.webp",
     "legalidad": "libre",
     "keywords": [
-      "Destruir",
       "Guardián"
     ]
   },
@@ -821,13 +801,13 @@
     "coste": 4,
     "fuerza": 4,
     "frecuencia": "Milenaria",
-    "habilidad": "Cuando este Aliado entra en juego, puedes Agrupar hasta tres Oros que controles.\nUna vez por turno, puedes buscar en tu Mazo Castillo un Aliado de Raza Eterno y ponerlo en tu mano.",
+    "habilidad": "Única.\nCuando este Aliado entra en juego, puedes Agrupar hasta tres Oros que controles.\nUna vez por turno, puedes buscar en tu Mazo Castillo un Aliado de Raza Eterno y ponerlo en tu mano.",
     "ilustrador": "Draco",
     "imagen": "/cards/do-040.webp",
     "thumb": "/cards/thumb/do-040.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles"
+      "Única"
     ]
   },
   {
@@ -887,9 +867,7 @@
     "imagen": "/cards/do-043.webp",
     "thumb": "/cards/thumb/do-043.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Furia"
-    ]
+    "keywords": []
   },
   {
     "id": "do-044",
@@ -941,7 +919,7 @@
     "coste": 1,
     "fuerza": null,
     "frecuencia": "Milenaria",
-    "habilidad": "Puedes jugar este Talismán en respuesta a que un Aliado oponente entre en juego. Ese Aliado no dispara sus Habilidades este turno.",
+    "habilidad": "Puedes jugar este Talismán en respuesta a que un Aliado oponente entre en juego.\nCancela las habilidades disparadas de ese Aliado. Ese Aliado no dispara sus habilidades este turno.",
     "ilustrador": "Felipe Gaona",
     "imagen": "/cards/do-046.webp",
     "thumb": "/cards/thumb/do-046.webp",
@@ -984,10 +962,7 @@
     "imagen": "/cards/do-048.webp",
     "thumb": "/cards/thumb/do-048.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "do-049",
@@ -1001,12 +976,14 @@
     "coste": 2,
     "fuerza": 1,
     "frecuencia": "Milenaria",
-    "habilidad": "Una vez por turno, cuando tu oponente juegue una carta de su mano, puedes Descartar una carta del mismo coste para Anularla.",
+    "habilidad": "Única.\nUna vez por turno, puedes Descartar una carta para Anular una carta oponente, jugada desde su mano, del mismo coste.",
     "ilustrador": "Draco",
     "imagen": "/cards/do-049.webp",
     "thumb": "/cards/thumb/do-049.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Única"
+    ]
   },
   {
     "id": "do-050",
@@ -1123,9 +1100,7 @@
     "thumb": "/cards/thumb/do-055.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles",
-      "Destruir"
+      "Furia"
     ]
   },
   {
@@ -1145,10 +1120,7 @@
     "imagen": "/cards/do-056.webp",
     "thumb": "/cards/thumb/do-056.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "do-057",
@@ -1309,7 +1281,6 @@
     "thumb": "/cards/thumb/do-064.webp",
     "legalidad": "libre",
     "keywords": [
-      "Destruir",
       "Guardián"
     ]
   },
@@ -1352,8 +1323,6 @@
     "thumb": "/cards/thumb/do-066.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible",
-      "que controles",
       "Guardián"
     ]
   },
@@ -1375,8 +1344,7 @@
     "thumb": "/cards/thumb/do-067.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -1391,13 +1359,13 @@
     "coste": 4,
     "fuerza": 4,
     "frecuencia": "Real",
-    "habilidad": "Cuando este Aliado entra en juego, puedes Agrupar hasta tres Oros que controles.\nUna vez por turno, puedes buscar en tu Mazo Castillo un Aliado de Raza Eterno y ponerlo en tu mano.",
+    "habilidad": "Única.\nCuando este Aliado entra en juego, puedes Agrupar hasta tres Oros que controles.\nUna vez por turno, puedes buscar en tu Mazo Castillo un Aliado de Raza Eterno y ponerlo en tu mano.",
     "ilustrador": "Draco",
     "imagen": "/cards/do-068.webp",
     "thumb": "/cards/thumb/do-068.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles"
+      "Única"
     ]
   },
   {
@@ -1412,12 +1380,14 @@
     "coste": 2,
     "fuerza": 1,
     "frecuencia": "Real",
-    "habilidad": "Una vez por turno, cuando tu oponente juegue una carta de su mano, puedes Descartar una carta del mismo coste para Anularla.",
+    "habilidad": "Única.\nUna vez por turno, puedes Descartar una carta para Anular una carta oponente, jugada desde su mano, del mismo coste.",
     "ilustrador": "Draco",
     "imagen": "/cards/do-069.webp",
     "thumb": "/cards/thumb/do-069.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Única"
+    ]
   },
   {
     "id": "do-070",
@@ -1490,12 +1460,14 @@
     "coste": 1,
     "fuerza": 1,
     "frecuencia": "Real",
-    "habilidad": "Mientras este Aliado esté en juego, te cuesta un Oro menos jugar Tótems.",
+    "habilidad": "Única.\nMientras este Aliado esté en juego, te cuesta un Oro menos jugar Tótems.",
     "ilustrador": "Sol Devia",
     "imagen": "/cards/do-073.webp",
     "thumb": "/cards/thumb/do-073.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Única"
+    ]
   },
   {
     "id": "do-074",
@@ -1568,7 +1540,7 @@
     "coste": 3,
     "fuerza": 3,
     "frecuencia": "Real",
-    "habilidad": "Puedes jugar este Aliado al comienzo de la Declaración de Bloqueo.\nIndestructible (Este Aliado no puede ser Destruido).\nCuando este Aliado entra en juego, puedes buscar un Aliado de Raza Samurái de coste 2 o menos y jugarlo sin pagar su coste.",
+    "habilidad": "Indestructible (Este Aliado no puede ser Destruido).\nPuedes jugar este Aliado al comienzo de tu Declaración de Bloqueo.\nCuando este Aliado entra en juego, puedes buscar un Aliado de Raza Samurái de coste 2 o menos en tu Mazo Castillo o Cementerio y jugarlo sin pagar su coste.",
     "ilustrador": "Fabián Mayta",
     "imagen": "/cards/do-077.webp",
     "thumb": "/cards/thumb/do-077.webp",
@@ -1594,9 +1566,7 @@
     "imagen": "/cards/do-078.webp",
     "thumb": "/cards/thumb/do-078.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-079",
@@ -1693,9 +1663,7 @@
     "imagen": "/cards/do-083.webp",
     "thumb": "/cards/thumb/do-083.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Furia"
-    ]
+    "keywords": []
   },
   {
     "id": "do-084",
@@ -1709,7 +1677,7 @@
     "coste": 1,
     "fuerza": null,
     "frecuencia": "Real",
-    "habilidad": "Sólo puedes jugar este Talismán desde tu mano.\nCuando juegues este Talismán, Destiérralo.\nElige hasta dos cartas de tu Cementerio y Barájalas en tu Mazo Castillo. Luego, Roba dos cartas.",
+    "habilidad": "Sólo puedes jugar este Talismán desde tu mano.\nCuando juegues este Talismán. Destiérralo.\nElige hasta dos cartas de tu Cementerio y Barájalas en tu Mazo Castillo. Luego, Roba dos cartas.",
     "ilustrador": "Kaek",
     "imagen": "/cards/do-084.webp",
     "thumb": "/cards/thumb/do-084.webp",
@@ -1771,9 +1739,7 @@
     "imagen": "/cards/do-087.webp",
     "thumb": "/cards/thumb/do-087.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-088",
@@ -1958,7 +1924,7 @@
     "coste": 1,
     "fuerza": null,
     "frecuencia": "Real",
-    "habilidad": "Puedes jugar este Talismán en respuesta a que un Aliado oponente entre en juego. Ese Aliado no dispara sus Habilidades este turno.",
+    "habilidad": "Puedes jugar este Talismán en respuesta a que un Aliado oponente entre en juego.\nCancela las habilidades disparadas de ese Aliado. Ese Aliado no dispara sus habilidades este turno.",
     "ilustrador": "Felipe Gaona",
     "imagen": "/cards/do-097.webp",
     "thumb": "/cards/thumb/do-097.webp",
@@ -1982,9 +1948,7 @@
     "imagen": "/cards/do-098.webp",
     "thumb": "/cards/thumb/do-098.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-099",
@@ -2003,9 +1967,7 @@
     "imagen": "/cards/do-099.webp",
     "thumb": "/cards/thumb/do-099.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Furia"
-    ]
+    "keywords": []
   },
   {
     "id": "do-100",
@@ -2062,9 +2024,7 @@
     "imagen": "/cards/do-102.webp",
     "thumb": "/cards/thumb/do-102.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Imbloqueable"
-    ]
+    "keywords": []
   },
   {
     "id": "do-103",
@@ -2102,9 +2062,7 @@
     "imagen": "/cards/do-104.webp",
     "thumb": "/cards/thumb/do-104.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-105",
@@ -2142,9 +2100,7 @@
     "imagen": "/cards/do-106.webp",
     "thumb": "/cards/thumb/do-106.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-107",
@@ -2201,9 +2157,7 @@
     "imagen": "/cards/do-109.webp",
     "thumb": "/cards/thumb/do-109.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-110",
@@ -2223,8 +2177,7 @@
     "thumb": "/cards/thumb/do-110.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible",
-      "que controles"
+      "Indestructible"
     ]
   },
   {
@@ -2239,12 +2192,14 @@
     "coste": 2,
     "fuerza": 3,
     "frecuencia": "Cortesano",
-    "habilidad": "En tu Fase de Vigilia, una vez por turno, si controlas cuatro o más Oros, puedes Barajar hasta dos cartas de tu Cementerio y Robar dos cartas.",
+    "habilidad": "Única.\nEn tu Fase de Vigilia, una vez por turno, si controlas cuatro o más Oros, puedes Barajar hasta dos cartas de tu Cementerio y Robar dos cartas.",
     "ilustrador": "Mauricio Herrera",
     "imagen": "/cards/do-111.webp",
     "thumb": "/cards/thumb/do-111.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Única"
+    ]
   },
   {
     "id": "do-112",
@@ -2264,8 +2219,7 @@
     "thumb": "/cards/thumb/do-112.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "Destruir"
+      "Furia"
     ]
   },
   {
@@ -2286,8 +2240,7 @@
     "thumb": "/cards/thumb/do-113.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -2308,8 +2261,7 @@
     "thumb": "/cards/thumb/do-114.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -2488,7 +2440,6 @@
     "thumb": "/cards/thumb/do-123.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Guardián"
     ]
   },
@@ -2509,9 +2460,7 @@
     "imagen": "/cards/do-124.webp",
     "thumb": "/cards/thumb/do-124.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-125",
@@ -2644,10 +2593,7 @@
     "imagen": "/cards/do-131.webp",
     "thumb": "/cards/thumb/do-131.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "do-132",
@@ -2661,7 +2607,7 @@
     "coste": 1,
     "fuerza": 2,
     "frecuencia": "Cortesano",
-    "habilidad": "Puedes jugar este Aliado al comienzo de la declaración de bloqueo.\nUna vez por turno, puedes pagar 1 oro para Robar una carta.\nUna vez por turno, puedes pagar 1 oro para desterrar una carta de un Cementerio.",
+    "habilidad": "Puedes jugar este Aliado al comienzo de tu declaración de Bloqueo.\nUna vez por turno, puedes pagar 1 oro para Robar una carta.\nUna vez por turno, puedes pagar 1 oro para Desterrar una carta de un Cementerio.",
     "ilustrador": "Guido Salinas",
     "imagen": "/cards/do-132.webp",
     "thumb": "/cards/thumb/do-132.webp",
@@ -2723,10 +2669,7 @@
     "imagen": "/cards/do-135.webp",
     "thumb": "/cards/thumb/do-135.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "do-136",
@@ -2745,9 +2688,7 @@
     "imagen": "/cards/do-136.webp",
     "thumb": "/cards/thumb/do-136.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "do-137",
@@ -2766,9 +2707,7 @@
     "imagen": "/cards/do-137.webp",
     "thumb": "/cards/thumb/do-137.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "do-138",
@@ -2806,9 +2745,7 @@
     "imagen": "/cards/do-139.webp",
     "thumb": "/cards/thumb/do-139.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-140",
@@ -3017,9 +2954,7 @@
     "imagen": "/cards/do-150.webp",
     "thumb": "/cards/thumb/do-150.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-151",
@@ -3147,14 +3082,12 @@
     "coste": 1,
     "fuerza": null,
     "frecuencia": "Cortesano",
-    "habilidad": "El Aliado portador gana 1 a la Fuerza.\nCuando este Arma entra en juego, tu oponente Bota una carta por cada Aliado de Raza Guerrero que controles.",
+    "habilidad": "El Aliado portador gana 1 a la Fuerza.\nCuando esta Arma entra en juego, tu oponente Bota una carta por cada Aliado de Raza Guerrero que controles.",
     "ilustrador": "Alejandro Catalán",
     "imagen": "/cards/do-157.webp",
     "thumb": "/cards/thumb/do-157.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-158",
@@ -3173,9 +3106,7 @@
     "imagen": "/cards/do-158.webp",
     "thumb": "/cards/thumb/do-158.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-159",
@@ -3194,9 +3125,7 @@
     "imagen": "/cards/do-159.webp",
     "thumb": "/cards/thumb/do-159.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-160",
@@ -3234,9 +3163,7 @@
     "imagen": "/cards/do-161.webp",
     "thumb": "/cards/thumb/do-161.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-162",
@@ -3274,9 +3201,7 @@
     "imagen": "/cards/do-163.webp",
     "thumb": "/cards/thumb/do-163.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-164",
@@ -3353,9 +3278,7 @@
     "thumb": "/cards/thumb/do-167.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles",
-      "Destruir"
+      "Furia"
     ]
   },
   {
@@ -3376,8 +3299,7 @@
     "thumb": "/cards/thumb/do-168.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -3534,7 +3456,9 @@
     "imagen": "/cards/do-176.webp",
     "thumb": "/cards/thumb/do-176.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Guardián"
+    ]
   },
   {
     "id": "do-177",
@@ -3554,8 +3478,8 @@
     "thumb": "/cards/thumb/do-177.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible",
-      "Guardián"
+      "Guardián",
+      "Indestructible"
     ]
   },
   {
@@ -3576,7 +3500,6 @@
     "thumb": "/cards/thumb/do-178.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Guardián"
     ]
   },
@@ -3635,9 +3558,7 @@
     "imagen": "/cards/do-181.webp",
     "thumb": "/cards/thumb/do-181.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Furia"
-    ]
+    "keywords": []
   },
   {
     "id": "do-182",
@@ -3656,9 +3577,7 @@
     "imagen": "/cards/do-182.webp",
     "thumb": "/cards/thumb/do-182.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-183",
@@ -3753,9 +3672,7 @@
     "imagen": "/cards/do-187.webp",
     "thumb": "/cards/thumb/do-187.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "do-188",
@@ -3978,12 +3895,14 @@
     "coste": 3,
     "fuerza": null,
     "frecuencia": "Vasallo",
-    "habilidad": "Reduce el coste de este Talismán en un Oro por cada Aliado oponente en juego.\nSube hasta dos Aliados en juego a la mano de sus dueños.",
+    "habilidad": "Única.\nReduce el coste de este Talismán en un Oro por cada Aliado oponente en juego.\nSube hasta dos Aliados en juego a la mano de sus dueños.",
     "ilustrador": "Sol Devia",
     "imagen": "/cards/do-199.webp",
     "thumb": "/cards/thumb/do-199.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [
+      "Única"
+    ]
   },
   {
     "id": "do-200",
@@ -4002,9 +3921,7 @@
     "imagen": "/cards/do-200.webp",
     "thumb": "/cards/thumb/do-200.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Indestructible"
-    ]
+    "keywords": []
   },
   {
     "id": "do-201",
@@ -4061,9 +3978,7 @@
     "imagen": "/cards/do-203.webp",
     "thumb": "/cards/thumb/do-203.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Imbloqueable"
-    ]
+    "keywords": []
   },
   {
     "id": "do-204",
@@ -4120,10 +4035,7 @@
     "imagen": "/cards/do-206.webp",
     "thumb": "/cards/thumb/do-206.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "do-207",
@@ -4142,9 +4054,7 @@
     "imagen": "/cards/do-207.webp",
     "thumb": "/cards/thumb/do-207.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "do-208",
@@ -4158,7 +4068,7 @@
     "coste": 2,
     "fuerza": null,
     "frecuencia": "Vasallo",
-    "habilidad": "Cuando este Aliado entra en juego nombra un tipo de carta.\nMientras este Tótem esté en juego, cuando tu oponente juegue una carta del tipo nombrado, tu oponente Bota dos cartas.",
+    "habilidad": "Cuando este Tótem entra en juego, nombra un tipo de carta.\nMientras este Tótem esté en juego, cuando tu oponente juegue una carta del tipo nombrado, tu oponente Bota dos cartas.",
     "ilustrador": "Alejandro Catalán",
     "imagen": "/cards/do-208.webp",
     "thumb": "/cards/thumb/do-208.webp",
@@ -4182,9 +4092,7 @@
     "imagen": "/cards/do-209.webp",
     "thumb": "/cards/thumb/do-209.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "do-210",
@@ -4222,9 +4130,7 @@
     "imagen": "/cards/do-211.webp",
     "thumb": "/cards/thumb/do-211.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-212",
@@ -4262,7 +4168,8 @@
     "imagen": "/cards/do-213.webp",
     "thumb": "/cards/thumb/do-213.webp",
     "legalidad": "libre",
-    "keywords": []
+    "keywords": [],
+    "identidad": "shuri-dominio"
   },
   {
     "id": "do-214",
@@ -4779,10 +4686,7 @@
     "imagen": "/cards/do-240.webp",
     "thumb": "/cards/thumb/do-240.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "do-241",
@@ -4802,7 +4706,6 @@
     "thumb": "/cards/thumb/do-241.webp",
     "legalidad": "libre",
     "keywords": [
-      "que controles",
       "Guardián"
     ]
   },
@@ -4843,8 +4746,7 @@
     "thumb": "/cards/thumb/do-243.webp",
     "legalidad": "libre",
     "keywords": [
-      "Indestructible",
-      "que controles"
+      "Indestructible"
     ]
   },
   {
@@ -4883,9 +4785,7 @@
     "imagen": "/cards/do-245.webp",
     "thumb": "/cards/thumb/do-245.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "do-246",
@@ -4904,9 +4804,7 @@
     "imagen": "/cards/do-246.webp",
     "thumb": "/cards/thumb/do-246.webp",
     "legalidad": "libre",
-    "keywords": [
-      "que controles"
-    ]
+    "keywords": []
   },
   {
     "id": "do-247",
@@ -4926,8 +4824,7 @@
     "thumb": "/cards/thumb/do-247.webp",
     "legalidad": "libre",
     "keywords": [
-      "Furia",
-      "que controles"
+      "Furia"
     ]
   },
   {
@@ -5046,11 +4943,7 @@
     "imagen": "/cards/do-253.webp",
     "thumb": "/cards/thumb/do-253.webp",
     "legalidad": "libre",
-    "keywords": [
-      "Indestructible",
-      "que controles",
-      "Destruir"
-    ]
+    "keywords": []
   },
   {
     "id": "do-254",
@@ -5102,7 +4995,7 @@
     "coste": null,
     "fuerza": null,
     "frecuencia": "Promocional",
-    "habilidad": "En la Fase de Asignación de Daño, puedes Desterrar este Oro de tu Reserva de Oros para Cancelar el ataque oponente.",
+    "habilidad": "En Guerra de Talismanes, puedes Desterrar este Oro de tu Reserva de Oros para Cancelar el ataque oponente.",
     "ilustrador": "Peyeyo",
     "imagen": "/cards/do-256.webp",
     "thumb": "/cards/thumb/do-256.webp",
