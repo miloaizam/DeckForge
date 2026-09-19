@@ -219,7 +219,7 @@ out/           build estático (git-ignorado)
     carta declara, con `keywords_propias()`. Al cargar una edición nueva no hay
     nada que revisar aquí, pero sí hay que buscar a mano las que tienen la
     keyword **por una condición de su propio texto** ("Mientras este Aliado
-    porte un Arma es Imbloqueable"), que el script no puede deducir: son 13 en
+    porte un Arma es Imbloqueable"), que el script no puede deducir: son 14 en
     todo el catálogo y se agregan a `data-src/` con su línea en
     `keywords.test.ts`.
   - **Y ojo con dónde declara la carta.** El primer analizador miraba solo el
@@ -659,6 +659,70 @@ out/           build estático (git-ignorado)
     abrevia: escribe "tu Castillo" por "tu Mazo Castillo" y "Cuando entra en
     juego" por "Cuando este Aliado entra en juego". Las 66 se leyeron del arte
     una a una.
+- **La extensión de Escuelas Elementales** (11 cartas, `EE-316`…`EE-326`) no
+  está en la API: ni `/cards/edition/…` ni `profile` ni `/static/cards/`. Salió
+  en 2022 dentro de los sobres de **Despertar Gótico** (así lo dice el fandom),
+  con el marco de EE y códigos impresos `ESC-311-300`…`ESC-321-300`, y se cargó
+  a mano desde el arte que publica La Guarida
+  (`laguarida.store/edicion/extension-escuelas-elementales/`, 534×760), que
+  además da tipo, raza, coste y frecuencia. La tienda solo sirve de índice:
+  **se equivoca en dos nombres** ("Siddhatta Gotama", "Otokemaru kijin") y todo
+  lo demás se leyó de la carta.
+  - **El `codigo` va desfasado en +5**, porque `ee-311`…`ee-315` ya eran
+    promos de la propia edición. Se siguió la serie en vez de inventar
+    un prefijo: `EE-316` es `ESC-311` y `EE-326` es `ESC-321`.
+  - Frecuencias verificadas por el escudo: negro Ultra Real (311–315), plata
+    Mega Real (316–318), dorado Real (319–321). La tienda acierta en todas.
+  - **Erratas impresas corregidas**, como siempre: el nombre `DVINA PARASHU`
+    queda en **Divina Parashu**; Siddhattha Gotama dice "ponerlo" y "tus
+    Aliado" por "ponerla" y "tus Aliados"; Aryuna, "ponlos tu mano".
+  - Como las otras cartas nuevas de EE, el texto va **tal cual lo imprime la
+    edición**, con sus abreviaturas ("tu Vigilia", "tu Castillo"): no hay
+    impresión anterior de donde tomar la forma larga.
+  - **La extensión son esas 11 y ninguna más** (confirmado por el proyecto).
+- **Cómo se auditó el catálogo entero** (2148 cartas, 90 corregidas), ya con
+  las diez ediciones cargadas. Tres pasadas, todas contra el arte:
+  - **Coste y Fuerza** por vecinos más cercanos: se recorta cada esquina, se
+    compara con las demás cartas de su edición y se miran a ojo solo las que
+    no se parecen a las de su mismo número. Salieron **BU-066** (Fuerza 3, no
+    2) y los **dos promos de *Dominio, La Novela*** (EE-301/302), que no
+    tenían coste (es 1). El resto de las ~180 marcas eran números raros (5, 6,
+    9) sin vecinos con los que compararse.
+  - **Todo el texto**, plancha por plancha, con el cuadro de habilidad
+    recortado y el texto del catálogo impreso debajo: 2028 cartas en 242
+    planchas. Bushido era la menos pulida (comas perdidas, "Barájalas" por
+    "Barajarlas", mayúsculas donde la carta no las lleva); lo funcional fue
+    **BU-011**, que ganaba un "una vez por turno" que no imprime; **BU-156**,
+    que decía "el Aliado" por "el Aliado portador"; y **SP-069/SP-070**, con
+    "este Aliado" por "ese Aliado" y el orden de los efectos cambiado.
+    **Escuelas Elementales había perdido los saltos de línea** en 15 cartas
+    largas, que llegaban de un solo bloque. Y dos cartas tenían la declaración
+    fuera de sitio: Caicai Vilu (HS-056) con la `Furia` a media habilidad, y
+    Luisón (HS-093), que mezclaba el orden de EE con el recordatorio de HS.
+  - **Ilustradores**: el fandom los confirma en 1981 cartas; el pie se leyó
+    en las 295 que no lista. Salieron **CA-056 y CA-065**, que son de
+    **Mauricio Cerecera** y figuraban como Mauricio Herrera —el mismo cruce
+    que el fandom comete en HS-007; se revisaron las 54 cartas de los dos—, y
+    CA-055, que el pie firma a dos manos (`Madeline Boni & Trejoe`).
+  - Lo que **no** es un error aunque lo parezca: Jacques de Molay (DO-024) y
+    Jaques de Molay (CA-096) son **dos cartas distintas**, con otro coste y
+    otro texto; Sempach (DO-204) es un Arma con texto de Tótem, y así va
+    impresa; Puertas de Perla/Vigilante de Sangre, Eilean Donan/Caverna de la
+    Madre y Sempach/Saumur tienen el mismo texto con otro nombre, también
+    impreso así. Y las 28 cartas viejas que el catálogo muestra con una
+    `Única` que su arte no imprime son la herencia documentada de Escuelas
+    Elementales.
+  - **Dos decisiones del proyecto que salieron de aquí.** EE-292 imprime
+    `CÓDEX ATLANTICUS` con tilde y DO-218 `Codex` sin ella: se queda
+    **`Codex` en las dos**, como el latín y la impresión en minúsculas. Y
+    **el "objetivo" que EE omite se omite también en el catálogo**, a
+    diferencia de "tu Castillo" o "En tu Vigilia", que sí son abreviaturas
+    de estilo: que una carta diga o no "objetivo" cambia a qué se puede
+    responder, así que es texto de reglas y manda la última impresión, igual
+    que ya se había hecho con HS-199 y HS-201. Se revisaron las 48 cartas de
+    EE que decían "objetivo" en el catálogo: sobraba en 8 (EE-010, 012, 017,
+    019, 044, 068, 070 y 308), y se quitó también de sus 12 impresiones de
+    Legado Gótico.
 - Ojo con los slugs de la API: `escuelas_elementales` va con **guion bajo** y
   el resto con guion (`legado-gotico`, `aguila-imperial`…). Ese guion bajo vive
   solo en `API_SLUGS` de `fetch_edition.py`: nuestro slug es
@@ -858,7 +922,7 @@ después, y así fue como **DO-176 (Pulcinela) se escapó de la revisión a mano
 Se quedan fuera, a propósito, las auras: "los Aliados de Raza Héroe que
 controles son Indestructibles" **reparte** la keyword, aunque alcance a la
 propia carta, y a esas cartas el jugador llega por el filtro de raza. La línea
-es que el texto **se nombre a sí mismo**. Las **13** que sí la tienen sin
+es que el texto **se nombre a sí mismo**. Las **14** que sí la tienen sin
 declararla —"Mientras este Aliado porte un Arma es Imbloqueable"— no hay forma
 de leerlas sin entender la frase: van a mano en `data-src/` y la lista vive en
 `keywords.test.ts`, que corre contra el catálogo real y falla si vuelve a
@@ -913,10 +977,10 @@ importar constantes desde un módulo `"use client"` hacia un Server Component:
 Next entrega una referencia de cliente, no el valor. Por eso `THEME_KEY` vive
 en `src/lib/theme.ts` y no en el componente.
 
-Cargadas: **las diez ediciones, 2148 cartas** — Bushido (246), Sol Naciente
+Cargadas: **las diez ediciones, 2159 cartas** — Bushido (246), Sol Naciente
 (141), Dominio (256), ContraAtaque (150), Águila Imperial (261), Steampunk (71),
 Axis Mundi (189), Hijos del Sol (261), Legado Gótico (258) y Escuelas
-Elementales (315).
+Elementales (326, con las 11 de su extensión).
 
 Steampunk es la primera edición que imprime Luz y Oscuridad, así que el filtro
 de **habilidad** las ofrece desde ahora.

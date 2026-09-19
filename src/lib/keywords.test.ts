@@ -26,7 +26,7 @@ const CATALOGO: Card[] = catalogSchema.parse(
 /**
  * Las unicas cartas que TIENEN una keyword sin declararla: su propio texto se
  * la atribuye bajo una condicion de juego ("Mientras este Aliado porte un Arma
- * es Imbloqueable"). Son trece en 1833 cartas, no hay forma de reconocerlas sin
+ * es Imbloqueable"). Son catorce en 2148 cartas, no hay forma de reconocerlas sin
  * entender la frase, y por eso van a mano en `data-src/`.
  *
  * Lo que NO entra aqui es el aura sobre una clase de Aliados ("los Aliados de
@@ -48,6 +48,7 @@ const CONDICIONALES: Record<string, string[]> = {
   "SP-011": ["Indestructible"], // Mientras esa carta este en juego, este Aliado es Indestructible
   "AI-146": ["Furia"], // puedes elegir que este Aliado tenga Furia hasta la Fase Final
   "LG-180": ["Retador"], // Mientras todos los Aliados que controles sean Oscuridad..., este Aliado tiene Retador
+  "EE-258": ["Retador"], // la misma Lozen, reimpresa en Escuelas Elementales
 };
 
 test("ninguna carta lleva una keyword que no se declara a si misma", () => {

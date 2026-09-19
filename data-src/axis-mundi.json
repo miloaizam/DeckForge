@@ -1002,7 +1002,7 @@
     "coste": 3,
     "fuerza": null,
     "frecuencia": "Real",
-    "habilidad": "Elige un Aliado oponente en juego.\nTu oponente bota tantas cartas como Fuerza tenga el Aliado elegido. Luego, Destierra ese Aliado.\nSi este Talismán está en tu Cementerio, puedes pagar un Oro y Desterrarlo. Luego, Roba una carta y tu oponente Bota dos cartas.",
+    "habilidad": "Elige un Aliado oponente en juego.\nTu oponente Bota tantas cartas como Fuerza tenga el Aliado elegido. Luego, Destierra ese Aliado.\nSi este Talismán está en tu Cementerio, puedes pagar un Oro y Desterrarlo. Luego, Roba una carta y tu oponente Bota dos cartas.",
     "ilustrador": "Feig",
     "imagen": "/cards/am-050.webp",
     "thumb": "/cards/thumb/am-050.webp",
@@ -2694,7 +2694,7 @@
   {
     "id": "am-137",
     "codigo": "AM-137",
-    "nombre": "Convocar prisión",
+    "nombre": "Convocar Prisión",
     "edicion": "axis-mundi",
     "tipo": "Talismán",
     "raza": null,
